@@ -1,0 +1,27 @@
+﻿<div class="logincontainer">
+    <h4>Log in met je account</h4>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.email"
+                   ngControl="email" #email="ngForm">
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                E-mail is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Wachtwoord</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.password"
+                   ngControl="password" #password="ngForm">
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                Wachtwoord is vereist!
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default"
+        [disabled]="!loginForm.form.valid">
+            Log in
+        </button>
+    </form>
+</div>

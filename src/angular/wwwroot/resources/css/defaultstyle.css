@@ -1,0 +1,67 @@
+﻿body { 
+    background-color: rgba(0,0,0,0.5);
+}
+
+.kandoelogo {
+    float: left;
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 90%;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+/* Login & Register form */
+
+.thumbnail {
+    margin-top: 10%;
+    background-color: whitesmoke;
+    border: 0px;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 3px #000000;
+    -webkit-box-shadow: 0 0 3px #000000;
+    box-shadow: 0 0 3px #000000;
+}
+
+.vrdivider {
+    position:absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    border-left: 3px solid rgba(0,0,0,0.5);
+}
+
+.logincontainer {
+    margin-left: 0;
+    margin-right: 5%;
+    margin-top: 20%;
+}
+
+.registercontainer {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20%;
+    margin-bottom: 20%
+}
+
+.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {  }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {  }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {  }
