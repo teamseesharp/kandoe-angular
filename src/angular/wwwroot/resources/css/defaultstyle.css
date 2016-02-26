@@ -9,6 +9,26 @@
     width: 90%;
 }
 
+header {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    height: 10em;
+    background-color: whitesmoke;
+}
+
+section#sidebar {
+    background-color: whitesmoke;
+    float: left;
+    width: 20%;
+}
+
+section#main {
+    background-color: whitesmoke;
+    position: relative;
+    margin-left: 23%;
+    width: 77%;
+}
+
 h4 {
     font-weight: bold;
 }

@@ -8,21 +8,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var heading_component_1 = require('../defaultcomponents/heading.component');
-var body_content_component_1 = require('../defaultcomponents/body-content.component');
-var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var HomeComponent = (function () {
-    function HomeComponent() {
+var BodyContentComponent = (function () {
+    function BodyContentComponent() {
     }
-    HomeComponent = __decorate([
-        core_1.Component({}),
+    BodyContentComponent = __decorate([
+        core_1.Component({
+            selector: 'body-content'
+        }),
         core_1.View({
-            directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/home/home.html'
+            templateUrl: 'Views/defaultcomponents/body-content.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], BodyContentComponent);
+    return BodyContentComponent;
 })();
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.BodyContentComponent = BodyContentComponent;
+//# sourceMappingURL=body-content.component.js.map
