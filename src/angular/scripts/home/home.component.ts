@@ -5,6 +5,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 @Component({
 })
+
 @View({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'Views/home/home.html'

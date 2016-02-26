@@ -21,7 +21,7 @@ var AppComponent = (function () {
         }),
         core_1.View({
             directives: [account_forms_component_1.AccountFormsComponent, home_component_1.HomeComponent, router_1.ROUTER_DIRECTIVES],
-            template: "<a [routerLink]=\"['Home']\">Home</a>\n                <router-outlet></router-outlet>"
+            template: "<router-outlet></router-outlet>"
         }),
         router_1.RouteConfig([
             { path: "/home", name: "Home", component: home_component_1.HomeComponent },
