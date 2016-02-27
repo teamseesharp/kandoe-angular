@@ -15,17 +15,29 @@
     width: 30%;
 }
 
-
 header {
     margin-top: 3em;
     margin-bottom: 3em;
     background-color: whitesmoke;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 2px #000000;
+    -webkit-box-shadow: 0 0 2px #000000;
+    box-shadow: 0 0 2px #000000;
 }
 
 section#sidebar {
     background-color: whitesmoke;
     float: left;
     width: 20%;
+    border-radius: 4px;
+}
+
+.nav-pills>li>a{color: green}
+.nav-pills>li>a:hover{color: whitesmoke; background-color: lightgreen}
+.nav-pills>li.active>a{color:whitesmoke; background-color: mediumseagreen}
+.nav-pills>li.active>a:hover{ color:whitesmoke; background-color: mediumseagreen}
+.nav-pills {
+    margin-bottom: 10em;
 }
 
 section#main {
@@ -33,10 +45,23 @@ section#main {
     position: relative;
     margin-left: 23%;
     width: 77%;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 2px #000000;
+    -webkit-box-shadow: 0 0 2px #000000;
+    box-shadow: 0 0 2px #000000;
 }
 
 h4 {
     font-weight: bold;
+}
+
+/* Profile */
+section#main .img-circle {
+    border: 1px double #42A948;
+    margin-left: 5%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 30%;
 }
 
 /* Login & Register form */
@@ -44,7 +69,6 @@ h4 {
 .thumbnail {
     margin-top: 10%;
     background-color: whitesmoke;
-    border: 0px;
     border-radius: 4px;
     -moz-box-shadow: 0 0 3px #000000;
     -webkit-box-shadow: 0 0 3px #000000;

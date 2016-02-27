@@ -12,6 +12,7 @@ var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
 var account_forms_component_1 = require('./account/account-forms.component');
 var home_component_1 = require('./home/home.component');
+var profiel_component_1 = require('./profiel/profiel.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -20,12 +21,13 @@ var AppComponent = (function () {
             selector: "my-app"
         }),
         core_1.View({
-            directives: [account_forms_component_1.AccountFormsComponent, home_component_1.HomeComponent, router_1.ROUTER_DIRECTIVES],
+            directives: [account_forms_component_1.AccountFormsComponent, home_component_1.HomeComponent, profiel_component_1.ProfielComponent, router_1.ROUTER_DIRECTIVES],
             template: "<router-outlet></router-outlet>"
         }),
         router_1.RouteConfig([
             { path: "/home", name: "Home", component: home_component_1.HomeComponent },
-            { path: "/account", name: "AccountForms", component: account_forms_component_1.AccountFormsComponent, useAsDefault: true }
+            { path: "/account", name: "AccountForms", component: account_forms_component_1.AccountFormsComponent, useAsDefault: true },
+            { path: "/profiel", name: "Profiel", component: profiel_component_1.ProfielComponent }
         ]), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
