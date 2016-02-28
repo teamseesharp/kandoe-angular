@@ -2,12 +2,26 @@
     <li class="active">
         <a href="#">Favorieten</a>
     </li>
-    <li id="sessions">
-        <a href="#sub1" data-toggle="collapse">Sessies</a>
+    <li id="organisations">
+        <a href="#sub1" data-toggle="collapse">Organisaties</a>
         <ul class="nav collapse" id="sub1">
-            <li><a href="#">Sessie 1</a></li>
-            <li><a href="#">Sessie 2</a></li>
-            <li><a href="#">Sessie 3</a></li>
+            <li *ngFor="#organisation of organisations">
+                <a href="#">{{ organisation.name }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Organisations']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
+    <li id="sessions">
+        <a href="#sub2" data-toggle="collapse">Sessies</a>
+        <ul class="nav collapse" id="sub2">
+            <li *ngFor="#session of sessions">
+                <a href="#">{{ session.description }}</a>
+            </li>
         </ul>
     </li>
     <li><a href="#">Thema's</a></li>

@@ -8,14 +8,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
+var router_1 = require('angular2/router');
+var session_1 = require('../session/model/session');
+var session_2 = require('../session/model/session');
+var organisation_1 = require('../session/model/organisation');
 var SidebarComponent = (function () {
     function SidebarComponent() {
+        this.sessions = [
+            new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session(7, "sessie 4", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session(9, "sessie 7", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
+        ];
+        this.organisations = [
+            new organisation_1.Organisation(1, "KdG"),
+            new organisation_1.Organisation(2, "De Baldadige Bierbowlers")
+        ];
     }
     SidebarComponent = __decorate([
         core_1.Component({
             selector: 'sidebar'
         }),
         core_1.View({
+            directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: 'Views/defaultcomponents/Sidebar.html'
         }), 
         __metadata('design:paramtypes', [])

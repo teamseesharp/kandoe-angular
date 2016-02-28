@@ -8,7 +8,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 @View({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'Views/messages/Messages.html'
+    templateUrl: 'Views/message/Messages.html'
 })
 
 export class MessagesComponent {

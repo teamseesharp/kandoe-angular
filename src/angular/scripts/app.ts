@@ -5,8 +5,9 @@ import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 import {AccountFormsComponent} from './account/account-forms.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './account/profile.component';
-import {SessionsComponent} from './sessions/sessions.component';
-import {MessagesComponent} from './messages/messages.component';
+import {SessionsComponent} from './session/sessions.component';
+import {MessagesComponent} from './message/messages.component';
+import {OrganisationsComponent} from './session/organisations.component';
 
 @Component({
     selector: "my-app"
@@ -21,6 +22,7 @@ import {MessagesComponent} from './messages/messages.component';
     { path: "/account", name: "AccountForms", component: AccountFormsComponent, useAsDefault: true },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
+    { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
     { path: "/berichten", name: "Messages", component: MessagesComponent }
 ])
 

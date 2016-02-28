@@ -17,15 +17,15 @@ var SessionsComponent = (function () {
     function SessionsComponent() {
         this.sessions = [
             new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(7, "sessie 2", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessie 3", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
+            new session_1.Session(7, "sessie 4", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session(9, "sessie 7", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
         ];
     }
     SessionsComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/sessions/Sessions.html'
+            templateUrl: 'Views/session/Sessions.html'
         }), 
         __metadata('design:paramtypes', [])
     ], SessionsComponent);

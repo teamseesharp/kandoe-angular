@@ -12,7 +12,13 @@
     </div>
     <div>
         <div>Deze sessies vereisen je aandacht!</div>
-        <div>...actieve sessies...</div>
+        <ul>
+            <li *ngFor="#session of sessions">
+                Sessie: {{ session.description }} <br />
+                Start: {{ session.start | date:'dd MM yyyy'}} <br />              
+                Einde: {{ session.end | date:'dd MM yyyy'}} <br />
+            </li>
+        </ul>
         <hr/>
         <div>Wachten op andere gebruikers...</div>
         <div>...overige sessies...</div>

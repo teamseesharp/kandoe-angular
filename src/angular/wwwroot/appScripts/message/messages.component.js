@@ -11,25 +11,18 @@ var core_1 = require('angular2/core');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var session_1 = require('./model/session');
-var session_2 = require('./model/session');
-var SessionsComponent = (function () {
-    function SessionsComponent() {
-        this.sessions = [
-            new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(7, "sessie 2", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessie 3", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
-        ];
+var MessagesComponent = (function () {
+    function MessagesComponent() {
     }
-    SessionsComponent = __decorate([
+    MessagesComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/sessions/Sessions.html'
+            templateUrl: 'Views/message/Messages.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], SessionsComponent);
-    return SessionsComponent;
+    ], MessagesComponent);
+    return MessagesComponent;
 })();
-exports.SessionsComponent = SessionsComponent;
-//# sourceMappingURL=sessions.component.js.map
+exports.MessagesComponent = MessagesComponent;
+//# sourceMappingURL=messages.component.js.map

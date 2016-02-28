@@ -13,8 +13,9 @@ var router_1 = require('angular2/router');
 var account_forms_component_1 = require('./account/account-forms.component');
 var home_component_1 = require('./home/home.component');
 var profile_component_1 = require('./account/profile.component');
-var sessions_component_1 = require('./sessions/sessions.component');
-var messages_component_1 = require('./messages/messages.component');
+var sessions_component_1 = require('./session/sessions.component');
+var messages_component_1 = require('./message/messages.component');
+var organisations_component_1 = require('./session/organisations.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -31,6 +32,7 @@ var AppComponent = (function () {
             { path: "/account", name: "AccountForms", component: account_forms_component_1.AccountFormsComponent, useAsDefault: true },
             { path: "/profiel", name: "Profile", component: profile_component_1.ProfileComponent },
             { path: "/sessies", name: "Sessions", component: sessions_component_1.SessionsComponent },
+            { path: "/organisaties", name: "Organisations", component: organisations_component_1.OrganisationsComponent },
             { path: "/berichten", name: "Messages", component: messages_component_1.MessagesComponent }
         ]), 
         __metadata('design:paramtypes', [])

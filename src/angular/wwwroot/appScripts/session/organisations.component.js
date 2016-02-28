@@ -11,25 +11,28 @@ var core_1 = require('angular2/core');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var session_1 = require('./model/session');
-var session_2 = require('./model/session');
-var SessionsComponent = (function () {
-    function SessionsComponent() {
-        this.sessions = [
-            new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(7, "sessie 2", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessie 3", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
+var organisation_1 = require('./model/organisation');
+var OrganisationsComponent = (function () {
+    function OrganisationsComponent() {
+        this.model = new organisation_1.Organisation(5, "Joske");
+        this.submitted = false;
+        this.organisations = [
+            new organisation_1.Organisation(1, "KdG"),
+            new organisation_1.Organisation(2, "De Baldadige Bierbowlers")
         ];
     }
-    SessionsComponent = __decorate([
+    OrganisationsComponent.prototype.onSubmit = function () {
+        this.submitted = true;
+    };
+    OrganisationsComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/sessions/Sessions.html'
+            templateUrl: 'Views/session/Organisations.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], SessionsComponent);
-    return SessionsComponent;
+    ], OrganisationsComponent);
+    return OrganisationsComponent;
 })();
-exports.SessionsComponent = SessionsComponent;
-//# sourceMappingURL=sessions.component.js.map
+exports.OrganisationsComponent = OrganisationsComponent;
+//# sourceMappingURL=organisations.component.js.map
