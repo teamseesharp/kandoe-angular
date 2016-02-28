@@ -13,7 +13,7 @@ var login_1 = require('../account/model/login');
 var LoginFormComponent = (function () {
     function LoginFormComponent(_router) {
         this._router = _router;
-        this.model = new login_1.Login("Bennie", "Helsen");
+        this.model = new login_1.Login(1, "Bennie", "Helsen");
         this.submitted = false;
     }
     LoginFormComponent.prototype.onSubmit = function () {

@@ -1,5 +1,6 @@
 var Register = (function () {
-    function Register(name, firstname, email, password) {
+    function Register(id, name, firstname, email, password) {
+        this.id = id;
         this.name = name;
         this.firstname = firstname;
         this.email = email;

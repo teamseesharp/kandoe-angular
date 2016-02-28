@@ -1,5 +1,6 @@
 var Login = (function () {
-    function Login(email, password) {
+    function Login(id, email, password) {
+        this.id = id;
         this.email = email;
         this.password = password;
     }

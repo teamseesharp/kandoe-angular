@@ -18,7 +18,7 @@ var HeadingComponent = (function () {
         }),
         core_1.View({
             directives: [router_1.ROUTER_DIRECTIVES],
-            templateUrl: 'Views/defaultcomponents/heading.html'
+            templateUrl: 'Views/defaultcomponents/Heading.html'
         }), 
         __metadata('design:paramtypes', [])
     ], HeadingComponent);

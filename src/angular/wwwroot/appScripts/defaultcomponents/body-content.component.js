@@ -16,7 +16,7 @@ var BodyContentComponent = (function () {
             selector: 'body-content'
         }),
         core_1.View({
-            templateUrl: 'Views/defaultcomponents/body-content.html'
+            templateUrl: 'Views/defaultcomponents/Body-content.html'
         }), 
         __metadata('design:paramtypes', [])
     ], BodyContentComponent);

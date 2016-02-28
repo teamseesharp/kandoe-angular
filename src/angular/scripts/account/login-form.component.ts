@@ -12,7 +12,7 @@ export class LoginFormComponent {
     constructor(private _router: Router) {
     }
 
-    model = new Login("Bennie", "Helsen");
+    model = new Login(1, "Bennie", "Helsen");
 
     submitted = false;
 

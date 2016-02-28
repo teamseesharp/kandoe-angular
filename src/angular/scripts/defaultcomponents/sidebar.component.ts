@@ -4,7 +4,7 @@
     selector: 'sidebar'
 })
 @View ({
-    templateUrl: 'Views/defaultcomponents/sidebar.html'
+    templateUrl: 'Views/defaultcomponents/Sidebar.html'
 })
 
 export class SidebarComponent {

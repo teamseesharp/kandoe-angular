@@ -16,7 +16,7 @@ var SidebarComponent = (function () {
             selector: 'sidebar'
         }),
         core_1.View({
-            templateUrl: 'Views/defaultcomponents/sidebar.html'
+            templateUrl: 'Views/defaultcomponents/Sidebar.html'
         }), 
         __metadata('design:paramtypes', [])
     ], SidebarComponent);

@@ -11,14 +11,23 @@ var core_1 = require('angular2/core');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
+var profile_1 = require('../account/model/profile');
 var ProfielComponent = (function () {
     function ProfielComponent() {
+        this.model = new profile_1.Profile(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+        this.submitted = false;
     }
+    ProfielComponent.prototype.onSubmit = function () { this.submitted = true; };
+    Object.defineProperty(ProfielComponent.prototype, "diagnostic", {
+        get: function () { return JSON.stringify(this.model); },
+        enumerable: true,
+        configurable: true
+    });
     ProfielComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/profiel/profiel.html'
+            templateUrl: 'Views/account/Profile.html'
         }), 
         __metadata('design:paramtypes', [])
     ], ProfielComponent);

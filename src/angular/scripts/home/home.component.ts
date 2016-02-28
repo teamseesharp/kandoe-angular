@@ -8,7 +8,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 @View({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'Views/home/home.html'
+    templateUrl: 'Views/home/Home.html'
 })
 
 export class HomeComponent {

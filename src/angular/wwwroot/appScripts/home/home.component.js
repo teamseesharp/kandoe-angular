@@ -18,7 +18,7 @@ var HomeComponent = (function () {
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/home/home.html'
+            templateUrl: 'Views/home/Home.html'
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);

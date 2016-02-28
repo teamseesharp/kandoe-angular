@@ -11,7 +11,7 @@ var core_1 = require('angular2/core');
 var register_1 = require('../account/model/register');
 var RegisterFormComponent = (function () {
     function RegisterFormComponent() {
-        this.model = new register_1.Register("Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+        this.model = new register_1.Register(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
         this.submitted = false;
     }
     RegisterFormComponent.prototype.onSubmit = function () { this.submitted = true; };

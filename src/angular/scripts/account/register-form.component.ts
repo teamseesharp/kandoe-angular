@@ -8,7 +8,7 @@ import {Register} from '../account/model/register';
 })
 
 export class RegisterFormComponent {
-    model = new Register("Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+    model = new Register(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
 
     submitted = false;
 

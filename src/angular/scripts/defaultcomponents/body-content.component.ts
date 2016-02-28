@@ -4,7 +4,7 @@
     selector: 'body-content'
 })
 @View ({
-    templateUrl: 'Views/defaultcomponents/body-content.html'
+    templateUrl: 'Views/defaultcomponents/Body-content.html'
 })
 
 export class BodyContentComponent {

@@ -6,7 +6,7 @@ import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 })
 @View({
     directives: [ROUTER_DIRECTIVES],
-    templateUrl: 'Views/defaultcomponents/heading.html'
+    templateUrl: 'Views/defaultcomponents/Heading.html'
 })
 
 export class HeadingComponent {
