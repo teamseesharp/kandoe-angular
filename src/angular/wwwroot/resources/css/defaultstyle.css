@@ -19,29 +19,33 @@ section#sidebar {
     box-shadow: 0 0 2px #000000;
 }
 
-#bs-example-navbar-collapse-1 .nav>li {
-    color: #416f14;
-    border-left: 2px solid #72ae37;
-}
-
-#bs-example-navbar-collapse-1 .nav > li > a:hover {
-    color: whitesmoke;
-    background-color: #5f9628;
-}
+/* Main nav menu in sidebar */
 
 .nav-pills>li>a{
     color: #416f14; 
-    background-color: whitesmoke; 
+    background-color: whitesmoke;
     border-left: 8px solid #416f14; 
-    border-bottom: 2px solid #84c148;
+    border-bottom: 2px solid #416f14;
     border-radius: 0px; 
 }
 .nav-pills>li>a:hover{color: whitesmoke; background-color: #5f9628}
-.nav-pills>li.active>a{color:whitesmoke; background-color: #72ae37}
-.nav-pills>li.active>a:hover{ color:whitesmoke; background-color: #72ae37}
+.nav-pills>li.active>a{color: whitesmoke; background-color: #72ae37}
+.nav-pills>li.active>a:hover{ color: whitesmoke; background-color: #72ae37}
+
 .nav-pills {
     margin-bottom: 10em;
 }
+
+/* Sub nav menu in sidebar */
+.nav-pills>li>ul>li>a {
+    color: #416f14; 
+    background-color: whitesmoke; 
+    border-left: 8px solid #84c148; 
+    border-bottom: 2px solid #84c148;
+    border-radius: 0px; 
+}
+
+.nav-pills > li > ul > li > a:hover { color: whitesmoke; background-color: #84c148}
 
 section#main {
     background-color: whitesmoke;
@@ -80,6 +84,18 @@ header {
     -moz-box-shadow: 0 0 2px #000000;
     -webkit-box-shadow: 0 0 2px #000000;
     box-shadow: 0 0 2px #000000;
+}
+
+/* Nav menu in header */
+
+#bs-example-navbar-collapse-1 .nav>li {
+    color: #416f14;
+    border-left: 2px solid #72ae37;
+}
+
+#bs-example-navbar-collapse-1 .nav > li > a:hover {
+    color: whitesmoke;
+    background-color: #5f9628;
 }
 
 /* Profile */

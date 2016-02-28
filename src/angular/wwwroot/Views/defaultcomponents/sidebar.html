@@ -1,59 +1,14 @@
-﻿<!-- http://bootsnipp.com/snippets/featured/sidebar-with-tabs
-http://www.bootply.com/129625
-sidebar 
-<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-  <div>
-    Bennie Helsen
-  </div>
-  <ul class="nav">
-    <li>
-      <a href="#" data-toggle="collapse" data-target="#sub1">FAVORIETEN</a>
-      <ul class="nav collapse" id="sub1">
-        <li>
-          <a href="#">Favoriet 1</a>
-        </li>
-        <li>
-          <a href="#">Favoriet 2</a>
-        </li>
-        <li>
-          <a href="#">Favoriet 3</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" data-toggle="collapse" data-target="#sub1">SESSIES</a>
-      <ul class="nav collapse" id="sub1">
-        <li>
-          <a href="#">Probleemwijken</a>
-        </li>
-        <li>
-          <a href="#">Jeugdwerkloosheid</a>
-        </li>
-        <li>
-          <a href="#">Extra activiteiten</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" data-toggle="collapse" data-target="#sub1">THEMAS</a>
-      <ul class="nav collapse" id="sub1">
-        <li>
-          <a href="#">Nieuwjaarsdrink</a>
-        </li>
-        <li>
-          <a href="#">Armoedebestrijding</a>
-        </li>
-        <li>
-          <a href="#">Kerstactie</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>-->
-<ul class="nav nav-pills nav-stacked">
-    <li role="presentation">
+﻿<ul class="nav nav-pills nav-stacked">
+    <li class="active">
         <a href="#">Favorieten</a>
     </li>
-    <li role="presentation"><a href="#">Sessies</a></li>
-    <li role="presentation"><a href="#">Thema's</a></li>
+    <li id="sessions">
+        <a href="#sub1" data-toggle="collapse">Sessies</a>
+        <ul class="nav collapse" id="sub1">
+            <li><a href="#">Sessie 1</a></li>
+            <li><a href="#">Sessie 2</a></li>
+            <li><a href="#">Sessie 3</a></li>
+        </ul>
+    </li>
+    <li><a href="#">Thema's</a></li>
 </ul>
