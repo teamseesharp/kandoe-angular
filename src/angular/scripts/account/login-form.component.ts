@@ -3,7 +3,6 @@ import {NgForm} from 'angular2/common';
 import {Router} from 'angular2/router';
 import {Login} from '../account/model/login';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
-import {AuthHttp, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 declare var Auth0Lock;
 

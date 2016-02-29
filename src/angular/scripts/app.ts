@@ -23,11 +23,12 @@ import {CardsComponent} from './session/cards.component';
     { path: "/home", name: "Home", component: HomeComponent },
     { path: "/account", name: "AccountForms", component: AccountFormsComponent, useAsDefault: true },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
-    { path: "/sessies", name: "Sessions", component: SessionsComponent },
+    { path: "/sessies/:id", name: "Sessions", component: SessionsComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent }
+    
 ])
 
 export class AppComponent {

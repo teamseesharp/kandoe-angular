@@ -10,13 +10,12 @@
             <h1>Sessies</h1>
         </div>
     </div>
-    <div>
+    <div class="col-xs-6">
         <div>Deze sessies vereisen je aandacht!</div>
         <ul>
-            <li *ngFor="#session of sessions">
-                Sessie: {{ session.description }} <br />
-                Start: {{ session.start | date:'dd MM yyyy'}} <br />              
-                Einde: {{ session.end | date:'dd MM yyyy'}} <br />
+            <li *ngFor="#session of sessions" (click)="onSelect(1)">
+              <span class="badge">Sessie: {{ session.description }} </span>
+              
             </li>
         </ul>
         <hr/>
@@ -24,6 +23,14 @@
         <div>...overige sessies...</div>
         <hr />
     </div>
+  <div class="col-xs-6">
+    <div>Session details</div>
 
+    {{ sessionDetail.link }}<br/>
+
+    Start: {{ sessionDetail.start | date:'dd MM yyyy'}} <br />
+    Einde: {{ sessionDetail.end | date:'dd MM yyyy'}} <br />
+
+  </div>
 </section>
 

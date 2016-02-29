@@ -13,21 +13,34 @@ var body_content_component_1 = require('../defaultcomponents/body-content.compon
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var session_1 = require('./model/session');
 var session_2 = require('./model/session');
+var router_1 = require('angular2/router');
 var SessionsComponent = (function () {
-    function SessionsComponent() {
+    function SessionsComponent(_router, _routeParams) {
+        this._router = _router;
+        this._routeParams = _routeParams;
         this.sessions = [
-            new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(7, "sessie 4", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessie 7", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
+            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "Santa ", new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session("sessionlink.com", session_2.SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
         ];
+        this.sessionDetail = new session_1.Session("my url.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
     }
+    SessionsComponent.prototype.ngOnInit = function () {
+        var id = this._routeParams.get('id');
+        //sessie ophalen aan de hand van de id
+        this.sessionDetail = new session_1.Session("my url.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
+    };
+    SessionsComponent.prototype.onSelect = function (sessionId) {
+        alert(sessionId);
+        this._router.navigate(['Sessions', sessionId]);
+    };
     SessionsComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
             templateUrl: 'Views/session/Sessions.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
     ], SessionsComponent);
     return SessionsComponent;
 })();

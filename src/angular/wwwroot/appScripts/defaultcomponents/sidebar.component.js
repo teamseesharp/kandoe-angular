@@ -17,9 +17,9 @@ var card_1 = require('../session/model/card');
 var SidebarComponent = (function () {
     function SidebarComponent() {
         this.sessions = [
-            new session_1.Session(3, "sessie 1", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(7, "sessie 4", session_2.SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessie 7", session_2.SessionType.sync, new Date(Date.now()), new Date(Date.now()))
+            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session("sessionlink.com", session_2.SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
         ];
         this.organisations = [
             new organisation_1.Organisation(1, "KdG"),

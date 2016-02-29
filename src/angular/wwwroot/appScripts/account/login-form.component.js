@@ -35,7 +35,6 @@ var LoginFormComponent = (function () {
         localStorage.removeItem('id_token');
     };
     LoginFormComponent.prototype.loggedIn = function () {
-        //var token = this.authConfig.tokenGetter();
         //return tokenNotExpired();
     };
     Object.defineProperty(LoginFormComponent.prototype, "diagnostic", {

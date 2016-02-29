@@ -24,10 +24,10 @@ export class SidebarComponent {
 
     constructor() {
         this.sessions = [
-            new Session(3, "sessie 1", SessionType.sync, new Date(Date.now()), new Date(Date.now())),
-            new Session(7, "sessie 4", SessionType.async, new Date(Date.now()), new Date(Date.now())),
-            new Session(9, "sessie 7", SessionType.sync, new Date(Date.now()), new Date(Date.now()))
-        ];
+            new Session("sessionlink.com", SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new Session("sessionlink.com", SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new Session("sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
+       ];
         this.organisations = [
             new Organisation(1, "KdG"),
             new Organisation(2, "De Baldadige Bierbowlers")

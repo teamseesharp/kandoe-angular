@@ -9,9 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
+var router_2 = require('angular2/router');
 var HeadingComponent = (function () {
-    function HeadingComponent() {
+    function HeadingComponent(_router) {
+        this._router = _router;
     }
+    HeadingComponent.prototype.onSelect = function (sessionId) {
+        window.alert("number: " + sessionId);
+        this._router.navigate(['Session', sessionId]);
+    };
     HeadingComponent = __decorate([
         core_1.Component({
             selector: 'heading'
@@ -20,7 +26,7 @@ var HeadingComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: 'Views/defaultcomponents/Heading.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_2.Router])
     ], HeadingComponent);
     return HeadingComponent;
 })();

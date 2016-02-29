@@ -33,7 +33,7 @@ var AppComponent = (function () {
             { path: "/home", name: "Home", component: home_component_1.HomeComponent },
             { path: "/account", name: "AccountForms", component: account_forms_component_1.AccountFormsComponent, useAsDefault: true },
             { path: "/profiel", name: "Profile", component: profile_component_1.ProfileComponent },
-            { path: "/sessies", name: "Sessions", component: sessions_component_1.SessionsComponent },
+            { path: "/sessies/:id", name: "Sessions", component: sessions_component_1.SessionsComponent },
             { path: "/organisaties", name: "Organisations", component: organisations_component_1.OrganisationsComponent },
             { path: "/berichten", name: "Messages", component: messages_component_1.MessagesComponent },
             { path: "/themas", name: "Themes", component: themes_component_1.ThemesComponent },
