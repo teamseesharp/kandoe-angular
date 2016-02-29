@@ -11,18 +11,28 @@ var core_1 = require('angular2/core');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var MessagesComponent = (function () {
-    function MessagesComponent() {
+var card_1 = require('./model/card');
+var CardsComponent = (function () {
+    function CardsComponent() {
+        this.model = new card_1.Card(3, "Dit is een kaartje voor de heraanleg van het voetbalveld");
+        this.submitted = false;
+        this.cards = [
+            new card_1.Card(1, "Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
+            new card_1.Card(2, "Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+        ];
     }
-    MessagesComponent = __decorate([
+    CardsComponent.prototype.onSubmit = function () {
+        this.submitted = true;
+    };
+    CardsComponent = __decorate([
         core_1.Component({}),
         core_1.View({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/message/Messages.html'
+            templateUrl: 'Views/session/Cards.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], MessagesComponent);
-    return MessagesComponent;
+    ], CardsComponent);
+    return CardsComponent;
 })();
-exports.MessagesComponent = MessagesComponent;
-//# sourceMappingURL=messages.component.js.map
+exports.CardsComponent = CardsComponent;
+//# sourceMappingURL=cards.component.js.map

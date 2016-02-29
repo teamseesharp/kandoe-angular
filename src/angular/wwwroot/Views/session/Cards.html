@@ -1,0 +1,24 @@
+﻿<header>
+    <heading></heading>
+</header>
+<section id="sidebar">
+    <sidebar></sidebar>
+</section>
+<section id="main">
+    <div class="row" id="banner">
+        <div class="banner">
+            <h1>Kaartjes</h1>
+        </div>
+    </div>
+    <div>
+        <div>Dit zijn je kaartjes!</div>
+        <ul>
+            <li *ngFor="#card of cards">
+                Kaartje: {{ card.text }} <br />
+            </li>
+        </ul>
+        <hr />
+    </div>
+
+</section>
+

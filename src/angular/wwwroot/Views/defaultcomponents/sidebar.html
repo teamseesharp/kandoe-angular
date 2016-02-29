@@ -24,5 +24,32 @@
             </li>
         </ul>
     </li>
-    <li><a href="#">Thema's</a></li>
+    <li id="themes">
+        <a href="#sub3" data-toggle="collapse">Thema's</a>
+        <ul class="nav collapse" id="sub3">
+            <li *ngFor="#theme of themes">
+                <a href="#">{{ theme.name }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Themes']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
+   <li id="cards">
+        <a href="#sub4" data-toggle="collapse">Kaartjes</a>
+        <ul class="nav collapse" id="sub4">
+            <li *ngFor="#card of cards">
+                <a href="#">{{ card.text }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Cards']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
 </ul>

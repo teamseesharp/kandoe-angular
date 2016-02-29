@@ -12,6 +12,8 @@ var router_1 = require('angular2/router');
 var session_1 = require('../session/model/session');
 var session_2 = require('../session/model/session');
 var organisation_1 = require('../session/model/organisation');
+var theme_1 = require('../session/model/theme');
+var card_1 = require('../session/model/card');
 var SidebarComponent = (function () {
     function SidebarComponent() {
         this.sessions = [
@@ -22,6 +24,14 @@ var SidebarComponent = (function () {
         this.organisations = [
             new organisation_1.Organisation(1, "KdG"),
             new organisation_1.Organisation(2, "De Baldadige Bierbowlers")
+        ];
+        this.themes = [
+            new theme_1.Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
+            new theme_1.Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+        ];
+        this.cards = [
+            new card_1.Card(1, "Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
+            new card_1.Card(2, "Dit is een kaartje voor het organiseren van een wielerwedstrijd")
         ];
     }
     SidebarComponent = __decorate([

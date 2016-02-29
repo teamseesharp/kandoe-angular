@@ -1,0 +1,26 @@
+﻿<header>
+    <heading></heading>
+</header>
+<section id="sidebar">
+    <sidebar></sidebar>
+</section>
+<section id="main">
+    <div class="row" id="banner">
+        <div class="banner">
+            <h1>Thema's</h1>
+        </div>
+    </div>
+    <div>
+        <div>Dit zijn de hoofdthema's</div>
+        <ul>
+            <li *ngFor="#theme of themes">
+                Thema: {{ theme.name }} <br />
+                Beschrijving: {{ theme.description }} <br />              
+                Tags: {{ theme.tags }} <br />
+            </li>
+        </ul>
+        <hr />
+    </div>
+
+</section>
+

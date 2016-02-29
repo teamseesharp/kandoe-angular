@@ -8,6 +8,8 @@ import {ProfileComponent} from './account/profile.component';
 import {SessionsComponent} from './session/sessions.component';
 import {MessagesComponent} from './message/messages.component';
 import {OrganisationsComponent} from './session/organisations.component';
+import {ThemesComponent} from './session/themes.component';
+import {CardsComponent} from './session/cards.component';
 
 @Component({
     selector: "my-app"
@@ -23,7 +25,9 @@ import {OrganisationsComponent} from './session/organisations.component';
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
-    { path: "/berichten", name: "Messages", component: MessagesComponent }
+    { path: "/berichten", name: "Messages", component: MessagesComponent },
+    { path: "/themas", name: "Themes", component: ThemesComponent },
+    { path: "/kaartjes", name: "Cards", component: CardsComponent }
 ])
 
 export class AppComponent {
