@@ -14,7 +14,7 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var organisation_1 = require('./model/organisation');
 var OrganisationsComponent = (function () {
     function OrganisationsComponent() {
-        this.model = new organisation_1.Organisation(5, "Joske");
+        this.model = new organisation_1.Organisation(5, "");
         this.submitted = false;
         this.organisations = [
             new organisation_1.Organisation(1, "KdG"),

@@ -33,7 +33,7 @@
                             <input type="text" class="form-control" required
                                    [(ngModel)]="model.name"
                                    ngControl="name" #name="ngForm">
-                            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            <div [hidden]="name.valid || name.pristine || name.untouched" class="alert alert-danger">
                                 Er moet een naam voor de organisatie worden opgegeven.
                             </div>
                         </div>

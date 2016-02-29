@@ -17,7 +17,7 @@ import {Organisation} from './model/organisation';
 export class OrganisationsComponent {
 
     public organisations: Array<Organisation>;
-    model = new Organisation(5, "Joske");
+    model = new Organisation(5, "");
     submitted = false;
     
     constructor() {
