@@ -15,7 +15,8 @@ var libsToMove = [
    paths.npmSrc + '/angular2/bundles/angular2.dev.js',
    paths.npmSrc + '/es6-shim/es6-shim.min.js',
    paths.npmSrc + '/angular2/bundles/http.dev.js',
-   paths.npmSrc + '/angular2/bundles/router.dev.js'
+   paths.npmSrc + '/angular2/bundles/router.dev.js',
+   paths.npmSrc + '/angular2-jwt/angular2-jwt.js'
 ];
 
 gulp.task('moveToLibs', function () {

@@ -13,12 +13,30 @@ var login_1 = require('../account/model/login');
 var LoginFormComponent = (function () {
     function LoginFormComponent(_router) {
         this._router = _router;
+        this.lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
         this.model = new login_1.Login(1, "Bennie", "Helsen");
         this.submitted = false;
     }
     LoginFormComponent.prototype.onSubmit = function () {
         this.submitted = true;
         this._router.navigate(['Home']);
+    };
+    LoginFormComponent.prototype.login = function () {
+        this.lock.show(function (err, profile, id_token) {
+            if (err) {
+                throw new Error(err);
+            }
+            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('id_token', id_token);
+        });
+    };
+    LoginFormComponent.prototype.logout = function () {
+        localStorage.removeItem('profile');
+        localStorage.removeItem('id_token');
+    };
+    LoginFormComponent.prototype.loggedIn = function () {
+        //var token = this.authConfig.tokenGetter();
+        //return tokenNotExpired();
     };
     Object.defineProperty(LoginFormComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.model); },
