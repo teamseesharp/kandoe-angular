@@ -23,10 +23,14 @@ var LoginFormComponent = (function () {
         this.submitted = true;
         this._router.navigate(['Home']);
     };
-    LoginFormComponent.prototype.getSecretThing = function () {
+    /*getSecretThing() {
         this.authHttp.get('http://kandoe.eu.auth0.com')
-            .subscribe(function (data) { return console.log(data.json()); }, function (err) { return console.log(err); }, function () { return console.log('Complete'); });
-    };
+            .subscribe(
+            data => console.log(data.json()),
+            err => console.log(err),
+            () => console.log('Complete')
+        );
+    }*/
     LoginFormComponent.prototype.login = function () {
         this.lock.show(function (err, profile, id_token) {
             if (err) {

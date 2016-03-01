@@ -14,7 +14,7 @@ declare var Auth0Lock;
 
 export class LoginFormComponent {
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
-
+    
     constructor(private _router: Router, public authHttp: AuthHttp) {
     }
 
@@ -27,14 +27,14 @@ export class LoginFormComponent {
         this._router.navigate(['Home']);
     }
 
-    getSecretThing() {
+    /*getSecretThing() {
         this.authHttp.get('http://kandoe.eu.auth0.com')
             .subscribe(
             data => console.log(data.json()),
             err => console.log(err),
             () => console.log('Complete')
         );
-    }
+    }*/
 
     login() {
         this.lock.show(function (err: string, profile: string, id_token: string) {

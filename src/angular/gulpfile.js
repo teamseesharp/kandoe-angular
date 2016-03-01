@@ -1,5 +1,4 @@
 ﻿/// <binding AfterBuild='default' />
-/// <reference path="node_modules/angular2-jwt/angular2-jwt.js" />
 
 var gulp = require('gulp');
 
@@ -17,7 +16,8 @@ var libsToMove = [
    paths.npmSrc + '/es6-shim/es6-shim.min.js',
    paths.npmSrc + '/angular2/bundles/http.dev.js',
    paths.npmSrc + '/angular2/bundles/router.dev.js',
-   paths.npmSrc + '/angular2-jwt/angular2-jwt.js'
+   paths.npmSrc + '/angular2-jwt/angular2-jwt.js',
+   paths.npmSrc + '/systemjs/dist/system.src.js'
 ];
 
 gulp.task('moveToLibs', function () {
