@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var register_1 = require('../account/model/register');
+var account_1 = require('../account/model/account');
 var RegisterFormComponent = (function () {
     function RegisterFormComponent() {
-        this.model = new register_1.Register(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+        //model = new Account("helsen.bennie@hotmail.be", "Test1234");
+        this.model = new account_1.Account("", "");
         this.submitted = false;
     }
     RegisterFormComponent.prototype.onSubmit = function () { this.submitted = true; };

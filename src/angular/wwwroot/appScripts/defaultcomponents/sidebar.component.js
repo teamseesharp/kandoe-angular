@@ -22,8 +22,8 @@ var SidebarComponent = (function () {
             new session_1.Session(9, "sessionlink.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
         ];
         this.organisations = [
-            new organisation_1.Organisation(1, "KdG"),
-            new organisation_1.Organisation(2, "De Baldadige Bierbowlers")
+            new organisation_1.Organisation("KdG", ""),
+            new organisation_1.Organisation("De Baldadige Bierbowlers", "")
         ];
         this.themes = [
             new theme_1.Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),

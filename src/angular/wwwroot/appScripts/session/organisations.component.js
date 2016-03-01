@@ -14,11 +14,11 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var organisation_1 = require('./model/organisation');
 var OrganisationsComponent = (function () {
     function OrganisationsComponent() {
-        this.model = new organisation_1.Organisation(5, "");
+        this.model = new organisation_1.Organisation("", "");
         this.submitted = false;
         this.organisations = [
-            new organisation_1.Organisation(1, "KdG"),
-            new organisation_1.Organisation(2, "De Baldadige Bierbowlers")
+            new organisation_1.Organisation("KdG", ""),
+            new organisation_1.Organisation("De Baldadige Bierbowlers", "")
         ];
     }
     OrganisationsComponent.prototype.onSubmit = function () {

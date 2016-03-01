@@ -11,6 +11,7 @@ import {OrganisationsComponent} from './session/organisations.component';
 import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
 
+
 @Component({
     selector: "my-app"
 })
@@ -28,6 +29,7 @@ import {CardsComponent} from './session/cards.component';
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent }
+        
 ])
 
 export class AppComponent {

@@ -17,13 +17,13 @@ import {Organisation} from './model/organisation';
 export class OrganisationsComponent {
 
     public organisations: Array<Organisation>;
-    model = new Organisation(5, "");
+    model = new Organisation("", "");
     submitted = false;
     
     constructor() {
         this.organisations = [
-            new Organisation(1, "KdG"),
-            new Organisation(2, "De Baldadige Bierbowlers")
+            new Organisation("KdG", ""),
+            new Organisation("De Baldadige Bierbowlers", "")
         ];
     }
 

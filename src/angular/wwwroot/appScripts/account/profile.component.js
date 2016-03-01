@@ -11,10 +11,10 @@ var core_1 = require('angular2/core');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var profile_1 = require('../account/model/profile');
+var account_1 = require('../account/model/account');
 var ProfileComponent = (function () {
     function ProfileComponent() {
-        this.model = new profile_1.Profile(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+        this.model = new account_1.Account("helsen.bennie@hotmail.be", "Test1234");
         this.submitted = false;
     }
     ProfileComponent.prototype.onSubmit = function () { this.submitted = true; };

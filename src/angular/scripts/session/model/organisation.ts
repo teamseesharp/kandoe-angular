@@ -1,6 +1,9 @@
 ﻿export class Organisation {
+
+    public id: number
+
     constructor(
-        public id: number,
-        public name: string
+        public name: string,
+        public owner: string
     ) { }
 }
