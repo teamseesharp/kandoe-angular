@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
-var login_1 = require('../account/model/login');
+var account_1 = require('../account/model/account');
 //import {tokenNotExpired, AuthHttp} from 'angular2-jwt/angular2-jwt';
 //declare var Auth0Lock;
 var LoginFormComponent = (function () {
@@ -19,7 +19,8 @@ var LoginFormComponent = (function () {
     }*/
     function LoginFormComponent(_router) {
         this._router = _router;
-        this.model = new login_1.Login(1, "Bennie", "Helsen");
+        //model = new Account("Bennie", "Helsen");
+        this.model = new account_1.Account("", "");
         this.submitted = false;
     }
     LoginFormComponent.prototype.onSubmit = function () {

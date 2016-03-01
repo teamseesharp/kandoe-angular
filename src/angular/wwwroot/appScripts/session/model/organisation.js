@@ -1,7 +1,7 @@
 var Organisation = (function () {
-    function Organisation(id, name) {
-        this.id = id;
+    function Organisation(name, owner) {
         this.name = name;
+        this.owner = owner;
     }
     return Organisation;
 })();
