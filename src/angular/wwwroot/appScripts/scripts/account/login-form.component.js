@@ -10,16 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
 var login_1 = require('../account/model/login');
+var angular2_jwt_1 = require('angular2-jwt/angular2-jwt');
 var LoginFormComponent = (function () {
-    function LoginFormComponent(_router) {
+    function LoginFormComponent(_router, authHttp) {
         this._router = _router;
-        this.lock = new Auth0Lock('fyw6G3dFTGJ3VhM03xL2tfHXSL0vGRF5', 'kandoe.eu.auth0.com');
+        this.authHttp = authHttp;
+        this.lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
         this.model = new login_1.Login(1, "Bennie", "Helsen");
         this.submitted = false;
     }
     LoginFormComponent.prototype.onSubmit = function () {
         this.submitted = true;
         this._router.navigate(['Home']);
+    };
+    LoginFormComponent.prototype.getSecretThing = function () {
+        this.authHttp.get('http://kandoe.eu.auth0.com')
+            .subscribe(function (data) { return console.log(data.json()); }, function (err) { return console.log(err); }, function () { return console.log('Complete'); });
     };
     LoginFormComponent.prototype.login = function () {
         this.lock.show(function (err, profile, id_token) {
@@ -38,7 +44,7 @@ var LoginFormComponent = (function () {
         this.loggedIn();
     };
     LoginFormComponent.prototype.loggedIn = function () {
-        //return tokenNotExpired();
+        return angular2_jwt_1.tokenNotExpired();
     };
     Object.defineProperty(LoginFormComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.model); },
@@ -50,7 +56,7 @@ var LoginFormComponent = (function () {
             selector: 'login-form',
             templateUrl: 'Views/account/login/Login-form.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, angular2_jwt_1.AuthHttp])
     ], LoginFormComponent);
     return LoginFormComponent;
 })();

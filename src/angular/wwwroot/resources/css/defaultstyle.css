@@ -19,6 +19,31 @@ section#sidebar {
     box-shadow: 0 0 2px #000000;
 }
 
+/* Sessions */
+
+.badge {
+    height: 4em;
+    width: 100%;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.sessionlink {
+    float: left;
+    margin-left: 4%;
+    margin-right: 2%;
+    width: 5%;
+}
+
+.start {
+    text-align: left;
+}
+
+.end {
+    text-align: right;
+}
+
 /* Main nav menu in sidebar */
 
 .nav-pills>li>a{
@@ -109,6 +134,7 @@ section#main .img-circle {
 
 .row#banner {
     height: 4em;
+    margin-bottom: 3em;
 }
 
 .banner {

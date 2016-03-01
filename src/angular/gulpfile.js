@@ -1,4 +1,5 @@
 ﻿/// <binding AfterBuild='default' />
+/// <reference path="node_modules/angular2-jwt/angular2-jwt.js" />
 
 var gulp = require('gulp');
 
