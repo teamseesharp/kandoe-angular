@@ -2,7 +2,7 @@
 import {HeadingComponent} from '../defaultcomponents/heading.component';
 import {BodyContentComponent} from '../defaultcomponents/body-content.component';
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
-import {Profile} from '../account/model/profile';
+import {Account} from '../account/model/account';
 
 @Component({
 })
@@ -13,7 +13,7 @@ import {Profile} from '../account/model/profile';
 })
 
 export class ProfileComponent {
-    model = new Profile(1, "Bennie", "Helsen", "helsen.bennie@hotmail.be", "Test1234");
+    model = new Account("helsen.bennie@hotmail.be", "Test1234");
 
     submitted = false;
 

@@ -1,7 +1,7 @@
 ﻿import {Component} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {Router} from 'angular2/router';
-import {Login} from '../account/model/login';
+import {Account} from '../account/model/account';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
 //import {tokenNotExpired, AuthHttp} from 'angular2-jwt/angular2-jwt';
 
@@ -21,7 +21,8 @@ export class LoginFormComponent {
     constructor(private _router: Router) {
     }
 
-    model = new Login(1, "Bennie", "Helsen");
+    //model = new Account("Bennie", "Helsen");
+    model = new Account("", "");
 
     submitted = false;
 

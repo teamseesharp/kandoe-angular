@@ -29,8 +29,8 @@ export class SidebarComponent {
             new Session(9, "sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
        ];
         this.organisations = [
-            new Organisation(1, "KdG"),
-            new Organisation(2, "De Baldadige Bierbowlers")
+            new Organisation("KdG", ""),
+            new Organisation("De Baldadige Bierbowlers", "")
         ];
         this.themes = [
             new Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
