@@ -3,7 +3,7 @@
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="form-group">
             <label for="email">E-mail</label>
-            <input type="text" class="form-control" required
+            <input type="text" class="form-control" required ngModel="email"
                    [(ngModel)]="model.email"
                    ngControl="email" #email="ngForm">
             <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
@@ -12,18 +12,18 @@
         </div>
         <div class="form-group">
             <label for="password">Wachtwoord</label>
-            <input type="text" class="form-control" required
+            <input type="text" class="form-control" required ngModel="password"
                    [(ngModel)]="model.password"
                    ngControl="password" #password="ngForm">
             <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
                 Wachtwoord is vereist!
             </div>
         </div>
-        <button type="submit" class="btn btn-default"
+        <button id="btnloginn" type="submit" class="btn btn-default"
         [disabled]="!loginForm.form.valid">
             Log in
         </button>
     </form>
-    <button (click)="login()">Login</button>
-    <button (click)="logout()">Logout</button>
+    <button id="btnlogin" (click)="login()">Login</button>
+    <button id="btnlogout" (click)="logout()">Logout</button>
 </div>
