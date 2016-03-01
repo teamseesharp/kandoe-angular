@@ -10,12 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var router_1 = require('angular2/router');
 var login_1 = require('../account/model/login');
-var angular2_jwt_1 = require('angular2-jwt/angular2-jwt');
+//import {tokenNotExpired, AuthHttp} from 'angular2-jwt/angular2-jwt';
+//declare var Auth0Lock;
 var LoginFormComponent = (function () {
-    function LoginFormComponent(_router, authHttp) {
+    /*lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
+    
+    constructor(private _router: Router, public authHttp: AuthHttp) {
+    }*/
+    function LoginFormComponent(_router) {
         this._router = _router;
-        this.authHttp = authHttp;
-        this.lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
         this.model = new login_1.Login(1, "Bennie", "Helsen");
         this.submitted = false;
     }
@@ -23,34 +26,46 @@ var LoginFormComponent = (function () {
         this.submitted = true;
         this._router.navigate(['Home']);
     };
-    /*getSecretThing() {
-        this.authHttp.get('http://kandoe.eu.auth0.com')
-            .subscribe(
-            data => console.log(data.json()),
-            err => console.log(err),
-            () => console.log('Complete')
-        );
-    }*/
-    LoginFormComponent.prototype.login = function () {
-        this.lock.show(function (err, profile, id_token) {
-            if (err) {
-                throw new Error(err);
-            }
-            localStorage.setItem('profile', JSON.stringify(profile));
-            localStorage.setItem('id_token', id_token);
-            console.log(this.jwtHelper.decodeToken(id_token), this.jwtHelper.getTokenExpirationDate(id_token), this.jwtHelper.isTokenExpired(id_token));
-            this.loggedIn();
-        });
-    };
-    LoginFormComponent.prototype.logout = function () {
-        localStorage.removeItem('profile');
-        localStorage.removeItem('id_token');
-        this.loggedIn();
-    };
-    LoginFormComponent.prototype.loggedIn = function () {
-        return angular2_jwt_1.tokenNotExpired();
-    };
     Object.defineProperty(LoginFormComponent.prototype, "diagnostic", {
+        /*getSecretThing() {
+            this.authHttp.get('http://kandoe.eu.auth0.com')
+                .subscribe(
+                data => console.log(data.json()),
+                err => console.log(err),
+                () => console.log('Complete')
+            );
+        }
+    
+        login() {
+            this.lock.show(function (err: string, profile: string, id_token: string) {
+    
+                if (err) {
+                    throw new Error(err);
+                }
+    
+                localStorage.setItem('profile', JSON.stringify(profile));
+                localStorage.setItem('id_token', id_token);
+    
+                console.log(
+                    this.jwtHelper.decodeToken(id_token),
+                    this.jwtHelper.getTokenExpirationDate(id_token),
+                    this.jwtHelper.isTokenExpired(id_token)
+                );
+    
+                this.loggedIn();
+            });
+        }
+    
+        logout() {
+            localStorage.removeItem('profile');
+            localStorage.removeItem('id_token');
+    
+            this.loggedIn();
+        }
+    
+        loggedIn() {
+            return tokenNotExpired();
+        }*/
         get: function () { return JSON.stringify(this.model); },
         enumerable: true,
         configurable: true
@@ -60,7 +75,7 @@ var LoginFormComponent = (function () {
             selector: 'login-form',
             templateUrl: 'Views/account/login/Login-form.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, angular2_jwt_1.AuthHttp])
+        __metadata('design:paramtypes', [router_1.Router])
     ], LoginFormComponent);
     return LoginFormComponent;
 })();

@@ -3,11 +3,11 @@ import {AppComponent} from './app';
 import {provide} from 'angular2/core';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
 import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
-import {AuthHttp, AuthConfig} from 'angular2-jwt/angular2-jwt';
+//import {AuthHttp, AuthConfig} from 'angular2-jwt/angular2-jwt';
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
-    provide(LocationStrategy, { useClass: HashLocationStrategy }),
+    provide(LocationStrategy, { useClass: HashLocationStrategy })/*,
     [
         HTTP_PROVIDERS,
         provide(AuthHttp, {
@@ -17,5 +17,5 @@ bootstrap(AppComponent, [
             deps: [Http]
         }),
         AuthHttp
-    ]
+    ]*/
 ]);

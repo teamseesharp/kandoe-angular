@@ -23,12 +23,12 @@ var SessionsComponent = (function () {
             new session_1.Session(2, "sessionlink.com", session_2.SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
             new session_1.Session(3, "sessionlink.com", session_2.SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
         ];
-        this.sessionDetail = new session_1.Session(4, "my url.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
+        this.sessionDetail = new session_1.Session(4, "wwwmyurl.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
     }
     SessionsComponent.prototype.ngOnInit = function () {
         var id = this._routeParams.get('id');
         //sessie ophalen aan de hand van de id
-        this.sessionDetail = new session_1.Session(6, "my url.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
+        this.sessionDetail = new session_1.Session(6, "wwwmyurl.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
     };
     SessionsComponent.prototype.onSelect = function (session) {
         alert("Id: ");
