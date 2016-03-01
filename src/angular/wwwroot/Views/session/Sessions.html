@@ -40,10 +40,67 @@
         </div>
       </div>
     </div>
-    <br/>
-    <button class="btn btn-default">
-      Nieuwe sessie
-    </button>
   </div>
+  <div class="row" id="new">
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sessionModal">Nieuwe sessie</button>
+  </div>
+   
 </section>
 
+<!-- Modal -->
+<div id="sessionModal" class="modal fade" role="form">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Nieuwe organisatie</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Create organisation form -->
+        <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
+          <div class="form-group">
+            <label for="description">Omschrijving</label>
+            <input type="text" class="form-control" required=""
+                     [(ngModel)]="model.description"
+                   ngControl="description" #description="ngForm">
+              <div [hidden]="description.valid || description.pristine || description.untouched" class="alert alert-danger">
+                De nieuwe sessie vereist een omschrijving.
+              </div>
+
+            <label for="sessionType">Sessietype</label>
+              <select [(ngModel)]="model.type" >
+                <option>Synchroon</option>
+                <option>Asynchroon</option>
+                  </select>
+
+              <label for="startDate">Start datum</label>
+              <md-datepicker [(ngModel)]="model.start" md-placeholder="Enter date"></md-datepicker>
+
+              <label for="eindDate">Eind datum</label>
+              <md-datepicker [(ngModel)]="model.eind"  md-placeholder="Enter date"></md-datepicker>
+            </div>
+          <button type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid">Create</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!--   public cardReviewAllowed: boolean
+    public cardCreationsAllowed: boolean
+
+    constructor(
+        public id: number,
+        public link: string,
+        public type: SessionType,
+
+        public description: string,
+        public start: Date,
+        public end: Date
+        -->

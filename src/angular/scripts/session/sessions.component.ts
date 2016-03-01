@@ -7,13 +7,13 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Session} from './model/session';
 import {SessionType} from './model/session';
 
-import {Router, RouteParams} from 'angular2/router';
+import {Router, RouteParams, RouterLink} from 'angular2/router';
 
 @Component({
 })
 
-@View({
-    directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
+    @View({
+        directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'Views/session/Sessions.html'
 })
 
@@ -21,7 +21,9 @@ export class SessionsComponent {
 
     public sessions: Array<Session>;
     public sessionDetail: Session;
-
+    model = new Session(0, "", SessionType.async, "", null, null);
+    sessionTypes: Array<SessionType>;
+    
     constructor(
         private _router: Router,
         private _routeParams: RouteParams) {
@@ -31,7 +33,9 @@ export class SessionsComponent {
             new Session(3, "sessionlink.com", SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
         ];
         this.sessionDetail = new Session(4, "www.myurl.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
- 
+        this.sessionTypes = [
+            SessionType.async, SessionType.sync];
+
     }
 
     ngOnInit() {
@@ -45,4 +49,5 @@ export class SessionsComponent {
         this.sessionDetail = session;
         this._router.navigate(['Sessions', { id: session.id }]);
     }
+    
 }
