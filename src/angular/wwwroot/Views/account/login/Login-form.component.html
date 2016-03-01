@@ -3,19 +3,19 @@
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="form-group">
             <label for="email">E-mail</label>
-            <input ngModel="email" type="text" class="form-control" required
+            <input id="email" type="text" class="form-control" required
                    [(ngModel)]="model.email"
                    ngControl="email" #email="ngForm">
-            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger" id="emailrequired">
                 E-mail is vereist!
             </div>
         </div>
         <div class="form-group">
             <label for="password">Wachtwoord</label>
-            <input ngModel="password" type="text" class="form-control" required
+            <input id="password" type="text" class="form-control" required
                    [(ngModel)]="model.password"
                    ngControl="password" #password="ngForm">
-            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger" id="passwordrequired">
                 Wachtwoord is vereist!
             </div>
         </div>

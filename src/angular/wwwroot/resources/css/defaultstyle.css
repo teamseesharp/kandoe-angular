@@ -19,6 +19,26 @@ section#sidebar {
     box-shadow: 0 0 2px #000000;
 }
 
+/* Organisations */
+
+.btn-info {
+    color: whitesmoke;
+    background-color: #84c148;
+    border-color: #72ae37;
+}
+
+.btn-info:hover {
+    color: whitesmoke;
+    background-color: #416f14;
+    border-color: #72ae37;
+}
+
+.btn-info:active {
+    color: whitesmoke;
+    background-color: #416f14;
+    border-color: #72ae37;
+}
+
 /* Sessions */
 
 .badge {

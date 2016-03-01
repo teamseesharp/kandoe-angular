@@ -10,10 +10,48 @@
             <h1>Organisaties</h1>
         </div>
     </div>
-    <br />
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#organisationModal">Nieuwe organisatie</button>
+    <div class="row">
+        <div class="col-xs-9">
 
+        </div>
+        <div class="col-xs-3">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#organisationModal" id="neworganisation">Nieuwe organisatie</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <div class="thumbnail">
+                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="thumbnail">
+                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="thumbnail">
+                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
     <!-- Modal -->
     <div id="organisationModal" class="modal fade" role="form">
         <div class="modal-dialog">
@@ -21,7 +59,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button id="closeneworganisationone" type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Nieuwe organisatie</h4>
                 </div>
                 <div class="modal-body">
@@ -30,19 +68,18 @@
                     <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
                         <div class="form-group">
                             <label for="name">Naam</label>
-                            <input type="text" class="form-control" required
+                            <input id="neworganisationname" type="text" class="form-control" required
                                    [(ngModel)]="model.name"
                                    ngControl="name" #name="ngForm">
-                            <div [hidden]="name.valid || name.pristine || name.untouched" class="alert alert-danger">
+                            <div [hidden]="name.valid || name.pristine || name.untouched" class="alert alert-danger" id="errororganisationname">
                                 Er moet een naam voor de organisatie worden opgegeven.
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid">Create</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="createneworganisation" type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid">Create</button>
+                        <button id="closeneworganisationtwo" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 

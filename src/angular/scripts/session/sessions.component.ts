@@ -30,14 +30,14 @@ export class SessionsComponent {
             new Session(2, "sessionlink.com", SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
             new Session(3, "sessionlink.com", SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
         ];
-        this.sessionDetail = new Session(4, "www.myurl.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
+        this.sessionDetail = new Session(4, "my url.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
  
     }
 
     ngOnInit() {
         let id = this._routeParams.get('id');
         //sessie ophalen aan de hand van de id
-        this.sessionDetail = new Session(6, "www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
+        this.sessionDetail = new Session(6, "my url.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
 
     }
 
