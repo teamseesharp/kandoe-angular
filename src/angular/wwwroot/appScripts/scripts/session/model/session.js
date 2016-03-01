@@ -4,7 +4,8 @@
 })(exports.SessionType || (exports.SessionType = {}));
 var SessionType = exports.SessionType;
 var Session = (function () {
-    function Session(link, type, description, start, end) {
+    function Session(id, link, type, description, start, end) {
+        this.id = id;
         this.link = link;
         this.type = type;
         this.description = description;

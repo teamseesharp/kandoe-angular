@@ -24,9 +24,9 @@ export class SidebarComponent {
 
     constructor() {
         this.sessions = [
-            new Session("sessionlink.com", SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new Session("sessionlink.com", SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new Session("sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
+            new Session(7, "sessionlink.com", SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new Session(8, "sessionlink.com", SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
+            new Session(9, "sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
        ];
         this.organisations = [
             new Organisation(1, "KdG"),

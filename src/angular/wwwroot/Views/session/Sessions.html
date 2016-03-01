@@ -1,35 +1,49 @@
 ﻿<header>
-    <heading></heading>
+  <heading></heading>
 </header>
 <section id="sidebar">
-    <sidebar></sidebar>
+  <sidebar></sidebar>
 </section>
 <section id="main">
-    <div class="row" id="banner">
-        <div class="banner">
-            <h1>Sessies</h1>
-        </div>
+  <div class="row" id="banner">
+    <div class="banner">
+      <h1>Sessies</h1>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <span *ngFor="#session of sessions" (click)="onSelect(1)" class="badge">Sessie: {{ session.description }} </span>
-        </div>
-        <div class="col-xs-6">
-            <div>Details van Sessie<br /><br /></div>
-            <div class="row">
-                <img src="../../resources/images/linkicon.png" class="sessionlink" /> {{ sessionDetail.link }}
-                <br /><br />
-            </div>
-            <div class="row">
-                <div class="col-xs-6 start">Start: {{ sessionDetail.start | date:'dd MM yyyy'}} <br /></div>
-                <div class="col-xs-6 end">Einde: {{ sessionDetail.end | date:'dd MM yyyy'}} <br /></div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                    <span class="sr-only">40% Complete (success)</span>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Mijn sessions</h2>
+      <span *ngFor="#session of sessions" (click)="onSelect(session)" class="badge">Sessie: {{ session.description }} </span>
     </div>
+    <div class="col-xs-6">
+      <div>
+        <h2>Sessiedetails</h2>
+      </div>
+      <div class="row">
+        {{sessionDetail.description}}
+      </div>
+      <div class="row">
+        <img src="../../resources/images/linkicon.png" class="sessionlink" /> {{ sessionDetail.link }}
+        <br /><br />
+      </div>
+      <div class="row">
+        <div class="col-xs-6 start">
+          Start: {{ sessionDetail.start | date:'dd MM yyyy'}} <br />
+        </div>
+        <div class="col-xs-6 end">
+          Einde: {{ sessionDetail.end | date:'dd MM yyyy'}} <br />
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+          <span class="sr-only">40% Complete (success)</span>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <button class="btn btn-default">
+      Nieuwe sessie
+    </button>
+  </div>
 </section>
 
