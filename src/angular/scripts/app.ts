@@ -29,7 +29,6 @@ import {CardsComponent} from './session/cards.component';
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent }
-        
 ])
 
 export class AppComponent {

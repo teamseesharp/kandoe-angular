@@ -12,7 +12,7 @@ export class RegisterFormComponent {
     //model = new Account("helsen.bennie@hotmail.be", "Test1234");
     model = new Account("", "");
 
-    constructor(private http: Http) {
+    constructor() {
     }
 
     submitted = false;

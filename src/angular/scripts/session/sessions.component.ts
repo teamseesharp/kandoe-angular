@@ -11,10 +11,9 @@ import {Router, RouteParams, RouterLink} from 'angular2/router';
 
 @Component({
 })
-
-    @View({
-        directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
-    templateUrl: 'Views/session/Sessions.html'
+@View({
+    directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
+templateUrl: 'Views/session/Sessions.html'
 })
 
 export class SessionsComponent {

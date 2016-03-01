@@ -15,7 +15,10 @@ var RegisterFormComponent = (function () {
         this.model = new account_1.Account("", "");
         this.submitted = false;
     }
-    RegisterFormComponent.prototype.onSubmit = function () { this.submitted = true; };
+    RegisterFormComponent.prototype.onSubmit = function () {
+        //this.http.get('')
+        this.submitted = true;
+    };
     Object.defineProperty(RegisterFormComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.model); },
         enumerable: true,
