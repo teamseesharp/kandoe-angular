@@ -14,7 +14,7 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var card_1 = require('./model/card');
 var CardsComponent = (function () {
     function CardsComponent() {
-        this.cardModel = new card_1.Card("Dit is een kaartje voor de heraanleg van het voetbalveld");
+        this.cardModel = new card_1.Card("");
         this.submitted = false;
         this.cards = [
             new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),

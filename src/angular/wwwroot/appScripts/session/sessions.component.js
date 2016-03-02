@@ -19,6 +19,7 @@ var SessionsComponent = (function () {
     function SessionsComponent(_router, _routeParams) {
         this._router = _router;
         this._routeParams = _routeParams;
+        this.types = [session_2.SessionType.sync, session_2.SessionType.async];
         this.model = new session_1.Session("", session_2.SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
         var ses1 = new session_1.Session("test1.com", session_2.SessionType.sync, "beschrijving", new Date(2016, 0, 12), new Date(2016, 5, 17));
         var ses2 = new session_1.Session("test2.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(2016, 1, 7), new Date(2016, 10, 27));
@@ -27,18 +28,25 @@ var SessionsComponent = (function () {
         ses2.id = 2;
         ses3.id = 3;
         this.sessions = [ses1, ses2, ses3];
-        this.sessionDetail = new session_1.Session("www.myurl.be", session_2.SessionType.sync, "test", new Date(2016, 0, 5), new Date(2016, 5, 8));
+        this.sessionDetail = new session_1.Session("", session_2.SessionType.sync, "", new Date(), new Date());
         this.calculateProgress();
     }
     SessionsComponent.prototype.onSelect = function (session) {
         this.sessionDetail = session;
         this.calculateProgress();
     };
+    SessionsComponent.prototype.onSubmit = function () {
+        alert(this.model.description + " / " + this.model.type);
+    };
     SessionsComponent.prototype.calculateProgress = function () {
         var startDateInMs = this.sessionDetail.start.getTime();
         var endDateInMs = this.sessionDetail.end.getTime();
         var currentDateInMs = new Date(Date.now()).getTime();
         var result = (currentDateInMs - startDateInMs) / (endDateInMs - startDateInMs) * 100;
+        if (result > 100)
+            result = 100;
+        if (result < 0)
+            result = 0;
         this.progress = "width: " + result + "%";
     };
     SessionsComponent = __decorate([

@@ -80,14 +80,13 @@
 
                             <label for="sessionType">Sessietype</label>
                             <select [(ngModel)]="model.type">
-                                <option>Synchroon</option>
-                                <option>Asynchroon</option>
+                                <option *ngFor="#type of types" <!--[value]="type"-->>{{ type | sessionTypePipe }}</option>
                             </select>
                             
                             <label for="startDate">Start datum</label>
                             <!--<md-datepicker [(ngModel)]="model.start" md-placeholder="Enter date"></md-datepicker>-->
 
-                            <label for="eindDate">Eind datum</label>
+                            <label for="endDate">Eind datum</label>
                             <!--<md-datepicker [(ngModel)]="model.eind" md-placeholder="Enter date"></md-datepicker>-->
                         </div>
                         <button type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid">Create</button>

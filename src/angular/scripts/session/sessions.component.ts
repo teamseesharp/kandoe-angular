@@ -20,6 +20,7 @@ export class SessionsComponent {
 
     public sessions: Array<Session>;
     public sessionDetail: Session;
+    public types: Array<SessionType> = [SessionType.sync, SessionType.async];
     public progress: string;
 
     model = new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
@@ -32,7 +33,8 @@ export class SessionsComponent {
         ses2.id = 2;
         ses3.id = 3;
         this.sessions = [ses1, ses2, ses3];
-        this.sessionDetail = new Session("www.myurl.be", SessionType.sync, "test", new Date(2016, 0, 5), new Date(2016, 5, 8));
+
+        this.sessionDetail = new Session("", SessionType.sync, "", new Date(), new Date());
         this.calculateProgress();
     }
 
@@ -40,12 +42,18 @@ export class SessionsComponent {
         this.sessionDetail = session;
         this.calculateProgress();
     }
+
+    onSubmit() {
+        alert(this.model.description + " / " + this.model.type);
+    }
     
     private calculateProgress() {
         var startDateInMs = this.sessionDetail.start.getTime();
         var endDateInMs = this.sessionDetail.end.getTime();
         var currentDateInMs = new Date(Date.now()).getTime();
         var result = (currentDateInMs - startDateInMs) / (endDateInMs - startDateInMs) * 100;
+        if (result > 100) result = 100;
+        if (result < 0) result = 0;
         this.progress = "width: " + result + "%";
     }
 
