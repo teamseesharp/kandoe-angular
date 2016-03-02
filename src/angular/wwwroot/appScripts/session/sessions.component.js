@@ -13,6 +13,7 @@ var body_content_component_1 = require('../defaultcomponents/body-content.compon
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var session_1 = require('./model/session');
 var session_2 = require('./model/session');
+var session_type_pipe_1 = require('./session-type.pipe');
 var router_1 = require('angular2/router');
 var SessionsComponent = (function () {
     function SessionsComponent(_router, _routeParams) {
@@ -27,17 +28,16 @@ var SessionsComponent = (function () {
         ses3.id = 3;
         this.sessions = [ses1, ses2, ses3];
         this.sessionDetail = new session_1.Session("www.myurl.be", session_2.SessionType.sync, "test", new Date(Date.now()), new Date(Date.now()));
-        this.sessionTypes = [session_2.SessionType.async, session_2.SessionType.sync];
     }
     SessionsComponent.prototype.onSelect = function (session) {
         this.sessionDetail = session;
         //this._router.navigate(['Sessions', { id: session.id }]);
     };
     SessionsComponent = __decorate([
-        core_1.Component({}),
-        core_1.View({
+        core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
-            templateUrl: 'Views/session/Sessions.html'
+            templateUrl: 'Views/session/Sessions.html',
+            pipes: [session_type_pipe_1.SessionTypePipe]
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
     ], SessionsComponent);
