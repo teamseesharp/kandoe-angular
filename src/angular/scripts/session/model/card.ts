@@ -1,6 +1,6 @@
 ﻿export class Card {
+    public id: number;
     constructor(
-        public id: number,
         public text: string
     ) { }
 }

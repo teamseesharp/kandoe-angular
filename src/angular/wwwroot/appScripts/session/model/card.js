@@ -1,6 +1,5 @@
 var Card = (function () {
-    function Card(id, text) {
-        this.id = id;
+    function Card(text) {
         this.text = text;
     }
     return Card;
