@@ -17,8 +17,8 @@ var OrganisationsComponent = (function () {
         this.model = new organisation_1.Organisation("", "");
         this.submitted = false;
         this.organisations = [
-            new organisation_1.Organisation("KdG", ""),
-            new organisation_1.Organisation("De Baldadige Bierbowlers", "")
+            new organisation_1.Organisation("KdG", "Thomas"),
+            new organisation_1.Organisation("De Baldadige Bierbowlers", "Cas")
         ];
     }
     OrganisationsComponent.prototype.onSubmit = function () {

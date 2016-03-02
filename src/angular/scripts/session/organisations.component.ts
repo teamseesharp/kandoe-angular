@@ -22,8 +22,8 @@ export class OrganisationsComponent {
     
     constructor() {
         this.organisations = [
-            new Organisation("KdG", ""),
-            new Organisation("De Baldadige Bierbowlers", "")
+            new Organisation("KdG", "Thomas"),
+            new Organisation("De Baldadige Bierbowlers", "Cas")
         ];
     }
 
