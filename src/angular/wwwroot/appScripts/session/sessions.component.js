@@ -18,29 +18,33 @@ var SessionsComponent = (function () {
     function SessionsComponent(_router, _routeParams) {
         this._router = _router;
         this._routeParams = _routeParams;
-        this.model = new session_1.Session("", session_2.SessionType.async, "", null, null);
-        this.sessions = [
-            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "Santa ", new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session("sessionlink.com", session_2.SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session("sessionlink.com", session_2.SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
-        ];
-        this.sessionDetail = new session_1.Session("www.myurl.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
-        this.sessionTypes = [
-            session_2.SessionType.async, session_2.SessionType.sync];
+        this.model = new session_1.Session("", session_2.SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
+        var ses1 = new session_1.Session("sessionlink.com", session_2.SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses2 = new session_1.Session("sessionlink.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses3 = new session_1.Session("sessionlink.com", session_2.SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        ses1.id = 1;
+        ses2.id = 2;
+        ses3.id = 3;
+        this.sessions = [ses1, ses2, ses3];
+        this.sessionDetail = new session_1.Session("www.myurl.be", session_2.SessionType.sync, "test", new Date(Date.now()), new Date(Date.now()));
+        this.sessionTypes = [session_2.SessionType.async, session_2.SessionType.sync];
     }
-    SessionsComponent.prototype.ngOnInit = function () {
-        var id = this._routeParams.get('id');
+    /*
+    ngOnInit() {
+        let id = this._routeParams.get('id');
         //sessie ophalen aan de hand van de id
-        this.sessionDetail = new session_1.Session("www.myurl2.be", session_2.SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()));
-    };
+        this.sessionDetail = new Session("www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
+
+    }*/
     SessionsComponent.prototype.onSelect = function (session) {
         this.sessionDetail = session;
-        this._router.navigate(['Sessions', { id: session.id }]);
+        //alert(this.sessionDetail.description);
+        //this._router.navigate(['Sessions', { id: session.id }]);
     };
     SessionsComponent = __decorate([
         core_1.Component({}),
         core_1.View({
-            directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent, router_1.RouterLink],
+            directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
             templateUrl: 'Views/session/Sessions.html'
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])

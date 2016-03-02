@@ -21,8 +21,18 @@ var SessionComponent = (function () {
     }
     SessionComponent.prototype.ngOnInit = function () {
         //vervangen door api call, get van session, id meegeven
-        this.session = new session_1.Session("test", session_2.SessionType.sync, "description", new Date(Date.now()), new Date(Date.now()));
+        this.session = new session_1.Session("test.com", session_2.SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
+        //ff test
+        if (this.session.id == 1) {
+            this.session.description = "description1";
+        }
+        if (this.session.id == 2) {
+            this.session.description = "description2";
+        }
+        if (this.session.id == 3) {
+            this.session.description = "description3";
+        }
     };
     SessionComponent = __decorate([
         core_1.Component({}),

@@ -36,7 +36,6 @@ var AppComponent = (function () {
             { path: "/profiel", name: "Profile", component: profile_component_1.ProfileComponent },
             { path: "/sessies", name: "Sessions", component: sessions_component_1.SessionsComponent },
             { path: "/sessies/:id", name: "Session", component: session_component_1.SessionComponent },
-            //{ path: "/sessies/:id", name: "Sessions", component: SessionsComponent },
             { path: "/organisaties", name: "Organisations", component: organisations_component_1.OrganisationsComponent },
             { path: "/berichten", name: "Messages", component: messages_component_1.MessagesComponent },
             { path: "/themas", name: "Themes", component: themes_component_1.ThemesComponent },

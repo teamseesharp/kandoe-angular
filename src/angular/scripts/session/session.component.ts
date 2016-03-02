@@ -16,7 +16,7 @@ import {Router, RouteParams, RouterLink} from 'angular2/router';
     templateUrl: 'Views/session/Session.html'
 })
 
-export class SessionComponent {
+export class SessionComponent implements OnInit {
 
     session: Session;
 
@@ -24,8 +24,18 @@ export class SessionComponent {
 
     ngOnInit() {
         //vervangen door api call, get van session, id meegeven
-        this.session = new Session("test", SessionType.sync, "description", new Date(Date.now()), new Date(Date.now()));
+        this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
+        //ff test
+        if (this.session.id == 1) {
+            this.session.description = "description1";
+        }
+        if (this.session.id == 2) {
+            this.session.description = "description2";
+        }
+        if (this.session.id == 3) {
+            this.session.description = "description3";
+        }
     }
 
 }

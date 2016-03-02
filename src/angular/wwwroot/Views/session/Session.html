@@ -5,7 +5,12 @@
     <sidebar></sidebar>
 </section>
 <section id="main">
-    <div>test</div>
-    <div>{{ session.id }}</div>
-
+    <div>
+        {{ session.id }}<br />
+        {{ session.description }}<br /> 
+        {{ session.link }}<br />     
+        {{ session.type }}<br />        
+        {{ session.start | date:'dd MM yyyy' }}<br />
+        {{ session.end | date:'dd MM yyyy' }}
+    </div>
 </section>
