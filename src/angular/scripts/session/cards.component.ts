@@ -17,17 +17,18 @@ import {Card} from './model/card';
 export class CardsComponent {
 
     public cards: Array<Card>;
-    model = new Card(3, "Dit is een kaartje voor de heraanleg van het voetbalveld");
+    cardModel = new Card("");
     submitted = false;
     
     constructor() {
         this.cards = [
-            new Card(1, "Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new Card(2, "Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
+            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
         ];
     }
 
     onSubmit() {
+        alert("nieuwe kaart: " + this.cardModel.text);
         this.submitted = true;
     }
 }

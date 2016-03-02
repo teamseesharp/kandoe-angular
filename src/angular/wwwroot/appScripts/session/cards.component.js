@@ -14,14 +14,15 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var card_1 = require('./model/card');
 var CardsComponent = (function () {
     function CardsComponent() {
-        this.model = new card_1.Card(3, "Dit is een kaartje voor de heraanleg van het voetbalveld");
+        this.cardModel = new card_1.Card("Dit is een kaartje voor de heraanleg van het voetbalveld");
         this.submitted = false;
         this.cards = [
-            new card_1.Card(1, "Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new card_1.Card(2, "Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
+            new card_1.Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
         ];
     }
     CardsComponent.prototype.onSubmit = function () {
+        alert("nieuwe kaart: " + this.cardModel.text);
         this.submitted = true;
     };
     CardsComponent = __decorate([

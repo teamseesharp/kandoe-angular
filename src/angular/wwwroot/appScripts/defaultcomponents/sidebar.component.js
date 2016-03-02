@@ -32,8 +32,8 @@ var SidebarComponent = (function () {
             new theme_1.Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
         ];
         this.cards = [
-            new card_1.Card(1, "Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new card_1.Card(2, "Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
+            new card_1.Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
         ];
     }
     SidebarComponent = __decorate([
