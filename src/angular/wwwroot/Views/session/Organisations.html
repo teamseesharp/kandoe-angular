@@ -10,7 +10,7 @@
             <h1>Organisaties</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="neworganisationrow">
         <div class="col-xs-9">
 
         </div>
@@ -20,36 +20,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6 col-md-4">
-            <div class="thumbnail">
-                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <ul id="organisationlist">
+            <li *ngFor="#organisation of organisations" class="organisationinfo">
+                <div class="col-xs-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../../resources/images/organisation.png" class="organisationlogo" alt="Organisatie">
+                        <div class="caption">
+                            <h3>{{ organisation.name }}</h3>
+                            <p><b>Eigenaar:</b> {{ organisation.owner }}</p>
+                            <p><a href="#" class="btn btn-info" role="button">Thema's</a> <a href="#" class="btn btn-info" role="button">Sessies</a></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-md-4">
-            <div class="thumbnail">
-                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6 col-md-4">
-            <div class="thumbnail">
-                <img src="../../resources/images/organisationicon.png" alt="Organisatie">
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
    
     <!-- Modal -->
@@ -82,14 +66,5 @@
             </div>
         </div>
     </div>
-
-    <div>
-        <ul>
-            <li *ngFor="#organisation of organisations">
-                Organisatie: {{ organisation.name }}
-            </li>
-        </ul>
-    </div>
-
 </section>
 

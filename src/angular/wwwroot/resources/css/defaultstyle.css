@@ -21,6 +21,25 @@ section#sidebar {
 
 /* Organisations */
 
+#neworganisationrow {
+    height: 4em;
+}
+
+ul#organisationlist{
+    list-style: none;
+    padding:0; 
+    margin:0;
+    margin-left: 5%;
+}
+
+li .organisationinfo .thumbnail {
+    width: 40%;
+}
+
+.thumbnail .organisationlogo {
+    width: 40%;
+}
+
 .btn-info {
     color: whitesmoke;
     background-color: #84c148;
@@ -33,11 +52,13 @@ section#sidebar {
     border-color: #72ae37;
 }
 
-.btn-info:active {
+.btn-info:after {
     color: whitesmoke;
     background-color: #416f14;
     border-color: #72ae37;
 }
+
+
 
 /* Sessions */
 
