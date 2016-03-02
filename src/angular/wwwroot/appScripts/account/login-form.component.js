@@ -19,8 +19,7 @@ var LoginFormComponent = (function () {
     }*/
     function LoginFormComponent(_router) {
         this._router = _router;
-        //model = new Account("Bennie", "Helsen");
-        this.model = new account_1.Account("", "");
+        this.model = new account_1.Account("test", "test");
         this.submitted = false;
     }
     LoginFormComponent.prototype.onSubmit = function () {

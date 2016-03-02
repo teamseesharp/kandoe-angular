@@ -21,13 +21,16 @@ export class SidebarComponent {
     public organisations: Array<Organisation>;
     public themes: Array<Theme>;
     public cards: Array<Card>;
-
+    
     constructor() {
-        this.sessions = [
-            new Session(7, "sessionlink.com", SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new Session(8, "sessionlink.com", SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new Session(9, "sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
-       ];
+        var ses1 = new Session("sessionlink.com", SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses2 = new Session("sessionlink.com", SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses3 = new Session("sessionlink.com", SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        ses1.id = 1;
+        ses2.id = 2;
+        ses3.id = 3;
+        this.sessions = [ses1, ses2, ses3];
+
         this.organisations = [
             new Organisation("KdG", ""),
             new Organisation("De Baldadige Bierbowlers", "")

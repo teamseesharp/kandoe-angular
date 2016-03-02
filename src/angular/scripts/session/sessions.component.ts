@@ -20,18 +20,18 @@ export class SessionsComponent {
 
     public sessions: Array<Session>;
     public sessionDetail: Session;
-    model = new Session(0, "", SessionType.async, "", null, null);
+    model = new Session("", SessionType.async, "", null, null);
     sessionTypes: Array<SessionType>;
     
     constructor(
         private _router: Router,
         private _routeParams: RouteParams) {
         this.sessions = [
-            new Session(1, "sessionlink.com", SessionType.sync, "Santa ", new Date(Date.now()), new Date(Date.now())),
-            new Session(2, "sessionlink.com", SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
-            new Session(3, "sessionlink.com", SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
+            new Session("sessionlink.com", SessionType.sync, "Santa ", new Date(Date.now()), new Date(Date.now())),
+            new Session("sessionlink.com", SessionType.async, "is ", new Date(Date.now()), new Date(Date.now())),
+            new Session("sessionlink.com", SessionType.sync, "coming ", new Date(Date.now()), new Date(Date.now()))
         ];
-        this.sessionDetail = new Session(4, "www.myurl.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
+        this.sessionDetail = new Session("www.myurl.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
         this.sessionTypes = [
             SessionType.async, SessionType.sync];
 
@@ -40,7 +40,7 @@ export class SessionsComponent {
     ngOnInit() {
         let id = this._routeParams.get('id');
         //sessie ophalen aan de hand van de id
-        this.sessionDetail = new Session(6, "www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
+        this.sessionDetail = new Session("www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
 
     }
 

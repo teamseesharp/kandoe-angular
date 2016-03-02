@@ -16,10 +16,11 @@ var OrganisationsComponent = (function () {
     function OrganisationsComponent() {
         this.model = new organisation_1.Organisation("", "");
         this.submitted = false;
-        this.organisations = [
-            new organisation_1.Organisation("KdG", "Thomas"),
-            new organisation_1.Organisation("De Baldadige Bierbowlers", "Cas")
-        ];
+        var org1 = new organisation_1.Organisation("KdG", "");
+        var org2 = new organisation_1.Organisation("De Baldadige Bierbowlers", "");
+        org1.id = 1;
+        org2.id = 2;
+        this.organisations = [org1, org2];
     }
     OrganisationsComponent.prototype.onSubmit = function () {
         this.submitted = true;
