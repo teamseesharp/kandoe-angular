@@ -7,13 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+//import {Component, View, OnInit} from 'angular2/core';
 var core_1 = require('angular2/core');
+var router_1 = require('angular2/router');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var session_1 = require('./model/session');
 var session_2 = require('./model/session');
-var router_1 = require('angular2/router');
+var session_type_pipe_1 = require('./session-type.pipe');
 var SessionComponent = (function () {
     function SessionComponent(_router, _routeParams) {
         this._router = _router;
@@ -23,22 +25,12 @@ var SessionComponent = (function () {
         //vervangen door api call, get van session, id meegeven
         this.session = new session_1.Session("test.com", session_2.SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
-        //ff test
-        if (this.session.id == 1) {
-            this.session.description = "description1";
-        }
-        if (this.session.id == 2) {
-            this.session.description = "description2";
-        }
-        if (this.session.id == 3) {
-            this.session.description = "description3";
-        }
     };
     SessionComponent = __decorate([
-        core_1.Component({}),
-        core_1.View({
+        core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent, router_1.RouterLink],
-            templateUrl: 'Views/session/Session.html'
+            templateUrl: 'Views/session/Session.html',
+            pipes: [session_type_pipe_1.SessionTypePipe]
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
     ], SessionComponent);

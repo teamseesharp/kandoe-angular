@@ -29,16 +29,8 @@ var SessionsComponent = (function () {
         this.sessionDetail = new session_1.Session("www.myurl.be", session_2.SessionType.sync, "test", new Date(Date.now()), new Date(Date.now()));
         this.sessionTypes = [session_2.SessionType.async, session_2.SessionType.sync];
     }
-    /*
-    ngOnInit() {
-        let id = this._routeParams.get('id');
-        //sessie ophalen aan de hand van de id
-        this.sessionDetail = new Session("www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
-
-    }*/
     SessionsComponent.prototype.onSelect = function (session) {
         this.sessionDetail = session;
-        //alert(this.sessionDetail.description);
         //this._router.navigate(['Sessions', { id: session.id }]);
     };
     SessionsComponent = __decorate([

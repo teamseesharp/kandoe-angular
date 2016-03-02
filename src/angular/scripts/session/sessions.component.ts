@@ -13,7 +13,7 @@ import {Router, RouteParams, RouterLink} from 'angular2/router';
 })
 @View({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-templateUrl: 'Views/session/Sessions.html'
+    templateUrl: 'Views/session/Sessions.html'
 })
 
 export class SessionsComponent {
@@ -34,17 +34,9 @@ export class SessionsComponent {
         this.sessionDetail = new Session("www.myurl.be", SessionType.sync, "test", new Date(Date.now()), new Date(Date.now()))
         this.sessionTypes = [SessionType.async, SessionType.sync];
     }
-    /*
-    ngOnInit() {
-        let id = this._routeParams.get('id');
-        //sessie ophalen aan de hand van de id
-        this.sessionDetail = new Session("www.myurl2.be", SessionType.sync, "This is the descritpion from the session", new Date(Date.now()), new Date(Date.now()))
-
-    }*/
 
     onSelect(session: Session) {
         this.sessionDetail = session;
-        //alert(this.sessionDetail.description);
         //this._router.navigate(['Sessions', { id: session.id }]);
     }
     
