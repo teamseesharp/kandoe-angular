@@ -80,7 +80,8 @@
 
                             <label for="sessionType">Sessietype</label>
                             <select [(ngModel)]="model.type">
-                                <option *ngFor="#type of types" <!--[value]="type"-->>{{ type | sessionTypePipe }}</option>
+                                <!--<option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>-->
+                                <option *ngFor="#type of types">{{ type | sessionTypePipe }}</option>
                             </select>
                             
                             <label for="startDate">Start datum</label>
