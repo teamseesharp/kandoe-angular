@@ -10,6 +10,7 @@ import {MessagesComponent} from './message/messages.component';
 import {OrganisationsComponent} from './session/organisations.component';
 import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
+import {SessionComponent} from './session/session.component';
 
 
 @Component({
@@ -24,7 +25,9 @@ import {CardsComponent} from './session/cards.component';
     { path: "/home", name: "Home", component: HomeComponent },
     { path: "/account", name: "AccountForms", component: AccountFormsComponent, useAsDefault: true },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
-    { path: "/sessies/:id", name: "Sessions", component: SessionsComponent },
+    { path: "/sessies", name: "Sessions", component: SessionsComponent },
+    { path: "/sessies/:id", name: "Session", component: SessionComponent },
+    //{ path: "/sessies/:id", name: "Sessions", component: SessionsComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },

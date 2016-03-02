@@ -16,11 +16,13 @@ var theme_1 = require('../session/model/theme');
 var card_1 = require('../session/model/card');
 var SidebarComponent = (function () {
     function SidebarComponent() {
-        this.sessions = [
-            new session_1.Session(7, "sessionlink.com", session_2.SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(8, "sessionlink.com", session_2.SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now())),
-            new session_1.Session(9, "sessionlink.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()))
-        ];
+        var ses1 = new session_1.Session("sessionlink.com", session_2.SessionType.sync, "beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses2 = new session_1.Session("sessionlink.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        var ses3 = new session_1.Session("sessionlink.com", session_2.SessionType.async, "zeer goede beschrijving", new Date(Date.now()), new Date(Date.now()));
+        ses1.id = 1;
+        ses2.id = 2;
+        ses3.id = 3;
+        this.sessions = [ses1, ses2, ses3];
         this.organisations = [
             new organisation_1.Organisation("KdG", ""),
             new organisation_1.Organisation("De Baldadige Bierbowlers", "")

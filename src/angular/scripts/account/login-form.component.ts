@@ -20,9 +20,8 @@ export class LoginFormComponent {
 
     constructor(private _router: Router) {
     }
-
-    //model = new Account("Bennie", "Helsen");
-    model = new Account("", "");
+    
+    model = new Account("test", "test");
 
     submitted = false;
 

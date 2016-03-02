@@ -18,6 +18,7 @@ var messages_component_1 = require('./message/messages.component');
 var organisations_component_1 = require('./session/organisations.component');
 var themes_component_1 = require('./session/themes.component');
 var cards_component_1 = require('./session/cards.component');
+var session_component_1 = require('./session/session.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -33,7 +34,9 @@ var AppComponent = (function () {
             { path: "/home", name: "Home", component: home_component_1.HomeComponent },
             { path: "/account", name: "AccountForms", component: account_forms_component_1.AccountFormsComponent, useAsDefault: true },
             { path: "/profiel", name: "Profile", component: profile_component_1.ProfileComponent },
-            { path: "/sessies/:id", name: "Sessions", component: sessions_component_1.SessionsComponent },
+            { path: "/sessies", name: "Sessions", component: sessions_component_1.SessionsComponent },
+            { path: "/sessies/:id", name: "Session", component: session_component_1.SessionComponent },
+            //{ path: "/sessies/:id", name: "Sessions", component: SessionsComponent },
             { path: "/organisaties", name: "Organisations", component: organisations_component_1.OrganisationsComponent },
             { path: "/berichten", name: "Messages", component: messages_component_1.MessagesComponent },
             { path: "/themas", name: "Themes", component: themes_component_1.ThemesComponent },

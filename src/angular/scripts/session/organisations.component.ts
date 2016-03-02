@@ -21,10 +21,11 @@ export class OrganisationsComponent {
     submitted = false;
     
     constructor() {
-        this.organisations = [
-            new Organisation("KdG", ""),
-            new Organisation("De Baldadige Bierbowlers", "")
-        ];
+        var org1 = new Organisation("KdG", "");
+        var org2 = new Organisation("De Baldadige Bierbowlers", "");
+        org1.id = 1;
+        org2.id = 2;
+        this.organisations = [org1, org2];
     }
 
     onSubmit() {

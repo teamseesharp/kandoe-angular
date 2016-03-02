@@ -17,7 +17,7 @@
         <a href="#sub2" data-toggle="collapse">Sessies</a>
         <ul class="nav collapse" id="sub2">
             <li *ngFor="#session of sessions">
-                <a href="#">{{ session.description }}</a>
+                <a [routerLink]="['Session', {id: session.id}]">{{ session.description }}</a>
             </li>
         </ul>
     </li>
