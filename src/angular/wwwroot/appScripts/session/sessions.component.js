@@ -29,11 +29,13 @@ var SessionsComponent = (function () {
         ses3.id = 3;
         this.sessions = [ses1, ses2, ses3];
         this.sessionDetail = new session_1.Session("", session_2.SessionType.sync, "", new Date(), new Date());
-        this.calculateProgress();
+        this.progress = "width: 0%";
+        this.sessionDetailHidden = true;
     }
     SessionsComponent.prototype.onSelect = function (session) {
         this.sessionDetail = session;
         this.calculateProgress();
+        this.sessionDetailHidden = false;
     };
     SessionsComponent.prototype.onSubmit = function () {
         alert(this.model.description + " / " + this.model.type);

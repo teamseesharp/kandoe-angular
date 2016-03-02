@@ -22,6 +22,7 @@ export class SessionsComponent {
     public sessionDetail: Session;
     public types: Array<SessionType> = [SessionType.sync, SessionType.async];
     public progress: string;
+    public sessionDetailHidden: boolean;
 
     model = new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
     
@@ -35,12 +36,14 @@ export class SessionsComponent {
         this.sessions = [ses1, ses2, ses3];
 
         this.sessionDetail = new Session("", SessionType.sync, "", new Date(), new Date());
-        this.calculateProgress();
+        this.progress = "width: 0%";
+        this.sessionDetailHidden = true;
     }
 
     onSelect(session: Session) {
         this.sessionDetail = session;
         this.calculateProgress();
+        this.sessionDetailHidden = false;
     }
 
     onSubmit() {
