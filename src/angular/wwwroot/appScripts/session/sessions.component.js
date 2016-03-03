@@ -38,7 +38,7 @@ var SessionsComponent = (function () {
         this.sessionDetailHidden = false;
     };
     SessionsComponent.prototype.onSubmit = function () {
-        alert(this.model.description + " / " + this.model.type);
+        alert(this.model.description + " / " + this.model.type + "/ het werkt hoor");
     };
     SessionsComponent.prototype.calculateProgress = function () {
         var startDateInMs = this.sessionDetail.start.getTime();

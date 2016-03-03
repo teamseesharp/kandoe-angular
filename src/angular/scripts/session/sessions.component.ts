@@ -47,7 +47,7 @@ export class SessionsComponent {
     }
 
     onSubmit() {
-        alert(this.model.description + " / " + this.model.type);
+        alert(this.model.description + " / " + this.model.type+ "/ het werkt hoor");
     }
     
     private calculateProgress() {
