@@ -17,13 +17,13 @@ import {Card} from './model/card';
 export class CardsComponent {
 
     public cards: Array<Card>;
-    cardModel = new Card("");
+    cardModel = new Card("", 0);
     submitted = false;
     
     constructor() {
         this.cards = [
-            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
+            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd", 0)
         ];
     }
 

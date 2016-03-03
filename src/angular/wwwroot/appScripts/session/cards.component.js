@@ -14,11 +14,11 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var card_1 = require('./model/card');
 var CardsComponent = (function () {
     function CardsComponent() {
-        this.cardModel = new card_1.Card("");
+        this.cardModel = new card_1.Card("", 0);
         this.submitted = false;
         this.cards = [
-            new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new card_1.Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
+            new card_1.Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd", 0)
         ];
     }
     CardsComponent.prototype.onSubmit = function () {

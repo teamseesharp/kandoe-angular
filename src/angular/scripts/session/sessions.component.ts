@@ -35,7 +35,6 @@ export class SessionsComponent {
         ses2.id = 2;
         ses3.id = 3;
         this.sessions = [ses1, ses2, ses3];
-
         this.sessionDetail = new Session("", SessionType.sync, "", new Date(), new Date());
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;

@@ -40,8 +40,8 @@ export class SidebarComponent {
             new Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
         ];
         this.cards = [
-            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente"),
-            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd")
+            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
+            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd", 0)
         ];
     }
 }

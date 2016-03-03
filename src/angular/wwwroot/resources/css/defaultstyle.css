@@ -74,6 +74,25 @@ li.organisationinfo .thumbnail {
     border-color: #72ae37;
 }
 
+/* Game */
+
+#gameGrid {
+    width: 90%;
+    margin-left:5%;
+    margin-right:5%;
+    background-image:url("../images/kandoeCircleBackground.png");
+    overflow: hidden;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.gameGridItem {
+    float: left;
+    /*border: 1px solid black;*/
+    width: 5%;
+}
+
 /* Sessions */
 
 .badge {
