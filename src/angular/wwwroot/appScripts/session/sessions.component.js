@@ -55,6 +55,9 @@ var SessionsComponent = (function () {
             result = 0;
         this.progress = "width: " + result + "%";
     };
+    SessionsComponent.prototype.playSession = function (session) {
+        this._router.navigate(['Session', { id: session.id }]);
+    };
     SessionsComponent = __decorate([
         core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],

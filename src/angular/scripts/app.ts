@@ -13,7 +13,6 @@ import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
 import {SessionComponent} from './session/session.component';
 
-
 @Component({
     selector: "my-app"
 })
@@ -33,6 +32,7 @@ import {SessionComponent} from './session/session.component';
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent }
+
 ])
 
 export class AppComponent {

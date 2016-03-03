@@ -5,12 +5,35 @@
     <sidebar></sidebar>
 </section>
 <section id="main">
-    <div>
-        {{ session.id }}<br />
-        {{ session.description }}<br /> 
-        {{ session.link }}<br />     
-        {{ session.type | sessionTypePipe }}<br />        
-        {{ session.start | date:'dd MM yyyy' }}<br />
-        {{ session.end | date:'dd MM yyyy' }}
+  <div class="row">
+    <div class="banner">
+      <h1>Spel</h1>
+    </div>
+    <ul id="playersId" *ngFor="#player of players">
+      <li id="playerLi">
+        {{player}}
+      </li>
+    </ul>
+    (een speler die aan de beurt is is highlighted)
+  </div>
+  <div class="row">
+    <h2>{{session.description}}</h2>
+
+    {{ session.id }}<br />
+    {{ session.description }}<br />
+    {{ session.link }}<br />
+    {{ session.type | sessionTypePipe }}<br />
+    {{ session.start | date:'dd MM yyyy' }}<br />
+    {{ session.end | date:'dd MM yyyy' }}
+  </div>
+  <div class="row">
+    <h2>Mijn kaarten</h2>
+    <ul id="cartsId" *ngFor="#card of myCards">
+      <li id="cartLi">
+        <div class="card">
+          <h5>{{ card.text }}</h5>
+        </div>
+      </li>
+    </ul>
     </div>
 </section>
