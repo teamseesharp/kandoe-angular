@@ -1,4 +1,5 @@
 ﻿import {Component} from 'angular2/core';
+import {DatePipe} from 'angular2/common';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';
 import {BodyContentComponent} from '../defaultcomponents/body-content.component';
@@ -47,7 +48,11 @@ export class SessionsComponent {
     }
 
     onSubmit() {
-        alert(this.model.description + " / " + this.model.type);
+        this.model.link = "url/#/sessies/id"
+        this.model.start = new Date(Date.parse(this.model.start.toString()));
+        this.model.end = new Date(Date.parse(this.model.end.toString()));
+        this.sessions.push(this.model);
+        this.model = new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
     }
     
     private calculateProgress() {

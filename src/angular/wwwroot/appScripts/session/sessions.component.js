@@ -38,7 +38,11 @@ var SessionsComponent = (function () {
         this.sessionDetailHidden = false;
     };
     SessionsComponent.prototype.onSubmit = function () {
-        alert(this.model.description + " / " + this.model.type);
+        this.model.link = "url/#/sessies/id";
+        this.model.start = new Date(Date.parse(this.model.start.toString()));
+        this.model.end = new Date(Date.parse(this.model.end.toString()));
+        this.sessions.push(this.model);
+        this.model = new session_1.Session("", session_2.SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
     };
     SessionsComponent.prototype.calculateProgress = function () {
         var startDateInMs = this.sessionDetail.start.getTime();

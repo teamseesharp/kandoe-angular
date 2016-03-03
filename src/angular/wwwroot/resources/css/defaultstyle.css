@@ -85,9 +85,23 @@ li .organisationinfo .thumbnail {
     text-align: right;
 }
 
+ul#sessionUl {
+    list-style: none;
+    padding: 0;
+    margin-left: 1%;
+}
+
+li#sessionLi .btn-info{
+    width: 100%;
+}
+
 #newsession {
    margin-bottom: 5em;
    margin-left: 20em;
+}
+
+#newSessionRow {
+    height: 3em;
 }
 
 /* Main nav menu in sidebar */
