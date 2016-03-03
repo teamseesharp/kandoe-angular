@@ -64,4 +64,8 @@ export class SessionsComponent {
         if (result < 0) result = 0;
         this.progress = "width: " + result + "%";
     }
+
+    private playSession(session: Session) {
+        this._router.navigate(['Session', { id: session.id }]);
+    }
 }

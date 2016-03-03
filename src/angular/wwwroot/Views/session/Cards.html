@@ -12,9 +12,14 @@
     </div>
     <div>
         <div>Dit zijn je kaartjes!</div>
-        <ul>
+        <ul id="organisationlist">
             <li *ngFor="#card of cards">
-                Kaartje: {{ card.text }} <br />
+                  <div class="card">
+                      <h5>{{ card.text }}</h5>
+                      <p>
+                        <a href="#" class="btn btn-info" role="button">Wijzigen</a>
+                      </p>
+              </div>
             </li>
         </ul>
         <hr />
