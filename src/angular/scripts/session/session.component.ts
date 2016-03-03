@@ -1,5 +1,4 @@
-﻿//import {Component, View, OnInit} from 'angular2/core';
-import {Component, OnInit} from 'angular2/core';
+﻿import {Component, OnInit} from 'angular2/core';
 import {Router, RouteParams, RouterLink} from 'angular2/router';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';

@@ -25,15 +25,27 @@ section#sidebar {
     height: 4em;
 }
 
+a.editorganisation {
+    width: 20%;
+    padding: 0.3%;
+}
+
+a.editorganisation img {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 70%;
+}
+
 ul#organisationlist{
     list-style: none;
     padding:0; 
     margin:0;
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
-li .organisationinfo .thumbnail {
-    width: 40%;
+li.organisationinfo .thumbnail {
+    width: 90%;
+    min-height: 20em;
 }
 
 .thumbnail .organisationlogo {
@@ -52,13 +64,11 @@ li .organisationinfo .thumbnail {
     border-color: #72ae37;
 }
 
-.btn-info:after {
+.btn-info:focus {
     color: whitesmoke;
     background-color: #416f14;
     border-color: #72ae37;
 }
-
-
 
 /* Sessions */
 

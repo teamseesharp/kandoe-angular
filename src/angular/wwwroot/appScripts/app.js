@@ -16,6 +16,7 @@ var profile_component_1 = require('./account/profile.component');
 var sessions_component_1 = require('./session/sessions.component');
 var messages_component_1 = require('./message/messages.component');
 var organisations_component_1 = require('./session/organisations.component');
+var organisation_component_1 = require('./session/organisation.component');
 var themes_component_1 = require('./session/themes.component');
 var cards_component_1 = require('./session/cards.component');
 var session_component_1 = require('./session/session.component');
@@ -37,6 +38,7 @@ var AppComponent = (function () {
             { path: "/sessies", name: "Sessions", component: sessions_component_1.SessionsComponent },
             { path: "/sessies/:id", name: "Session", component: session_component_1.SessionComponent },
             { path: "/organisaties", name: "Organisations", component: organisations_component_1.OrganisationsComponent },
+            { path: "/organisaties/:id", name: "Organisation", component: organisation_component_1.OrganisationComponent },
             { path: "/berichten", name: "Messages", component: messages_component_1.MessagesComponent },
             { path: "/themas", name: "Themes", component: themes_component_1.ThemesComponent },
             { path: "/kaartjes", name: "Cards", component: cards_component_1.CardsComponent }
