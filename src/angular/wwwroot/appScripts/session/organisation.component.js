@@ -17,13 +17,13 @@ var OrganisationComponent = (function () {
     function OrganisationComponent(_router, _routeParams) {
         this._router = _router;
         this._routeParams = _routeParams;
-        this.model = new organisation_1.Organisation("hallow", "");
+        this.model = new organisation_1.Organisation("", "");
     }
     OrganisationComponent.prototype.ngOnInit = function () {
         //vervangen door api call, get van session, id meegeven
         this.organisation = new organisation_1.Organisation("testorganisatie", "testeigenaar");
         this.organisation.id = parseInt(this._routeParams.get('id'));
-        alert(this.organisation.id);
+        this.model = this.organisation;
     };
     OrganisationComponent.prototype.onSubmit = function () {
     };

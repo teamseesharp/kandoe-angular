@@ -52,6 +52,10 @@ li.organisationinfo .thumbnail {
     width: 40%;
 }
 
+.col-xs-3 img.organisationlogo {
+    width: 100%;
+}
+
 .btn-info {
     color: whitesmoke;
     background-color: #84c148;

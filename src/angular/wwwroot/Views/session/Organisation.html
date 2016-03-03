@@ -11,17 +11,23 @@
         </div>
     </div>
     <div class="row">
-        <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
-            <div class="form-group">
-                <label for="name">Naam</label>
-                <input type="text" class="form-control" required
-                       [(ngModel)]="model.name"
-                       ngControl="organisationname" #organisationname="ngForm">
-                <div [hidden]="organisationname.valid || organisationname.pristine || organisationname.untouched" class="alert alert-danger">
-                    Er moet een naam voor de organisatie worden opgegeven.
+        <div class="col-xs-1"></div>
+        <div class="col-xs-3">
+            <img src="../../resources/images/organisation.png" class="organisationlogo" />
+        </div>
+        <div class="col-xs-7">
+            <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
+                <div class="form-group">
+                    <label for="name">Naam</label>
+                    <input type="text" class="form-control" required
+                           [(ngModel)]="model.name"
+                           ngControl="organisationname" #organisationname="ngForm" maxlength="25">
+                    <div [hidden]="organisationname.valid || organisationname.pristine || organisationname.untouched" class="alert alert-danger">
+                        Er moet een naam voor de organisatie worden opgegeven.
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">Gegevens opslaan</button>
-        </form>
+                <button type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">Gegevens opslaan</button>
+            </form>
+        </div>
     </div>
 </section>

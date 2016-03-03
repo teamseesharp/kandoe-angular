@@ -3,7 +3,7 @@
         <a href="#sub1" data-toggle="collapse">Organisaties</a>
         <ul class="nav collapse" id="sub1">
             <li *ngFor="#organisation of organisations">
-                <a href="#">{{ organisation.name }}</a>
+                <a [routerLink]="['Organisation', {id: organisation.id}]">{{ organisation.name }}</a>
             </li>
             <li>
                 <br />
