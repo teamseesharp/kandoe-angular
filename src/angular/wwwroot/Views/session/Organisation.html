@@ -1,0 +1,27 @@
+﻿<header>
+    <heading></heading>
+</header>
+<section id="sidebar">
+    <sidebar></sidebar>
+</section>
+<section id="main">
+    <div class="row" id="banner">
+        <div class="banner">
+            <h1>Organisatie: {{ organisation.name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
+            <div class="form-group">
+                <label for="name">Naam</label>
+                <input type="text" class="form-control" required
+                       [(ngModel)]="model.name"
+                       ngControl="organisationname" #organisationname="ngForm">
+                <div [hidden]="organisationname.valid || organisationname.pristine || organisationname.untouched" class="alert alert-danger">
+                    Er moet een naam voor de organisatie worden opgegeven.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">Gegevens opslaan</button>
+        </form>
+    </div>
+</section>

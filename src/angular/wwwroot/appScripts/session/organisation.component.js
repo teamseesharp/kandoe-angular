@@ -12,28 +12,29 @@ var router_1 = require('angular2/router');
 var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
-var session_1 = require('./model/session');
-var session_2 = require('./model/session');
-var session_type_pipe_1 = require('./session-type.pipe');
-var SessionComponent = (function () {
-    function SessionComponent(_router, _routeParams) {
+var organisation_1 = require('./model/organisation');
+var OrganisationComponent = (function () {
+    function OrganisationComponent(_router, _routeParams) {
         this._router = _router;
         this._routeParams = _routeParams;
+        this.model = new organisation_1.Organisation("hallow", "");
     }
-    SessionComponent.prototype.ngOnInit = function () {
+    OrganisationComponent.prototype.ngOnInit = function () {
         //vervangen door api call, get van session, id meegeven
-        this.session = new session_1.Session("test.com", session_2.SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
-        this.session.id = parseInt(this._routeParams.get('id'));
+        this.organisation = new organisation_1.Organisation("testorganisatie", "testeigenaar");
+        this.organisation.id = parseInt(this._routeParams.get('id'));
+        alert(this.organisation.id);
     };
-    SessionComponent = __decorate([
+    OrganisationComponent.prototype.onSubmit = function () {
+    };
+    OrganisationComponent = __decorate([
         core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent, router_1.RouterLink],
-            templateUrl: 'Views/session/Session.html',
-            pipes: [session_type_pipe_1.SessionTypePipe]
+            templateUrl: 'Views/session/Organisation.html'
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams])
-    ], SessionComponent);
-    return SessionComponent;
+    ], OrganisationComponent);
+    return OrganisationComponent;
 })();
-exports.SessionComponent = SessionComponent;
-//# sourceMappingURL=session.component.js.map
+exports.OrganisationComponent = OrganisationComponent;
+//# sourceMappingURL=organisation.component.js.map

@@ -8,6 +8,7 @@ import {ProfileComponent} from './account/profile.component';
 import {SessionsComponent} from './session/sessions.component';
 import {MessagesComponent} from './message/messages.component';
 import {OrganisationsComponent} from './session/organisations.component';
+import {OrganisationComponent} from './session/organisation.component';
 import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
 import {SessionComponent} from './session/session.component';
@@ -28,6 +29,7 @@ import {SessionComponent} from './session/session.component';
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
     { path: "/sessies/:id", name: "Session", component: SessionComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
+    { path: "/organisaties/:id", name: "Organisation", component: OrganisationComponent},
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent }

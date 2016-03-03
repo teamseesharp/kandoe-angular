@@ -5,26 +5,27 @@ import {HeadingComponent} from '../defaultcomponents/heading.component';
 import {BodyContentComponent} from '../defaultcomponents/body-content.component';
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
-import {Session} from './model/session';
-import {SessionType} from './model/session';
-import {SessionTypePipe} from './session-type.pipe';
-
+import {Organisation} from './model/organisation';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
-    templateUrl: 'Views/session/Session.html',
-    pipes: [SessionTypePipe]
+    templateUrl: 'Views/session/Organisation.html'
 })
 
-export class SessionComponent implements OnInit {
-
-    session: Session;
+export class OrganisationComponent implements OnInit {
+    organisation: Organisation;
+    model = new Organisation("hallow","");
 
     constructor(private _router: Router, private _routeParams: RouteParams) { }
 
     ngOnInit() {
         //vervangen door api call, get van session, id meegeven
-        this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
-        this.session.id = parseInt(this._routeParams.get('id'));
+        this.organisation = new Organisation("testorganisatie", "testeigenaar");
+        this.organisation.id = parseInt(this._routeParams.get('id'));
+        alert(this.organisation.id);
+    }
+
+    onSubmit() {
+
     }
 }
