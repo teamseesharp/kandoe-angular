@@ -64,5 +64,4 @@ export class SessionsComponent {
         if (result < 0) result = 0;
         this.progress = "width: " + result + "%";
     }
-
 }
