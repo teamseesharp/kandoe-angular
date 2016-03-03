@@ -14,6 +14,7 @@ var SessionTypePipe = (function () {
     }
     SessionTypePipe.prototype.transform = function (value, args) {
         return value == session_1.SessionType.sync ? 'sync' : 'async';
+        //return value.toString();
     };
     SessionTypePipe = __decorate([
         core_1.Pipe({ name: 'sessionTypePipe' }), 

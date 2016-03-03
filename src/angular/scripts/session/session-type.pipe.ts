@@ -7,5 +7,6 @@ export class SessionTypePipe implements PipeTransform {
 
     transform(value: SessionType, args: string[]): any {
         return value == SessionType.sync ? 'sync' : 'async';
+        //return value.toString();
     }
 }
