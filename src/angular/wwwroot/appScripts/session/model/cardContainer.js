@@ -1,13 +1,12 @@
 var CardContainer = (function () {
-    function CardContainer(xCoordinate, yCoordinate, visible) {
+    function CardContainer(xCoordinate, yCoordinate, card) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.visible = visible;
-        this.setVisibility(visible);
+        this.card = card;
+        this.setVisibility();
     }
-    CardContainer.prototype.setVisibility = function (visible) {
-        this.visible = visible;
-        if (visible) {
+    CardContainer.prototype.setVisibility = function () {
+        if (this.card != null) {
             this.visibility = "opacity: 1";
         }
         else {
