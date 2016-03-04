@@ -17,7 +17,10 @@ var ProfileComponent = (function () {
         this.model = new account_1.Account("helsen.bennie@hotmail.be", "Test1234");
         this.submitted = false;
     }
-    ProfileComponent.prototype.onSubmit = function () { this.submitted = true; };
+    ProfileComponent.prototype.onSubmit = function () {
+        this.submitted = true;
+        //Todo call to backend
+    };
     Object.defineProperty(ProfileComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.model); },
         enumerable: true,

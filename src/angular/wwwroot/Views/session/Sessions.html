@@ -90,7 +90,7 @@
                 <select [(ngModel)]="model.type">
                   <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
                 </select>
-
+                <br/>
                 <label for="startDate">Start datum</label>
                 <br/>
                 <input type="date" [(ngModel)]="model.start"/>
