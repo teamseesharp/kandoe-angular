@@ -62,8 +62,14 @@
                                 Er moet een naam voor de organisatie worden opgegeven.
                             </div>
                         </div>
-                        <button id="createneworganisation" type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid" data-toggle="modal" data-target="#organisationModal">Maak organisatie aan</button>
-                        <button id="closeneworganisationtwo" type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+                        <div class="form-group">
+                            <label for="users">Gebruikers toevoegen</label>
+                            <br />
+                            <input type="text" name="users" class="typeahead tt-query" autocomplete="off" spellcheck="false" id="users" [(ngModel)]="model.users">
+                        </div>
+                        <br />
+                        <button id="createneworganisation" type="submit" class="btn btn-info" [disabled]="!organisationForm.form.valid" data-toggle="modal" data-target="#organisationModal">Maak organisatie aan</button>
+                        <button id="closeneworganisationtwo" type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>
             </div>

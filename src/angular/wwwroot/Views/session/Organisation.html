@@ -21,12 +21,19 @@
                     <label for="name">Naam</label>
                     <input type="text" class="form-control" required
                            [(ngModel)]="model.name"
-                           ngControl="organisationname" #organisationname="ngForm" maxlength="25">
+                           ngControl="organisationname" #organisationname="ngForm" maxlength="25" name="name">
                     <div [hidden]="organisationname.valid || organisationname.pristine || organisationname.untouched" class="alert alert-danger">
                         Er moet een naam voor de organisatie worden opgegeven.
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">Gegevens opslaan</button>
+                <div class="form-group">
+                    <label for="users">Gebruikers toevoegen</label>
+                    <br />
+                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="model.users">
+                </div>
+                <button id="saveorganisationchanges" type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">
+                    Gegevens opslaan
+                </button>
             </form>
         </div>
     </div>

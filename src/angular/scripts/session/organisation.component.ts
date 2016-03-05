@@ -22,6 +22,7 @@ export class OrganisationComponent implements OnInit {
         //vervangen door api call, get van session, id meegeven
         this.organisation = new Organisation("testorganisatie", "testeigenaar");
         this.organisation.id = parseInt(this._routeParams.get('id'));
+        this.organisation.users = ["joske@hotmail.com", "jefke@hotmail.com"];
         this.model = this.organisation;
     }
 

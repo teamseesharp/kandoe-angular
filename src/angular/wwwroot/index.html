@@ -17,22 +17,24 @@
     <!-- jquery 1.12.0 -->
     <script src="libs/jquery-min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap-typeahead.js"></script>
+    <script src="resources/js/bootstrap-tagsinput.min.js"></script>
+    <script src="resources/js/custom.js"></script>
 
+    <script language="javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                $(".nav li").removeClass("active");
+
+                $('#sessions').click(function () {
+                    $('#sessions').addClass('active');
+                })
+            }, 50);
+        });
+    </script>
     <!-- Auth0 Lock script -->
     <!--<script src="//cdn.auth0.com/js/lock-8.2.min.js"></script>-->
 
-    <!--<script language="javascript">
-        window.onload = function () {
-            alert("I am an alert box!");
-            $(".nav li").removeClass("active");//this will remove the active class from
-            //previously active menu item
-
-        }
-
-        $('#sessions').click(function () {
-            $('#sessions').addClass('active');
-        })
-    </script>-->
     <!-- 2. Configure SystemJS -->
     <script>
         System.config({
@@ -48,6 +50,8 @@
               .then(null, console.error.bind(console));
     </script>
     <link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="resources/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="resources/css/bootstrap-typeahead.css" rel="stylesheet"/>
     <link href="resources/css/defaultstyle.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <base href="/">
