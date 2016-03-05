@@ -25,7 +25,7 @@ var SessionComponent = (function () {
         this.session = new session_1.Session("test.com", session_2.SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
         this.players = [];
-        this.initGrid();
+        this.initCardGrid();
     }
     SessionComponent.prototype.dummyData = function () {
         this.players.push("Caskraker");
@@ -35,12 +35,12 @@ var SessionComponent = (function () {
         this.myCards.push(new card_1.Card("tweede kaart", 0));
         this.myCards.push(new card_1.Card("laatste kaart", 0));
     };
-    SessionComponent.prototype.initGrid = function () {
+    SessionComponent.prototype.initCardGrid = function () {
         for (var i = -10; i <= 10; i++) {
             var tempArray = new Array();
             for (var j = -10; j <= 10; j++) {
                 if (j != 0) {
-                    tempArray.push(new cardContainer_1.CardContainer(i, j, false));
+                    tempArray.push(new cardContainer_1.CardContainer(i, j, null));
                 }
             }
             if (i != 0) {
@@ -48,9 +48,23 @@ var SessionComponent = (function () {
             }
         }
     };
-    //remove this later pl0x
+    //testing math.. math awesomeness in progress.. remove this later pl0x..
     SessionComponent.prototype.clickTest = function (item) {
-        item.setVisibility(true);
+        var r = Math.sqrt(Math.pow(item.xCoordinate, 2) + Math.pow(item.yCoordinate, 2));
+        var circle = "geen";
+        if (Math.round(r) <= 10 && Math.round(r) >= -10) {
+            item.card = new card_1.Card("Dit is een kaart", 0);
+            item.setVisibility();
+            circle = Math.round(r).toString();
+        }
+        alert("straal: "
+            + r
+            + " | zit in cirkel: "
+            + circle
+            + " | coordinates: "
+            + item.xCoordinate
+            + ", "
+            + item.yCoordinate);
     };
     SessionComponent = __decorate([
         core_1.Component({

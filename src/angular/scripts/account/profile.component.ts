@@ -17,7 +17,11 @@ export class ProfileComponent {
 
     submitted = false;
 
-    onSubmit() { this.submitted = true; }
+    onSubmit() {
+        this.submitted = true;
+        //Todo call to backend
+
+    }
 
     get diagnostic() { return JSON.stringify(this.model); }
 }
