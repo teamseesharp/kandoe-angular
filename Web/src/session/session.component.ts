@@ -24,16 +24,20 @@ export class SessionComponent implements OnInit {
 
     private session: Session;
     private tooltipText: string;
-    private players: Array<Account>;
+    private accounts: Array<Account>;
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardContainer>> = [];
+    public space: string;
 
     constructor(private _router: Router, private _routeParams: RouteParams) {
         this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
-        this.players = [];
+        this.accounts = [];
+        this.myCards = [];
         this.tooltipText = "";
+        this.dummyData();
         this.initCardGrid();
+        this.calculatePlayerLine();
     }
 
     ngOnInit() {
@@ -41,6 +45,40 @@ export class SessionComponent implements OnInit {
     }
 
     private dummyData() {
+        this.accounts.push(new Account("cas.craker@gmail.com", "cas"));
+        this.accounts[0].firstname = "Cas";
+        this.accounts[0].name = "Craker";
+
+        this.accounts.push(new Account("bennie.thier@gmail.com", "ben"));
+        this.accounts[1].firstname = "Bennie";
+        this.accounts[1].name = "thier";
+
+        this.accounts.push(new Account("thomas.urder@gmail.com", "tom"));
+        this.accounts[2].firstname = "thomas";
+        this.accounts[2].name = "urder";
+
+        this.accounts.push(new Account("michelle.lvb@gmail.com", "mic"));
+        this.accounts[3].firstname = "Michelle";
+        this.accounts[3].name = "Lekkers Van Beckers";
+
+        this.accounts.push(new Account("joachim.dewinnaar@gmail.com", "joa"));
+        this.accounts[4].firstname = "Joachim";
+        this.accounts[4].name = "DeWinnaar";
+  
+        this.accounts.push(new Account("olivier.kant@gmail.com", "oli"));
+        this.accounts[5].firstname = "Olivier";
+        this.accounts[5].name = "kant";
+
+        this.accounts.push(new Account("wouter@gmail.com", "wou"));
+        this.accounts[6].firstname = "Wouter";
+        this.accounts[6].name = "Deketelare";
+      
+        this.accounts.push(new Account("bartje.vochten@gmail.com", "bar"));
+        this.accounts[7].firstname = "Bart";
+        this.accounts[7].name = "Vochten";
+
+        this.accounts.push(new Account("bartje.vochten@gmail.com", "bar"));
+        this.accounts[8].firstname = "Bart";
         this.myCards.push(new Card("mijn eerste kaart", 0));
         this.myCards.push(new Card("tweede kaart", 0));
         this.myCards.push(new Card("laatste kaart", 0));
@@ -94,5 +132,15 @@ export class SessionComponent implements OnInit {
             + item.xCoordinate
             + ", "
             + item.yCoordinate);
+    }
+
+    calculatePlayerLine() {
+        var numberOfPlayers = this.accounts.length;
+        var bol = 4.65;
+
+        var result = (100 - (bol * numberOfPlayers)) / (numberOfPlayers + 1);
+
+        this.space = "margin-left: " + result + "%;";
+        //this.space = "margin-left: 0%;";
     }
 }

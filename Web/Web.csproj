@@ -77,6 +77,7 @@
     <Content Include="resources\css\bootstrap-typeahead.css" />
     <Content Include="resources\css\bootstrap.min.css" />
     <Content Include="resources\css\defaultstyle.css" />
+    <Content Include="resources\css\timeline.css" />
     <Content Include="resources\images\cardCircleGreen.png" />
     <Content Include="resources\images\descriptionicon.png" />
     <Content Include="resources\images\editicon.png" />
@@ -95,6 +96,7 @@
     <Content Include="resources\js\bootstrap.min.js" />
     <Content Include="resources\js\custom.js" />
     <Content Include="resources\js\jquery-min.js" />
+    <Content Include="resources\js\timeline.js" />
     <Content Include="src\account\account.html" />
     <Content Include="src\account\login-form.html" />
     <Content Include="src\account\profile.html" />
