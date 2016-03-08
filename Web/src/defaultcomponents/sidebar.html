@@ -1,0 +1,52 @@
+﻿<ul class="nav nav-pills nav-stacked">
+    <li id="organisations">
+        <a href="#sub1" data-toggle="collapse">Organisaties</a>
+        <ul class="nav collapse" id="sub1">
+            <li *ngFor="#organisation of organisations">
+                <a [routerLink]="['Organisation', {id: organisation.id}]">{{ organisation.name }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Organisations']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
+    <li id="sessions">
+        <a href="#sub2" data-toggle="collapse">Sessies</a>
+        <ul class="nav collapse" id="sub2">
+            <li *ngFor="#session of sessions">
+                <a [routerLink]="['Session', {id: session.id}]">{{ session.description }}</a>
+            </li>
+        </ul>
+    </li>
+    <li id="themes">
+        <a href="#sub3" data-toggle="collapse">Thema's</a>
+        <ul class="nav collapse" id="sub3">
+            <li *ngFor="#theme of themes">
+                <a href="#">{{ theme.name }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Themes']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
+   <li id="cards">
+        <a href="#sub4" data-toggle="collapse">Kaartjes</a>
+        <ul class="nav collapse" id="sub4">
+            <li *ngFor="#card of cards">
+                <a href="#">{{ card.text }}</a>
+            </li>
+            <li>
+                <br />
+            </li>
+            <li>
+                <a [routerLink]="['Cards']">Overzicht</a>
+            </li>
+        </ul>
+    </li>
+</ul>

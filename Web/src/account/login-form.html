@@ -1,0 +1,30 @@
+﻿<div class="logincontainer">
+    <h4>Log in met je account</h4>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input id="email" type="text" class="form-control" required
+                   [(ngModel)]="model.email"
+                   ngControl="email" #email="ngForm">
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger" id="emailrequired">
+                E-mail is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Wachtwoord</label>
+            <input id="password" type="text" class="form-control" required
+                   [(ngModel)]="model.password"
+                   ngControl="password" #password="ngForm">
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger" id="passwordrequired">
+                Wachtwoord is vereist!
+            </div>
+        </div>
+        <button id="login" type="submit" class="btn btn-info"
+        [disabled]="!loginForm.form.valid">
+            Log in
+        </button>
+    </form>
+    <h1>Welcome to Angular2 with Auth0</h1>
+    <button *ngIf="!loggedIn()" (click)="login()">Login</button>
+    <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
+</div>

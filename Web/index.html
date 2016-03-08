@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth0 - Angular 2 With SystemJS</title>
+
+    <!-- ES6-related imports -->
+    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
+    <script>
+    //configure system loader
+    System.config({
+      defaultJSExtensions: true,
+      packages: {
+        "/angular2-jwt": {
+          "defaultExtension": "js"
+        }
+      },
+      map: {
+        "angular2-jwt": "node_modules/angular2-jwt/angular2-jwt"
+      }
+    });
+    </script>
+    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2.js"></script>
+    <script src="/node_modules/angular2/bundles/http.min.js"></script>
+    <script src="/node_modules/angular2/bundles/router.min.js"></script>
+    <script>
+    //bootstrap the Angular2 application
+    System.import('dist/boot').catch(console.log.bind(console));
+    </script>
+
+    <!-- Auth0 Lock script and AngularJS module -->
+    <script src="//cdn.auth0.com/js/lock-8.2.min.js"></script>
+
+    <!-- jquery 1.12.0 -->
+    <script src="resources/js/jquery-min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/js/bootstrap-typeahead.js"></script>
+    <script src="resources/js/bootstrap-tagsinput.min.js"></script>
+    <script src="resources/js/custom.js"></script>
+
+    <!-- bootstrap -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="resources/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="resources/css/bootstrap-typeahead.css" rel="stylesheet" />
+    <link href="resources/css/defaultstyle.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <base href="/">
+</head>
+
+<body>
+    <div class="container">
+        <app>Loading...</app>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+﻿<div class="registercontainer">
+    <h4>Nog geen account?</h4>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <div class="form-group">
+            <label for="name">Naam</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.name"
+                   ngControl="name" #name="ngForm">
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Naam is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Voornaam</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.firstname"
+                   ngControl="firstname" #firstname="ngForm">
+            <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
+                Voornaam is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.email"
+                   ngControl="email" #email="ngForm">
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                E-mail is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Wachtwoord</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.password"
+                   ngControl="password" #password="ngForm">
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                Wachtwoord is vereist!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="passwordrepeat">Herhaal wachtwoord</label>
+            <input type="text" class="form-control" required
+                   [(ngModel)]="model.passwordrepeat"
+                   ngControl="passwordrepeat" #passwordrepeat="ngForm">
+            <div [hidden]="passwordrepeat.valid || passwordrepeat.pristine" class="alert alert-danger">
+                Wachtwoord is vereist!
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info"
+        [disabled]="!registerForm.form.valid">
+            Registreer
+        </button>
+    </form>
+</div>

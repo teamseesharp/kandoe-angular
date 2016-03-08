@@ -1,0 +1,429 @@
+﻿body { 
+    background-color: rgba(0,0,0,0.5);
+}
+
+.kandoelogo {
+    float: left;
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 90%;
+}
+
+section#sidebar {
+    background-color: whitesmoke;
+    float: left;
+    width: 20%;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 2px #000000;
+    -webkit-box-shadow: 0 0 2px #000000;
+    box-shadow: 0 0 2px #000000;
+}
+
+a:hover, a:active, a:focus {
+    outline: 0;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.modal-header {
+    background-color: #416f14;
+    color: whitesmoke;
+}
+
+/* Themes and subthemes */
+
+ul.themesoverviewUl {
+    list-style: none;
+    padding:0; 
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* Organisations */
+
+#editorganisationbody {
+    min-height: 30em;
+}
+
+#neworganisationrow {
+    height: 4em;
+}
+
+a.editorganisation {
+    width: 20%;
+    padding: 0.3%;
+    outline: 0;
+}
+
+a.editorganisation img {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 70%;
+    outline: 0;
+}
+
+ul#organisationlist{
+    list-style: none;
+    padding:0; 
+    margin:0;
+    margin-left: 3%;
+}
+
+li.organisationinfo .thumbnail {
+    width: 90%;
+    min-height: 20em;
+    background-color: rgba(65,111,20, 0.1);
+}
+
+.thumbnail .organisationlogo {
+    width: 40%;
+}
+
+.col-xs-3 img.organisationlogo {
+    width: 100%;
+}
+
+.btn-info {
+    color: whitesmoke;
+    background-color: #84c148;
+    border-color: #72ae37;
+    outline: 0;
+}
+
+.btn-info:hover {
+    color: whitesmoke;
+    background-color: #416f14;
+    border-color: #72ae37;
+    outline: 0;
+}
+
+.btn-info:focus {
+    color: whitesmoke;
+    background-color: #416f14;
+    border-color: #72ae37;
+    outline: 0;
+}
+
+.form-control {
+    width: 100%;
+}
+
+/* Game */
+
+#gameGrid {
+    width: 90%;
+    margin-left:5%;
+    margin-right:5%;
+    background-image:url("../images/kandoeCircleBackground.png");
+    overflow: hidden;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.gameGridItem {
+    float: left;
+    width: 5%;
+    /*border: 1px solid black;*/
+}
+
+/* Sessions */
+
+.badge {
+    height: 4em;
+    width: 100%;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.sessionsoverview {
+    background-color: rgba(65,111,20, 0.1);
+    width: 90%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    padding-bottom: 10em;
+}
+
+.sesssionsfooter {
+    height: 8em;
+}
+
+.sessionlink {
+    float: left;
+    margin-left: 2%;
+    margin-right: 3%;
+    width: 5%;
+}
+
+.sessiondescription {
+    text-align: left;
+}
+
+.sessionsbuttons .btn-info {
+    width: 100%;
+}
+
+.descriptionicon {
+    float: left;
+    margin-left: 0%;
+    margin-right: 2%;
+    width: 8%;
+}
+
+.start {
+    text-align: left;
+}
+
+.end {
+    text-align: right;
+}
+
+ul#sessionUl {
+    list-style: none;
+    padding: 0;
+}
+
+li#sessionLi .btn-info{
+    width: 100%;
+}
+
+#newsession {
+   margin-bottom: 5em;
+   margin-left: 20em;
+}
+
+#newSessionRow {
+    height: 3em;
+}
+
+/* Main nav menu in sidebar */
+
+.nav-pills>li>a{
+    color: #416f14; 
+    background-color: whitesmoke;
+    border-left: 8px solid #416f14; 
+    border-bottom: 2px solid #416f14;
+    border-radius: 0px; 
+    outline: 0;
+}
+.nav-pills>li>a:hover{color: whitesmoke; background-color: #5f9628; outline: 0;}
+.nav-pills>li.active>a{color: whitesmoke; background-color: #72ae37; outline: 0;}
+.nav-pills>li.active>a:hover{ color: whitesmoke; background-color: #72ae37; outline: 0;}
+.nav-pills>li.active>a:focus{ color: whitesmoke; background-color: #72ae37; outline: 0;}
+
+.nav-pills {
+    margin-bottom: 10em;
+    outline: 0;
+}
+
+/* Sub nav menu in sidebar */
+.nav-pills>li>ul>li>a {
+    color: #416f14; 
+    background-color: whitesmoke; 
+    border-left: 8px solid #84c148; 
+    border-bottom: 2px solid #84c148;
+    border-radius: 0px;
+    outline: 0; 
+}
+
+.nav-pills > li > ul > li > a:hover { color: whitesmoke; background-color: #84c148; outline: 0;}
+
+section#main {
+    background-color: whitesmoke;
+    position: relative;
+    margin-left: 23%;
+    width: 77%;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 2px #000000;
+    -webkit-box-shadow: 0 0 2px #000000;
+    box-shadow: 0 0 2px #000000;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+/*Header*/
+
+.kandoeText {
+    float: left;
+    width: 35%;
+}
+
+.kandoeIcon {
+    float: left;
+    width: 9%;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+header {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    background-color: #84c148;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 2px #000000;
+    -webkit-box-shadow: 0 0 2px #000000;
+    box-shadow: 0 0 2px #000000;
+}
+
+/* Nav menu in header */
+
+#bs-example-navbar-collapse-1 .nav>li {
+    color: #416f14;
+    border-left: 2px solid #72ae37;
+    outline: 0;
+}
+
+#bs-example-navbar-collapse-1 .nav > li > a:hover {
+    color: whitesmoke;
+    background-color: #5f9628;
+    outline: 0;
+}
+
+/* Profile */
+section#main .img-circle {
+    border: 2px solid #416f14;
+    margin-left: 15%;
+    margin-top: 12%;
+    margin-bottom: 20%;
+    width: 60%;
+}
+
+.row#banner {
+    height: 4em;
+    margin-bottom: 3em;
+}
+
+.banner {
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-top: 0.5%;
+    margin-bottom: 1%;
+    background-color: #416f14;
+    border-radius: 4px;
+}
+
+section#main h1 {
+    color: whitesmoke;
+    margin-left: 10%;
+}
+
+section#main .profile {
+    margin-top: 5%;
+    width: 30%;
+}
+
+/* Login & Register form */
+
+.thumbnail {
+    margin-top: 10%;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 3px #000000;
+    -webkit-box-shadow: 0 0 3px #000000;
+    box-shadow: 0 0 3px #000000;
+}
+
+.vrdivider {
+    position:absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    border-left: 3px solid rgba(0,0,0,0.5);
+}
+
+.logincontainer {
+    margin-left: 0;
+    margin-right: 5%;
+    margin-top: 20%;
+}
+
+.registercontainer {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20%;
+    margin-bottom: 20%
+}
+
+.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+/*nieuwe sessie*/
+HTMLJSCSS
+.datepickerdemoBasicUsage {
+  /** Demo styles for mdCalendar. */ }
+  .datepickerdemoBasicUsage md-content {
+    padding-bottom: 200px; }
+  .datepickerdemoBasicUsage .validation-messages {
+    font-size: 11px;
+    color: darkred;
+    margin: 10px 0 0 25px; }
+
+
+/*card*/
+.card {
+    background-image: url('../images/card.png');
+    min-height: 26%;
+    min-width: 12%;
+    max-height: 30%;
+    max-width: 16%;
+    margin-top: 10%;
+    border-radius: 4px;
+    -moz-box-shadow: 0 0 3px #000000;
+    -webkit-box-shadow: 0 0 3px #000000;
+    box-shadow: 0 0 3px #000000;
+    text-align: center;
+}
+
+
+.nav-sidebar { 
+    width: 100%;
+    padding: 30px 0; 
+    border-right: 1px solid #ddd;
+}
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+}
+.nav-sidebar .active a { 
+    cursor: default;
+    background-color: #0b56a8; 
+    color: #fff; 
+}
+.nav-sidebar .active a:hover {
+    background-color: #E50000;   
+}
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; 
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {  }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {  }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {  }
