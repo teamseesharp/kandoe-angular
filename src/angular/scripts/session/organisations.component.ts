@@ -38,4 +38,8 @@ export class OrganisationsComponent {
     onEdit(organisation: Organisation) {
         this._router.navigate(['Organisation', { id: organisation.id }]);
     }
+
+    onClose() {
+        alert('hello');
+    }
 }

@@ -11,9 +11,7 @@
         </div>
     </div>
     <div class="row" id="neworganisationrow">
-        <div class="col-xs-9">
-
-        </div>
+        <div class="col-xs-9"></div>
         <div class="col-xs-3">
             <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#organisationModal" id="neworganisation">Nieuwe organisatie</button>
@@ -69,7 +67,7 @@
                         </div>
                         <br />
                         <button id="createneworganisation" type="submit" class="btn btn-info" [disabled]="!organisationForm.form.valid" data-toggle="modal" data-target="#organisationModal">Maak organisatie aan</button>
-                        <button id="closeneworganisationtwo" type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
+                        <button id="closeneworganisationtwo" type="button" class="btn btn-info" (click)="onClose()" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>
             </div>

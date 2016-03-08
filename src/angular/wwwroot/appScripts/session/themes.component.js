@@ -15,11 +15,10 @@ var theme_1 = require('./model/theme');
 var organisation_1 = require('./model/organisation');
 var ThemesComponent = (function () {
     function ThemesComponent() {
-        this.model = new theme_1.Theme(3, "TI contactavond", "Wat zijn de belangrijkste competenties voor pas afgestudeerde informatici", "tag1, tag2, tag3");
-        this.submitted = false;
+        this.model = new theme_1.Theme("", "", new Array());
         this.themes = [
-            new theme_1.Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
-            new theme_1.Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+            new theme_1.Theme("Avondje uit", "Welk café nemen we?", new Array("drinken", "gezelligheid", "bier")),
+            new theme_1.Theme("Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", new Array("tennisveld", "gravel", "hard court"))
         ];
         this.organisations = [
             new organisation_1.Organisation("KdG", "Bennie"),
@@ -27,11 +26,9 @@ var ThemesComponent = (function () {
         ];
     }
     ThemesComponent.prototype.onSubmit = function () {
-        this.submitted = true;
     };
     ThemesComponent = __decorate([
-        core_1.Component({}),
-        core_1.View({
+        core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],
             templateUrl: 'Views/session/Themes.html'
         }), 

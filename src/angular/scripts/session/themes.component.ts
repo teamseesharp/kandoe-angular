@@ -8,25 +8,19 @@ import {Theme} from './model/theme';
 import {Organisation} from './model/organisation';
 
 @Component({
-})
-
-@View({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'Views/session/Themes.html'
 })
 
 export class ThemesComponent {
-
     public themes: Array<Theme>;
     public organisations: Array<Organisation>;
-    model = new Theme(3, "TI contactavond", "Wat zijn de belangrijkste competenties voor pas afgestudeerde informatici",
-    "tag1, tag2, tag3");
-    submitted = false;
+    model = new Theme("", "", new Array());
     
     constructor() {
         this.themes = [
-            new Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
-            new Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+            new Theme("Avondje uit", "Welk café nemen we?", new Array("drinken", "gezelligheid", "bier")),
+            new Theme("Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", new Array("tennisveld", "gravel", "hard court"))
         ];
         this.organisations = [
             new Organisation("KdG", "Bennie"),
@@ -35,6 +29,5 @@ export class ThemesComponent {
     }
 
     onSubmit() {
-        this.submitted = true;
     }
 }

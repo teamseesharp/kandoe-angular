@@ -27,6 +27,7 @@ var CardsComponent = (function () {
     }
     CardsComponent.prototype.onCreateCard = function () {
         this.cards.push(this.model);
+        this.onCloseModal();
     };
     CardsComponent.prototype.onChangeModal = function (card) {
         this.model = card;

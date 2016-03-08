@@ -31,7 +31,6 @@
           </div>
         </li>
       </ul>
-      <hr />
   </div>
 
 </section>
@@ -58,8 +57,8 @@
                 De nieuwe kaart vereist een beknopte omschrijving.
               </div>
             </div>
-          <button type="createnewcard" class="btn btn-default" [disabled]="!organisationForm.form.valid" (click)="onCreateCard()" data-toggle="modal" data-target="#cardModal">Aanmaken</button>
-          <button type="cancelcard" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()">Annuleren</button>
+          <button type="button" class="btn btn-default" [disabled]="!organisationForm.form.valid" (click)="onCreateCard()" data-toggle="modal" data-target="#cardModal">Aanmaken</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()">Annuleren</button>
         </form>
       </div>
     </div>
@@ -88,8 +87,8 @@
                 De nieuwe kaart vereist een nieuwe beknopte omschrijving.
               </div>
             </div>
-          <button type="createnewcard" class="btn btn-default" [disabled]="!organisationForm.form.valid" (click)="onChangeCard()" data-toggle="modal" data-target="#cardModal">Wijzigen</button>
-          <button type="cancelcard" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()" >Annuleren</button>
+          <button type="button" class="btn btn-default" [disabled]="!organisationForm.form.valid" (click)="onChangeCard()" data-toggle="modal" data-target="#changeCardModal">Wijzigen</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()" >Annuleren</button>
         </form>
       </div>
     </div>

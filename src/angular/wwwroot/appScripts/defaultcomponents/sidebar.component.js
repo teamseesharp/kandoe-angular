@@ -28,8 +28,8 @@ var SidebarComponent = (function () {
             new organisation_1.Organisation("De Baldadige Bierbowlers", "")
         ];
         this.themes = [
-            new theme_1.Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
-            new theme_1.Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+            new theme_1.Theme("Avondje uit", "Welk café nemen we?", new Array("drinken", "gezelligheid", "bier")),
+            new theme_1.Theme("Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", new Array("tennisveld", "gravel", "hard court"))
         ];
         this.cards = [
             new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
