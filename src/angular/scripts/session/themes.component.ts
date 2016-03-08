@@ -5,6 +5,7 @@ import {BodyContentComponent} from '../defaultcomponents/body-content.component'
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Theme} from './model/theme';
+import {Organisation} from './model/organisation';
 
 @Component({
 })
@@ -17,6 +18,7 @@ import {Theme} from './model/theme';
 export class ThemesComponent {
 
     public themes: Array<Theme>;
+    public organisations: Array<Organisation>;
     model = new Theme(3, "TI contactavond", "Wat zijn de belangrijkste competenties voor pas afgestudeerde informatici",
     "tag1, tag2, tag3");
     submitted = false;
@@ -25,6 +27,10 @@ export class ThemesComponent {
         this.themes = [
             new Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
             new Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+        ];
+        this.organisations = [
+            new Organisation("KdG", "Bennie"),
+            new Organisation("De kampioenen", "Olivier")
         ];
     }
 

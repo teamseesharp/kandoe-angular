@@ -21,17 +21,34 @@
     <script src="resources/js/bootstrap-tagsinput.min.js"></script>
     <script src="resources/js/custom.js"></script>
 
-    <script language="javascript">
+    <!--<script language="javascript">
         $(document).ready(function () {
-            setTimeout(function () {
-                $(".nav li").removeClass("active");
+            var sessionsactive = false;
+            var organisationsactive = false;
 
+            setTimeout(function () {
                 $('#sessions').click(function () {
-                    $('#sessions').addClass('active');
+        			$(".nav li").removeClass("active");
+                	if(!sessionsactive) {
+                		sessionsactive = true;
+                    	$('#sessions').addClass("active");
+            		} else {
+            			sessionsactive = false;
+            		}
+                });
+
+                $('#organisations').click(function () {
+                    $(".nav li").removeClass("active");
+                    if(!organisationsactive) {
+                    	organisationsactive = true;
+	                    $('#organisations').addClass("active");
+                    } else {
+                    	organisationsactive = false;
+                    }
                 })
-            }, 50);
+            }, 10000);
         });
-    </script>
+    </script>-->
     <!-- Auth0 Lock script -->
     <!--<script src="//cdn.auth0.com/js/lock-8.2.min.js"></script>-->
 
