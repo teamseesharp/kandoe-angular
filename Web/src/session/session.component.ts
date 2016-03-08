@@ -76,9 +76,7 @@ export class SessionComponent implements OnInit {
         this.accounts.push(new Account("bartje.vochten@gmail.com", "bar"));
         this.accounts[7].firstname = "Bart";
         this.accounts[7].name = "Vochten";
-
-        this.accounts.push(new Account("bartje.vochten@gmail.com", "bar"));
-        this.accounts[8].firstname = "Bart";
+        
         this.myCards.push(new Card("mijn eerste kaart", 0));
         this.myCards.push(new Card("tweede kaart", 0));
         this.myCards.push(new Card("laatste kaart", 0));
