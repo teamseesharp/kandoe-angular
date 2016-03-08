@@ -22,8 +22,8 @@ import {CardContainer} from './model/cardContainer';
 export class SessionComponent {
 
     public session: Session;
-    //players: Array<Account>;
-    public players: Array<String>;
+    public players: Array<Account>;
+    //public players: Array<String>;
     public myCards: Array<Card>;
     public cardGrid: Array<Array<CardContainer>> = [];
 
@@ -31,13 +31,27 @@ export class SessionComponent {
         this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
         this.players = [];
+        this.myCards = [];
+        this.dummyData()
         this.initCardGrid();
     }
 
     private dummyData() {
-        this.players.push("Caskraker");
-        this.players.push("BenNietHier");
-        this.players.push("ThoMasmurder");
+        this.players.push(new Account("cas.craker@gmail.com", "cas"));
+        this.players[0].firstname = "Cas";
+        this.players[0].name = "Craker";
+
+        this.players.push(new Account("bennie.thier@gmail.com", "ben"));
+        this.players[1].firstname = "Bennie";
+        this.players[1].name = "thier";
+
+        this.players.push(new Account("thomas.urder@gmail.com", "tom"));
+        this.players[2].firstname = "thomas";
+        this.players[2].name = "urder";
+
+        this.players.push(new Account("michelle.lvb@gmail.com", "mic"));
+        this.players[3].firstname = "Michelle";
+        this.players[3].name = "Lekkers Van Beckers";
 
         this.myCards.push(new Card("mijn eerste kaart", 0));
         this.myCards.push(new Card("tweede kaart", 0));

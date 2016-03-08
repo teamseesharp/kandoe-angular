@@ -5,25 +5,58 @@
     <sidebar></sidebar>
 </section>
 <section id="main">
-    <div class="row">
-        <div class="banner">
-            <h1>Spel</h1>
-        </div>
-        <div id="gameGrid">
-            <div *ngFor="#row of cardGrid">
-                <div *ngFor="#item of row">
-                    <img class="gameGridItem" (click)="clickTest(item)" [style]="item.visibility" src="resources/images/cardCircleGreen.png" alt="Kaart"/>
-                </div>
-            </div>
-        </div>
+  <div class="row" id="sessionTitle">
+    <div class="banner">
+      <h1>Spel</h1>
     </div>
-<!--
-    <ul id="playersId" *ngFor="#player of players">
-      <li id="playerLi">
-        {{player}}
-      </li>
-    </ul>
-    (een speler die aan de beurt is is highlighted)-->
+  </div>
+  
+  <div class="row" id="playersline">
+    <div class="col-xs-12">
+    <div id="timeline">
+      <!--<div class="dot" id="one">
+        <span></span>
+        <date>1280</date>
+      </div>
+      <ul id="playerlist">
+        <li *ngFor="#player of players">
+          <div class="dot" >
+            <span></span>
+            <p>{{player.firstname}}</p>
+          </div>
+        </li>
+      </ul>-->
+      <div class="dot" >
+        <span></span>
+        <date>1280</date>
+      </div>
+      <div class="dot" >
+        <span></span>
+        <date>1649</date>
+      </div>
+      <div class="dot">
+        <span></span>
+        <date>1831</date>
+      </div>
+      <div class="dot">
+        <span></span>
+        <date>1992</date>
+      </div>
+      <div class="inside"></div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div id="gameGrid">
+      <div *ngFor="#row of cardGrid">
+        <div *ngFor="#item of row">
+          <img class="gameGridItem" (click)="clickTest(item)" [style]="item.visibility" src="resources/images/cardCircleGreen.png" alt="Kaart"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <h2>{{session.description}}</h2>
 
@@ -36,12 +69,14 @@
   </div>
   <div class="row">
     <h2>Mijn kaarten</h2>
-    <ul id="cartsId" *ngFor="#card of myCards">
-      <li id="cartLi">
-        <div class="card">
-          <h5>{{ card.text }}</h5>
-        </div>
-      </li>
-    </ul>
+      <ul id="cardlist">
+        <li *ngFor="#card of myCards">
+          <div class="col-xs-4 col-md-3">
+            <div class="thumbnail">
+              <p>{{ card.text }}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
 </section>

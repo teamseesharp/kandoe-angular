@@ -15,6 +15,7 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var session_1 = require('./model/session');
 var session_2 = require('./model/session');
 var session_type_pipe_1 = require('./session-type.pipe');
+var account_1 = require('../account/model/account');
 var card_1 = require('./model/card');
 var cardContainer_1 = require('./model/cardContainer');
 var SessionComponent = (function () {
@@ -25,12 +26,23 @@ var SessionComponent = (function () {
         this.session = new session_1.Session("test.com", session_2.SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
         this.players = [];
+        this.myCards = [];
+        this.dummyData();
         this.initCardGrid();
     }
     SessionComponent.prototype.dummyData = function () {
-        this.players.push("Caskraker");
-        this.players.push("BenNietHier");
-        this.players.push("ThoMasmurder");
+        this.players.push(new account_1.Account("cas.craker@gmail.com", "cas"));
+        this.players[0].firstname = "Cas";
+        this.players[0].name = "Craker";
+        this.players.push(new account_1.Account("bennie.thier@gmail.com", "ben"));
+        this.players[1].firstname = "Bennie";
+        this.players[1].name = "thier";
+        this.players.push(new account_1.Account("thomas.urder@gmail.com", "tom"));
+        this.players[2].firstname = "thomas";
+        this.players[2].name = "urder";
+        this.players.push(new account_1.Account("michelle.lvb@gmail.com", "mic"));
+        this.players[3].firstname = "Michelle";
+        this.players[3].name = "Lekkers Van Beckers";
         this.myCards.push(new card_1.Card("mijn eerste kaart", 0));
         this.myCards.push(new card_1.Card("tweede kaart", 0));
         this.myCards.push(new card_1.Card("laatste kaart", 0));

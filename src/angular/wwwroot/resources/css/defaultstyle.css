@@ -149,6 +149,10 @@ li.organisationinfo .thumbnail {
     padding-bottom: 10em;
 }
 
+#sessionTitle {
+    height: 3em;
+}
+
 .sesssionsfooter {
     height: 8em;
 }
