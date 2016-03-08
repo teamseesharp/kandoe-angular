@@ -34,11 +34,29 @@ a:hover, a:active, a:focus {
 
 /* Themes and subthemes */
 
+#newThemesRow {
+    height: 4em;
+}
+
+#newThemesRow .btn-info {
+    float: right;
+    margin-right: 23%;
+}
+
 ul.themesoverviewUl {
     list-style: none;
     padding:0; 
     margin-left: 5%;
     margin-right: 5%;
+}
+
+li.themeDetailsLi .panel {
+    background-color: rgba(65,111,20, 0.1);
+}
+
+li.themeDetailsLi .panel-heading {
+    color: whitesmoke;
+    background-color: #84c148;
 }
 
 /* Organisations */
@@ -393,7 +411,7 @@ ul#cardlist {
 }
 
 #newCardRow {
-    height: 3em;
+    height: 4em;
 }
 
 ul#cardlist .thumbnail a.btn-info {

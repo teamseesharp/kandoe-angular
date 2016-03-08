@@ -38,13 +38,11 @@ export class CardsComponent {
 
     onChangeModal(card: Card) {
         this.model = card;
-        alert("Change modal: " + this.model.text)
         //todo: kaart effectief toevoegen
     }
 
     onChangeCard() {
         //todo kaart effectief wijzigen
-        alert("Change card: " + this.model.text)
         this.onCloseModal();
     }
 
