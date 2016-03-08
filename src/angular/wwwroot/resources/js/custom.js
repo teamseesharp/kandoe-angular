@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     //init Tags Input
-    setTimeout(function(){
+    setInterval(function (){
         $('#users').tagsinput({
             typeahead: {
                 name: 'users',

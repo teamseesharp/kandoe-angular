@@ -20,13 +20,17 @@ var SessionsComponent = (function () {
         this._router = _router;
         this._routeParams = _routeParams;
         this.types = [session_2.SessionType.sync, session_2.SessionType.async];
+        this.subthemes = ["Subthema1", "Subthema2", "Subthema3"];
         this.model = new session_1.Session("", session_2.SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
         var ses1 = new session_1.Session("test1.com", session_2.SessionType.sync, "beschrijving", new Date(2016, 0, 12), new Date(2016, 5, 17));
         var ses2 = new session_1.Session("test2.com", session_2.SessionType.sync, "minder goede beschrijving", new Date(2016, 1, 7), new Date(2016, 10, 27));
         var ses3 = new session_1.Session("test3.com", session_2.SessionType.async, "zeer goede beschrijving", new Date(2016, 1, 27), new Date(2016, 7, 8));
         ses1.id = 1;
+        ses1.subtheme = "subthema 1";
         ses2.id = 2;
+        ses2.subtheme = "subthema 2";
         ses3.id = 3;
+        ses3.subtheme = "subthema 3";
         this.sessions = [ses1, ses2, ses3];
         this.sessionDetail = new session_1.Session("", session_2.SessionType.sync, "", new Date(), new Date());
         this.progress = "width: 0%";
@@ -57,6 +61,19 @@ var SessionsComponent = (function () {
     };
     SessionsComponent.prototype.playSession = function (session) {
         this._router.navigate(['Session', { id: session.id }]);
+    };
+    SessionsComponent.prototype.cloneSession = function (session) {
+    };
+    SessionsComponent.prototype.deleteSession = function (session) {
+        /*var tempsessions: Array<Session>;
+        var counter = 0;
+        for (var sessionvar in this.sessions) {
+            if (counter != this.sessions.indexOf(session)) {
+                tempsessions.push(sessionvar);
+            }
+            counter++;
+        }
+        this.sessions = tempsessions.reverse();*/
     };
     SessionsComponent = __decorate([
         core_1.Component({

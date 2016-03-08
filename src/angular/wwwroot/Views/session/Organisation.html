@@ -10,7 +10,7 @@
             <h1>Organisatie: {{ organisation.name }}</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="editorganisationbody">
         <div class="col-xs-1"></div>
         <div class="col-xs-3">
             <img src="../../resources/images/organisation.png" class="organisationlogo" />
@@ -31,7 +31,8 @@
                     <br />
                     <input type="text" name="users" class="form-control" id="users" [(ngModel)]="model.users">
                 </div>
-                <button id="saveorganisationchanges" type="submit" class="btn btn-info btn-lg" [disabled]="!organisationForm.form.valid">
+                <br />
+                <button id="saveorganisationchanges" type="submit" class="btn btn-info" [disabled]="!organisationForm.form.valid">
                     Gegevens opslaan
                 </button>
             </form>

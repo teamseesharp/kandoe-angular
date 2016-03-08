@@ -22,6 +22,7 @@ export class SessionsComponent {
     public sessions: Array<Session>;
     public sessionDetail: Session;
     public types: Array<SessionType> = [SessionType.sync, SessionType.async];
+    public subthemes: Array<String> = ["Subthema1","Subthema2", "Subthema3"];
     public progress: string;
     public sessionDetailHidden: boolean;
 
@@ -32,8 +33,11 @@ export class SessionsComponent {
         var ses2 = new Session("test2.com", SessionType.sync, "minder goede beschrijving", new Date(2016, 1, 7), new Date(2016, 10, 27));
         var ses3 = new Session("test3.com", SessionType.async, "zeer goede beschrijving", new Date(2016, 1, 27), new Date(2016, 7, 8));
         ses1.id = 1;
+        ses1.subtheme = "subthema 1";
         ses2.id = 2;
+        ses2.subtheme = "subthema 2";
         ses3.id = 3;
+        ses3.subtheme = "subthema 3";
         this.sessions = [ses1, ses2, ses3];
         this.sessionDetail = new Session("", SessionType.sync, "", new Date(), new Date());
         this.progress = "width: 0%";
@@ -66,5 +70,20 @@ export class SessionsComponent {
 
     private playSession(session: Session) {
         this._router.navigate(['Session', { id: session.id }]);
+    }
+
+    private cloneSession(session: Session) {
+    }
+
+    private deleteSession(session: Session) {
+        /*var tempsessions: Array<Session>;
+        var counter = 0;
+        for (var sessionvar in this.sessions) {
+            if (counter != this.sessions.indexOf(session)) {
+                tempsessions.push(sessionvar);
+            }
+            counter++;
+        }
+        this.sessions = tempsessions.reverse();*/
     }
 }

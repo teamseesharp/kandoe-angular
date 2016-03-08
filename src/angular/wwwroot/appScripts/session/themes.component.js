@@ -12,6 +12,7 @@ var heading_component_1 = require('../defaultcomponents/heading.component');
 var body_content_component_1 = require('../defaultcomponents/body-content.component');
 var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var theme_1 = require('./model/theme');
+var organisation_1 = require('./model/organisation');
 var ThemesComponent = (function () {
     function ThemesComponent() {
         this.model = new theme_1.Theme(3, "TI contactavond", "Wat zijn de belangrijkste competenties voor pas afgestudeerde informatici", "tag1, tag2, tag3");
@@ -19,6 +20,10 @@ var ThemesComponent = (function () {
         this.themes = [
             new theme_1.Theme(1, "Avondje uit", "Welk café nemen we?", "drinken, gezelligheid, bier"),
             new theme_1.Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", "tennisveld, gravel, hard court")
+        ];
+        this.organisations = [
+            new organisation_1.Organisation("KdG", "Bennie"),
+            new organisation_1.Organisation("De kampioenen", "Olivier")
         ];
     }
     ThemesComponent.prototype.onSubmit = function () {

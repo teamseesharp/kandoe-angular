@@ -27,7 +27,25 @@ a:hover, a:active, a:focus {
     outline: 0;
 }
 
+.modal-header {
+    background-color: #416f14;
+    color: whitesmoke;
+}
+
+/* Themes and subthemes */
+
+ul.themesoverviewUl {
+    list-style: none;
+    padding:0; 
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 /* Organisations */
+
+#editorganisationbody {
+    min-height: 30em;
+}
 
 #neworganisationrow {
     height: 4em;
@@ -56,6 +74,7 @@ ul#organisationlist{
 li.organisationinfo .thumbnail {
     width: 90%;
     min-height: 20em;
+    background-color: rgba(65,111,20, 0.1);
 }
 
 .thumbnail .organisationlogo {
@@ -120,11 +139,40 @@ li.organisationinfo .thumbnail {
     margin-right: 1em;
 }
 
+.sessionsoverview {
+    background-color: rgba(65,111,20, 0.1);
+    width: 90%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    padding-bottom: 10em;
+}
+
+.sesssionsfooter {
+    height: 8em;
+}
+
 .sessionlink {
     float: left;
-    margin-left: 4%;
-    margin-right: 2%;
+    margin-left: 2%;
+    margin-right: 3%;
     width: 5%;
+}
+
+.sessiondescription {
+    text-align: left;
+}
+
+.sessionsbuttons .btn-info {
+    width: 100%;
+}
+
+.descriptionicon {
+    float: left;
+    margin-left: 0%;
+    margin-right: 2%;
+    width: 8%;
 }
 
 .start {
@@ -138,7 +186,6 @@ li.organisationinfo .thumbnail {
 ul#sessionUl {
     list-style: none;
     padding: 0;
-    margin-left: 1%;
 }
 
 li#sessionLi .btn-info{
