@@ -17,18 +17,38 @@ import {Card} from './model/card';
 export class CardsComponent {
 
     public cards: Array<Card>;
-    cardModel = new Card("", 0);
+    model = new Card("", 0);
     submitted = false;
     
     constructor() {
         this.cards = [
-            new Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
-            new Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd", 0)
+            new Card("Kaartje voor verlaging verkeersdrempel", 0),
+            new Card("Kaartje voor organisatie wielerwedstrijd", 0),
+            new Card("Verkiezing verantwoordelijke studentenraad", 1),
+            new Card("Een ander kaartje", 1),
+            new Card("Het vijfde kaartje", 0),
+            new Card("Het allerlaatste kaartje", 0)
         ];
     }
 
-    onSubmit() {
-        alert("nieuwe kaart: " + this.cardModel.text);
-        this.submitted = true;
+    onCreateCard() {
+        this.cards.push(this.model);
+    }
+
+    onChangeModal(card: Card) {
+        this.model = card;
+        alert("Change modal: " + this.model.text)
+        //todo: kaart effectief toevoegen
+        
+    }
+
+    onChangeCard() {
+        //todo kaart effectief wijzigen
+        alert("Change card: " + this.model.text)
+        this.onCloseModal();
+    }
+
+    onCloseModal(){
+        this.model = new Card("", 0);
     }
 }

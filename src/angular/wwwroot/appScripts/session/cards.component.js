@@ -14,16 +14,34 @@ var sidebar_component_1 = require('../defaultcomponents/sidebar.component');
 var card_1 = require('./model/card');
 var CardsComponent = (function () {
     function CardsComponent() {
-        this.cardModel = new card_1.Card("", 0);
+        this.model = new card_1.Card("", 0);
         this.submitted = false;
         this.cards = [
-            new card_1.Card("Dit is een kaartje voor het verlagen van een verkeersdrempel in de gemeente", 0),
-            new card_1.Card("Dit is een kaartje voor het organiseren van een wielerwedstrijd", 0)
+            new card_1.Card("Kaartje voor verlaging verkeersdrempel", 0),
+            new card_1.Card("Kaartje voor organisatie wielerwedstrijd", 0),
+            new card_1.Card("Verkiezing verantwoordelijke studentenraad", 1),
+            new card_1.Card("Een ander kaartje", 1),
+            new card_1.Card("Het vijfde kaartje", 0),
+            new card_1.Card("Het allerlaatste kaartje", 0)
         ];
     }
-    CardsComponent.prototype.onSubmit = function () {
-        alert("nieuwe kaart: " + this.cardModel.text);
-        this.submitted = true;
+    CardsComponent.prototype.onCreateCard = function () {
+        //alert("nieuwe kaart: " + this.cardModel.text);
+        this.cards.push(this.model);
+        //this.onCloseModal();
+    };
+    CardsComponent.prototype.onChangeModal = function (card) {
+        this.model = card;
+        alert("Change modal: " + this.model.text);
+        //todo: kaart effectief toevoegen
+    };
+    CardsComponent.prototype.onChangeCard = function () {
+        //todo kaart effectief wijzigen
+        alert("Change card: " + this.model.text);
+        this.onCloseModal();
+    };
+    CardsComponent.prototype.onCloseModal = function () {
+        this.model = new card_1.Card("", 0);
     };
     CardsComponent = __decorate([
         core_1.Component({}),

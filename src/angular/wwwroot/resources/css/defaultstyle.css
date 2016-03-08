@@ -325,20 +325,31 @@ HTMLJSCSS
 
 
 /*card*/
-.card {
+ul#cardlist .thumbnail {
     background-image: url('../images/card.png');
-    min-height: 26%;
-    min-width: 12%;
-    max-height: 30%;
-    max-width: 16%;
-    margin-top: 10%;
     border-radius: 4px;
-    -moz-box-shadow: 0 0 3px #000000;
-    -webkit-box-shadow: 0 0 3px #000000;
-    box-shadow: 0 0 3px #000000;
     text-align: center;
+    min-height: 15em;
+    font-weight: bold;
+    
 }
 
+ul#cardlist {
+    list-style: none;
+    padding: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#newCardRow {
+    height: 3em;
+}
+
+ul#cardlist .thumbnail a.btn-info {
+    position: absolute;
+    bottom: 2em;
+    left: 30%;
+}
 
 .nav-sidebar { 
     width: 100%;
