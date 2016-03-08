@@ -34,6 +34,9 @@ var OrganisationsComponent = (function () {
     OrganisationsComponent.prototype.onEdit = function (organisation) {
         this._router.navigate(['Organisation', { id: organisation.id }]);
     };
+    OrganisationsComponent.prototype.onClose = function () {
+        alert('hello');
+    };
     OrganisationsComponent = __decorate([
         core_1.Component({
             directives: [heading_component_1.HeadingComponent, body_content_component_1.BodyContentComponent, sidebar_component_1.SidebarComponent],

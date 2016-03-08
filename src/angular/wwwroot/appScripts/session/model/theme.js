@@ -1,6 +1,5 @@
 var Theme = (function () {
-    function Theme(id, name, description, tags) {
-        this.id = id;
+    function Theme(name, description, tags) {
         this.name = name;
         this.description = description;
         this.tags = tags;

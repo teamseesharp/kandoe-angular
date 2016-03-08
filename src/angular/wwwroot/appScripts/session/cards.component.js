@@ -26,9 +26,8 @@ var CardsComponent = (function () {
         ];
     }
     CardsComponent.prototype.onCreateCard = function () {
-        //alert("nieuwe kaart: " + this.cardModel.text);
         this.cards.push(this.model);
-        //this.onCloseModal();
+        this.onCloseModal();
     };
     CardsComponent.prototype.onChangeModal = function (card) {
         this.model = card;

@@ -33,13 +33,13 @@ export class CardsComponent {
 
     onCreateCard() {
         this.cards.push(this.model);
+        this.onCloseModal();
     }
 
     onChangeModal(card: Card) {
         this.model = card;
         alert("Change modal: " + this.model.text)
         //todo: kaart effectief toevoegen
-        
     }
 
     onChangeCard() {
