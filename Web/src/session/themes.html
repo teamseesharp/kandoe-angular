@@ -64,7 +64,7 @@
                             <label for="name">Naam</label>
                             <input type="text" class="form-control" required=""
                                    [(ngModel)]="model.name"
-                                   ngControl="name" #description="ngForm">
+                                   ngControl="name" #name="ngForm">
                             <div [hidden]="name.valid || name.pristine || name.untouched" class="alert alert-danger">
                                 Het nieuwe thema vereist een naam.
                             </div>
