@@ -150,20 +150,26 @@ export class SessionComponent implements OnInit {
         //this.space = "margin-left: 0%;";
     }
 
-    onChangeCardFromList(cardToChange: Card) {
-        var index;
-        for (index = 0; index < this.allCards.length; index++) {
-            if (this.allCards[index] === cardToChange) {
+    onAddCard(cardToAdd: Card) {
+         for (var index = 0; index < this.allCards.length; index++) {
+            if (this.allCards[index] === cardToAdd) {
                 this.allCards.splice(index, 1);
-                this.myCards.push(cardToChange);
-                alert("in alle");
+                this.myCards.push(cardToAdd);
                 break;
-            } else {
+            } 
+        }
+         
+         
+    }
+
+    onRemoveCard(cardToRemove: Card) {
+        for (var index = 0; index < this.myCards.length; index++) {
+            if (this.myCards[index] === cardToRemove) {
                 this.myCards.splice(index, 1);
-                this.allCards.push(cardToChange);
-                alert("in mijn");
+                this.allCards.push(cardToRemove);
                 break;
             }
         }
     }
+
 }

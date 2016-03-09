@@ -71,11 +71,11 @@
     <h2>Kaarten kiezen</h2>
     <h3>Alle kaarten</h3>
     <ul id="allcardlist" class="cardlist">
-      <li *ngFor="#card of allCards">
+      <li *ngFor="#cardd of allCards">
         <div class="col-xs-4 col-md-3">
           <div class="thumbnail">
-            <p>{{ card.text }}</p>
-            <button type="button" class="btn btn-info" (click)="onChangeCardFromList(card)">Kies</button>
+            <p>{{ cardd.text }}</p>
+            <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
           </div>
         </div>
       </li>
@@ -86,11 +86,11 @@
     <h3>Gekozen kaarten</h3>
     <br/>
     <ul id="mycardlist" class="cardlist">
-      <li *ngFor="#card of myCards">
+      <li *ngFor="#carddd of myCards">
         <div class="col-xs-4 col-md-3">
           <div class="thumbnail">
-            <p>{{ card.text }}</p>
-            <button type="button" class="btn btn-info" (click)="onChangeCardFromList(card)">Verwijder</button>
+            <p>{{ carddd.text }}</p>
+            <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
           </div>
         </div>
       </li>
