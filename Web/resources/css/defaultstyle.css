@@ -149,6 +149,10 @@ li.organisationinfo .thumbnail {
     padding-bottom: 10em;
 }
 
+#sessionTitle {
+    height: 3em;
+}
+
 .sesssionsfooter {
     height: 8em;
 }
@@ -372,7 +376,7 @@ HTMLJSCSS
 
 
 /*card*/
-ul#cardlist .thumbnail {
+.cardlist .thumbnail {
     background-image: url('../images/card.png');
     border-radius: 4px;
     text-align: center;
@@ -381,7 +385,7 @@ ul#cardlist .thumbnail {
     
 }
 
-ul#cardlist {
+.cardlist {
     list-style: none;
     padding: 0;
     margin-left: 5%;
@@ -392,7 +396,7 @@ ul#cardlist {
     height: 4em;
 }
 
-ul#cardlist .thumbnail a.btn-info {
+.cardlist .thumbnail a.btn-info {
     position: absolute;
     bottom: 2em;
     left: 30%;

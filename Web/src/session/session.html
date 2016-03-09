@@ -56,11 +56,41 @@
   </div>
   <div class="row">
     <h2>Mijn kaarten</h2>
-    <ul id="cardlist">
+    <ul id="cardlist" class="cardlist">
       <li *ngFor="#card of myCards">
         <div class="col-xs-4 col-md-3">
           <div class="thumbnail">
             <p>{{ card.text }}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <h2>Kaarten kiezen</h2>
+    <h3>Alle kaarten</h3>
+    <ul id="allcardlist" class="cardlist">
+      <li *ngFor="#card of allCards">
+        <div class="col-xs-4 col-md-3">
+          <div class="thumbnail">
+            <p>{{ card.text }}</p>
+            <button type="button" class="btn btn-info" (click)="onChangeCardFromList(card)">Kies</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <br/>
+  </div>
+  <div class="row">
+    <h3>Gekozen kaarten</h3>
+    <br/>
+    <ul id="mycardlist" class="cardlist">
+      <li *ngFor="#card of myCards">
+        <div class="col-xs-4 col-md-3">
+          <div class="thumbnail">
+            <p>{{ card.text }}</p>
+            <button type="button" class="btn btn-info" (click)="onChangeCardFromList(card)">Verwijder</button>
           </div>
         </div>
       </li>
