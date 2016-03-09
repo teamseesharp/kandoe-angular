@@ -25,6 +25,7 @@ export class SessionComponent implements OnInit {
     private session: Session;
     private tooltipText: string;
     private accounts: Array<Account>;
+    private allCards: Array<Card>;
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardContainer>> = [];
     public space: string;
@@ -33,6 +34,7 @@ export class SessionComponent implements OnInit {
         this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
         this.session.id = parseInt(this._routeParams.get('id'));
         this.accounts = [];
+        this.allCards = [];
         this.myCards = [];
         this.tooltipText = "";
         this.dummyData();
@@ -77,9 +79,15 @@ export class SessionComponent implements OnInit {
         this.accounts[7].firstname = "Bart";
         this.accounts[7].name = "Vochten";
         
-        this.myCards.push(new Card("mijn eerste kaart", 0));
-        this.myCards.push(new Card("tweede kaart", 0));
-        this.myCards.push(new Card("laatste kaart", 0));
+        this.allCards.push(new Card("mijn eerste kaart", 0));
+        this.allCards.push(new Card("tweede kaart", 0));
+        this.allCards.push(new Card("Kaartje voor verlaging verkeersdrempel", 0));
+        this.allCards.push(new Card("Kaartje voor organisatie wielerwedstrijd", 0));
+        this.allCards.push(new Card("Verkiezing verantwoordelijke studentenraad", 1));
+        this.allCards.push(new Card("Een ander kaartje", 1));
+        this.allCards.push(new Card("Het vijfde kaartje", 0));
+        this.allCards.push(new Card("Het allerlaatste kaartje", 0));
+        this.allCards.push(new Card("laatste kaart", 0));
     }
 
     private initCardGrid() {
@@ -140,5 +148,22 @@ export class SessionComponent implements OnInit {
 
         this.space = "margin-left: " + result + "%;";
         //this.space = "margin-left: 0%;";
+    }
+
+    onChangeCardFromList(cardToChange: Card) {
+        var index;
+        for (index = 0; index < this.allCards.length; index++) {
+            if (this.allCards[index] === cardToChange) {
+                this.allCards.splice(index, 1);
+                this.myCards.push(cardToChange);
+                alert("in alle");
+                break;
+            } else {
+                this.myCards.splice(index, 1);
+                this.allCards.push(cardToChange);
+                alert("in mijn");
+                break;
+            }
+        }
     }
 }
