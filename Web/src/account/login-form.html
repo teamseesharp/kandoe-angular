@@ -27,4 +27,19 @@
     <h1>Welcome to Angular2 with Auth0</h1>
     <button *ngIf="!loggedIn()" (click)="login()">Login</button>
     <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_form">Larg modal</button>
+</div>
+
+
+<div id="edit_form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">?</button>
+        <h3 id="myModalLabel">Редактирование объекта</h3>
+    </div>
+    <div class="modal-body" id="fm_edit_obj">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отменить</button>
+        <button class="btn btn-primary">Сохранить изменения</button>
+    </div>
 </div>

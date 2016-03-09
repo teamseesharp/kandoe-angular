@@ -84,6 +84,7 @@
     <Content Include="resources\images\kandoeCircleBackground.png" />
     <Content Include="resources\images\KandoeText.png" />
     <Content Include="resources\images\linkicon.png" />
+    <Content Include="resources\images\logo.ico" />
     <Content Include="resources\images\logo.png" />
     <Content Include="resources\images\logozondertekst.png" />
     <Content Include="resources\images\organisation.png" />
@@ -95,7 +96,7 @@
     <Content Include="resources\js\bootstrap-typeahead.js" />
     <Content Include="resources\js\bootstrap.min.js" />
     <Content Include="resources\js\custom.js" />
-    <Content Include="resources\js\jquery-min.js" />
+    <Content Include="resources\js\jquery-2.2.1.min.js" />
     <Content Include="resources\js\timeline.js" />
     <Content Include="src\account\account.html" />
     <Content Include="src\account\login-form.html" />
