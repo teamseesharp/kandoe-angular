@@ -40,8 +40,7 @@
 
 div#timeline {
   background-color: #6ab0de;
-  margin-top: 6em;
-  margin-bottom: 2em;
+  margin-top: 3em;
   height: 1em;
   width: 100%;
   position: relative;
@@ -176,10 +175,13 @@ div.mask article p {
 }
 
 #playersline {
-    height: 10em;
-    
+    height: 8em;
 }
 
 ul#playerlist {
     list-style: none;
+}
+
+#sessionTitle {
+    height: 4em;
 }
