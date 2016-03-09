@@ -41,6 +41,15 @@ ul.themesoverviewUl {
     margin-right: 5%;
 }
 
+ul.themesoverviewUl .panel {
+    background-color: rgba(65,111,20, 0.1);
+}
+
+ul.themesoverviewUl .panel-heading {
+    background-color: #416f14;
+    color: whitesmoke;
+}
+
 /* Organisations */
 
 #editorganisationbody {
