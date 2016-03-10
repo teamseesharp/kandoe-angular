@@ -107,6 +107,7 @@
     <Content Include="src\defaultcomponents\sidebar.html" />
     <Content Include="src\home\home.html" />
     <Content Include="src\message\messages.html" />
+    <Content Include="src\session\analysis.html" />
     <Content Include="src\session\cards.html" />
     <Content Include="src\session\organisation.html" />
     <Content Include="src\session\organisations.html" />
@@ -145,6 +146,7 @@
     <TypeScriptCompile Include="src\home\home.component.ts" />
     <TypeScriptCompile Include="src\message\messages.component.ts" />
     <TypeScriptCompile Include="src\message\model\message.ts" />
+    <TypeScriptCompile Include="src\session\analysis.component.ts" />
     <TypeScriptCompile Include="src\session\cards.component.ts" />
     <TypeScriptCompile Include="src\session\model\card.ts" />
     <TypeScriptCompile Include="src\session\model\cardContainer.ts" />

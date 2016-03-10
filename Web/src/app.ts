@@ -11,6 +11,8 @@ import {OrganisationComponent} from './session/organisation.component';
 import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
 import {SessionComponent} from './session/session.component';
+import {AnalysisComponent} from './session/analysis.component';
+
 
 @Component({
     selector: "app",
@@ -28,7 +30,9 @@ import {SessionComponent} from './session/session.component';
     { path: "/organisaties/:id", name: "Organisation", component: OrganisationComponent},
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
-    { path: "/kaartjes", name: "Cards", component: CardsComponent }
+    { path: "/kaartjes", name: "Cards", component: CardsComponent },
+    { path: "/analyse/:id", name: "Analysis", component: AnalysisComponent }
+        
 ])
 
 export class AppComponent {

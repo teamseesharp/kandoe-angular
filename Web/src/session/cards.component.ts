@@ -18,6 +18,7 @@ export class CardsComponent {
     public cards: Array<Card>;
     model = new Card("", 0);
     submitted = false;
+    cardToChange: Card;
     
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
@@ -38,15 +39,26 @@ export class CardsComponent {
 
     onChangeModal(card: Card) {
         this.model = card;
+        this.cardToChange = card;
         //todo: kaart effectief toevoegen
-    }
-
-    onChangeCard() {
-        //todo kaart effectief wijzigen
-        this.onCloseModal();
     }
 
     onCloseModal() {
         this.model = new Card("", 0);
+    }
+
+    onCreateCard() {
+        this.cards.push(this.model);
+        //Todo kaart pushen
+        this.onCloseModal();
+    }
+
+    onChangeCard() {
+        for (var i = 0; i < this.cards.length; i++) {
+            if (this.cards[i] === this.cardToChange) {
+                this.cards[i].text = this.model.text;
+            }
+        }
+        this.onCloseModal();
     }
 }
