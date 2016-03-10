@@ -35,7 +35,8 @@
                          alt="Kaart" 
                          data-toggle="tooltip" 
                          data-placement="top" 
-                         [title]="item.card.text"/>
+                         [title]="item.card.text"
+                       />
                 </div>
                 
             </div>
@@ -43,6 +44,7 @@
     </div>
 
     <button (click)="placeTestCard()">+</button>
+  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#chooseCardModal" >Kies kaarten</button>
     
   <div class="row">
     <h2>{{session.description}}</h2>
@@ -67,33 +69,50 @@
     </ul>
   </div>
 
-  <div class="row">
-    <h2>Kaarten kiezen</h2>
-    <h3>Alle kaarten</h3>
-    <ul id="allcardlist" class="cardlist">
-      <li *ngFor="#cardd of allCards">
-        <div class="col-xs-4 col-md-3">
-          <div class="thumbnail">
-            <p>{{ cardd.text }}</p>
-            <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <br/>
-  </div>
-  <div class="row">
-    <h3>Gekozen kaarten</h3>
-    <br/>
-    <ul id="mycardlist" class="cardlist">
-      <li *ngFor="#carddd of myCards">
-        <div class="col-xs-4 col-md-3">
-          <div class="thumbnail">
-            <p>{{ carddd.text }}</p>
-            <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
 </section>
+
+<!-- Modal -->
+<div id="chooseCardModal" class="modal fade" role="form">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="newcard" type="button" class="close" data-dismiss="modal" >&times;</button>
+        <h4 class="modal-title">Kaarten kiezen</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <p>Alle kaarten</p>
+          <ul id="allcardlist" class="cardlistModal">
+            <li *ngFor="#cardd of allCards">
+              <div class="col-xs-3 col-md-2">
+                <div class="thumbnail">
+                  <p>{{ cardd.text }}</p>
+                  <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <p>Gekozen kaarten</p>
+          <br/>
+          <ul id="mycardlist" class="cardlistModal">
+            <li *ngFor="#carddd of myCards">
+              <div class="col-xs-3 col-md-2">
+                <div class="thumbnail">
+                  <p>{{ carddd.text }}</p>
+                  <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+          <div class="row">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="submitCards()" >Start</button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,8 @@ export class SessionComponent implements OnInit {
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardContainer>> = [];
     public space: string;
+    public progress: number;
+    public currentPlayer: number;
 
     constructor(private _router: Router, private _routeParams: RouteParams) {
         this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
@@ -36,6 +38,8 @@ export class SessionComponent implements OnInit {
         this.accounts = [];
         this.allCards = [];
         this.myCards = [];
+        this.currentPlayer = 4;
+        this.progress = 0;
         this.tooltipText = "";
         this.dummyData();
         this.initCardGrid();
@@ -83,7 +87,7 @@ export class SessionComponent implements OnInit {
         this.allCards.push(new Card("tweede kaart", 0));
         this.allCards.push(new Card("Kaartje voor verlaging verkeersdrempel", 0));
         this.allCards.push(new Card("Kaartje voor organisatie wielerwedstrijd", 0));
-        this.allCards.push(new Card("Verkiezing verantwoordelijke studentenraad", 1));
+        this.allCards.push(new Card("Verkiezing leider studentenraad", 1));
         this.allCards.push(new Card("Een ander kaartje", 1));
         this.allCards.push(new Card("Het vijfde kaartje", 0));
         this.allCards.push(new Card("Het allerlaatste kaartje", 0));
@@ -147,7 +151,7 @@ export class SessionComponent implements OnInit {
         var result = (100 - (bol * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        //this.space = "margin-left: 0%;";
+        this.progress = (result + bol) * this.currentPlayer;
     }
 
     onAddCard(cardToAdd: Card) {
@@ -170,6 +174,10 @@ export class SessionComponent implements OnInit {
                 break;
             }
         }
+    }
+
+    submitCards() {
+        //Todo allCards lijst meegeven aan backend, gekozen kaarten zijn er niet meer bij.
     }
 
 }
