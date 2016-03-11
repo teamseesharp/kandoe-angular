@@ -1,23 +1,25 @@
 ﻿import {Component} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {Router} from 'angular2/router';
-import {Account} from '../account/model/account';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
 import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
+
+import {Account} from '../account/model/account';
 
 declare var Auth0Lock;
 
 @Component({
     selector: 'login-form',
-    templateUrl: 'src/account/login-form.html'
+    templateUrl: 'src/account/login.html'
 })
 
-export class LoginFormComponent {
+export class LoginComponent {
 
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
     jwtHelper: JwtHelper = new JwtHelper();
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp) {
+        this.login();
     }
 
     model = new Account("test", "test");
@@ -37,6 +39,7 @@ export class LoginFormComponent {
 
             localStorage.setItem('profile', JSON.stringify(profile));
             localStorage.setItem('id_token', id_token);
+            console.log(localStorage.getItem('profile'));
 
             this._router.navigate(['Home']);
         });

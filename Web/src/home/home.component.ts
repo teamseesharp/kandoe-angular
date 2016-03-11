@@ -14,6 +14,6 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 export class HomeComponent {
 
     constructor(private _router: Router) {
-        if (!tokenNotExpired()) { this._router.navigate(['Login']);}
+        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
     }
 }
