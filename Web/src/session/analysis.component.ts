@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from 'angular2/core';
+﻿import {Component} from 'angular2/core';
 import {Router, RouteParams, RouterLink} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
@@ -12,6 +12,6 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 })
 
-export class AnalysisComponent implements OnInit {
+export class AnalysisComponent {
 
 } 
