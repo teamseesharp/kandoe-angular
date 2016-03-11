@@ -33,7 +33,13 @@ export class OrganisationsComponent {
         this.organisations = [org1, org2, org3, org4];
     }
 
-    onSubmit() {
+    onCreateOrganisation() {
+        var organisationTags = document.getElementsByClassName("tag");
+        this.model.users = [];
+        for (var i = 0; i < organisationTags.length; i++) {
+            this.model.users.push(organisationTags[i].firstChild.textContent);
+        }
+
         this.organisations.push(this.model);
         this.model = new Organisation("", "");
     }

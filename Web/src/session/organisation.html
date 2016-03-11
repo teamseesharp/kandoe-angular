@@ -16,7 +16,7 @@
             <img src="../../resources/images/organisation.png" class="organisationlogo" />
         </div>
         <div class="col-xs-7">
-            <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
+            <form (ngSubmit)="onEditOrganisation()" #organisationForm="ngForm">
                 <div class="form-group">
                     <label for="name">Naam</label>
                     <input type="text" class="form-control" required
@@ -27,9 +27,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="users">Gebruikers toevoegen</label>
+                    <label for="users">Gebruikers toevoegen (bevestig elke gebruiker d.m.v. een spatie)</label>
                     <br />
-                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="model.users">
+                    <input type="text" class="form-control typeahead tt-query"  id="users" [(ngModel)]="model.users">
+                    {{ model.users }}
                 </div>
                 <br />
                 <button id="saveorganisationchanges" type="submit" class="btn btn-info" [disabled]="!organisationForm.form.valid">

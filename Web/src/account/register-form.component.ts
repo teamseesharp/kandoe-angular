@@ -15,12 +15,8 @@ export class RegisterFormComponent {
     constructor() {
     }
 
-    submitted = false;
-
     onSubmit() {
         //this.http.get('')
-
-        this.submitted = true;
     }
 
     get diagnostic() { return JSON.stringify(this.model); }

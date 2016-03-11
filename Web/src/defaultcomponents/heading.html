@@ -13,16 +13,16 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a [routerLink]="['Profile']">Profiel</a>
+            <a [routerLink]="['Profile']">Profiel</a>
         </li>
         <li>
-          <a [routerLink]="['Messages']">Berichten</a>
+            <a [routerLink]="['Messages']">Berichten</a>
         </li>
         <li>
-          <a [routerLink]="['Sessions']">Mijn sessies</a>
+            <a [routerLink]="['Sessions']">Mijn sessies</a>
         </li>
         <li>
-            <a [routerLink]="['Login']">Log uit</a>
+            <a href="" (click)="logout()">Log uit</a>
         </li>
       </ul>
     </div>

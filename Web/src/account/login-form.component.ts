@@ -25,7 +25,6 @@ export class LoginFormComponent {
     submitted = false;
 
     onSubmit() {
-        this.submitted = true;
         this._router.navigate(['Home']);
     }
 
@@ -46,6 +45,7 @@ export class LoginFormComponent {
     logout() {
         localStorage.removeItem('profile');
         localStorage.removeItem('id_token');
+        this._router.navigate(['Login']);
     }
 
     loggedIn() {

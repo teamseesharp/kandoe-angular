@@ -50,6 +50,10 @@ ul.themesoverviewUl .panel-heading {
     color: whitesmoke;
 }
 
+#newThemesRow {
+    height: 4em;
+}
+
 /* Organisations */
 
 #editorganisationbody {
@@ -211,7 +215,7 @@ li#sessionLi .btn-info{
 }
 
 #newSessionRow {
-    height: 3em;
+    height: 4em;
 }
 
 /* Main nav menu in sidebar */

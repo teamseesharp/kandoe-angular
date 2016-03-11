@@ -18,24 +18,30 @@ export class ThemesComponent {
 
     public themes: Array<Theme>;
     public organisations: Array<Organisation>;
-    model = new Theme(3, "TI contactavond", "Wat zijn de belangrijkste competenties voor pas afgestudeerde informatici",
-        new Array("tag1", "tag2", "tag3"));
-    submitted = false;
-    
+    model = new Theme("", "");
+
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-
         this.themes = [
-            new Theme(1, "Avondje uit", "Welk café nemen we?", new Array("drinken", "gezelligheid", "bier")),
-            new Theme(2, "Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?", new Array("tennisveld", "gravel", "hard court"))
+            new Theme("Avondje uit", "Welk café nemen we?"),
+            new Theme("Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?")
         ];
+        this.themes[0].tags = ["drinken", "gezelligheid", "bier"];
+        this.themes[1].tags = ["tennisveld", "gravel", "hard court"];
         this.organisations = [
             new Organisation("KdG", "Bennie"),
             new Organisation("De kampioenen", "Olivier")
         ];
     }
 
-    onSubmit() {
-        this.submitted = true;
+    onCreateTheme() {
+        var organisationTags = document.getElementsByClassName("tag");
+        this.model.tags = [];
+        for (var i = 0; i < organisationTags.length; i++) {
+            this.model.tags.push(organisationTags[i].firstChild.textContent);
+        }
+
+        this.themes.push(this.model);
+        this.model = new Theme("", "");
     }
 }

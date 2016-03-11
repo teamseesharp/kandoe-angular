@@ -1,11 +1,11 @@
 ﻿import {Organisation} from './organisation';
 export class Theme {
     public organisation: Organisation;
+    public id: number;
+    public tags: Array<String>;
 
     constructor(
-        public id: number,
         public name: string,
-        public description: string,
-        public tags: Array<String>
+        public description: string
     ) { }
 }
