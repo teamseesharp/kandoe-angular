@@ -405,6 +405,33 @@ HTMLJSCSS
     margin-right: 5%;
 }
 
+.cardlistModal .thumbnail{
+    background-image: url('../images/card.png');
+    border-radius: 4px;
+    text-align: center;
+    min-height: 10em;
+    font-weight: bold;
+    min-width: 12%;
+}
+
+.cardlistModal {
+    list-style: none;
+    padding: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.cardlistModal .thumbnail .btn-info {
+    position: absolute;
+    bottom: 2em;
+    left: 30%;
+}
+
+#chooseCardModal .modal-dialog {
+    height: auto;
+    width: 70%;
+}
+
 #newCardRow {
     height: 4em;
 }

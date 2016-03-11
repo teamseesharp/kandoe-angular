@@ -29,6 +29,8 @@ export class SessionComponent implements OnInit {
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardContainer>> = [];
     public space: string;
+    public progress: number;
+    public currentPlayer: number;
 
     constructor(private _router: Router, private _routeParams: RouteParams) {
         this.session = new Session("test.com", SessionType.sync, "", new Date(Date.now()), new Date(Date.now()));
@@ -36,6 +38,8 @@ export class SessionComponent implements OnInit {
         this.accounts = [];
         this.allCards = [];
         this.myCards = [];
+        this.currentPlayer = 4;
+        this.progress = 0;
         this.tooltipText = "";
         this.dummyData();
         this.initCardGrid();
@@ -83,7 +87,7 @@ export class SessionComponent implements OnInit {
         this.allCards.push(new Card("tweede kaart", 0));
         this.allCards.push(new Card("Kaartje voor verlaging verkeersdrempel", 0));
         this.allCards.push(new Card("Kaartje voor organisatie wielerwedstrijd", 0));
-        this.allCards.push(new Card("Verkiezing verantwoordelijke studentenraad", 1));
+        this.allCards.push(new Card("Verkiezing leider studentenraad", 1));
         this.allCards.push(new Card("Een ander kaartje", 1));
         this.allCards.push(new Card("Het vijfde kaartje", 0));
         this.allCards.push(new Card("Het allerlaatste kaartje", 0));
@@ -147,23 +151,33 @@ export class SessionComponent implements OnInit {
         var result = (100 - (bol * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        //this.space = "margin-left: 0%;";
+        this.progress = (result + bol) * this.currentPlayer;
     }
 
-    onChangeCardFromList(cardToChange: Card) {
-        var index;
-        for (index = 0; index < this.allCards.length; index++) {
-            if (this.allCards[index] === cardToChange) {
+    onAddCard(cardToAdd: Card) {
+         for (var index = 0; index < this.allCards.length; index++) {
+            if (this.allCards[index] === cardToAdd) {
                 this.allCards.splice(index, 1);
-                this.myCards.push(cardToChange);
-                alert("in alle");
+                this.myCards.push(cardToAdd);
                 break;
-            } else {
+            } 
+        }
+         
+         
+    }
+
+    onRemoveCard(cardToRemove: Card) {
+        for (var index = 0; index < this.myCards.length; index++) {
+            if (this.myCards[index] === cardToRemove) {
                 this.myCards.splice(index, 1);
-                this.allCards.push(cardToChange);
-                alert("in mijn");
+                this.allCards.push(cardToRemove);
                 break;
             }
         }
     }
+
+    submitCards() {
+        //Todo allCards lijst meegeven aan backend, gekozen kaarten zijn er niet meer bij.
+    }
+
 }
