@@ -78,7 +78,8 @@
     <Content Include="resources\css\bootstrap.min.css" />
     <Content Include="resources\css\defaultstyle.css" />
     <Content Include="resources\css\timeline.css" />
-    <Content Include="resources\images\card.png" />
+    <Content Include="resources\images\backgroundkandoe.png" />
+    <Content Include="resources\images\cardbackground.png" />
     <Content Include="resources\images\cardCircleGreen.png" />
     <Content Include="resources\images\descriptionicon.png" />
     <Content Include="resources\images\editicon.png" />

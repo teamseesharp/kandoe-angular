@@ -1,4 +1,4 @@
-﻿import {Component} from 'angular2/core';
+﻿import {Component, OnInit} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {Router} from 'angular2/router';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
@@ -13,42 +13,34 @@ declare var Auth0Lock;
     templateUrl: 'src/account/login.html'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
     jwtHelper: JwtHelper = new JwtHelper();
+    model = new Account("test", "test");
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp) {
+    }
+
+    ngOnInit() {
         this.login();
     }
 
-    model = new Account("test", "test");
-
-    submitted = false;
-
-    onSubmit() {
-        this._router.navigate(['Home']);
-    }
-
     login() {
-        this.lock.show((err: string, profile: string, id_token: string) => {
-
+        this.lock.show({
+            dict: 'nl',
+            container: 'login-container',
+            icon: 'http://i.imgur.com/Ito7Jwe.png'
+        }, (err: string, profile: string, id_token: string) => {
             if (err) {
                 throw new Error(err);
             }
 
             localStorage.setItem('profile', JSON.stringify(profile));
             localStorage.setItem('id_token', id_token);
-            console.log(localStorage.getItem('profile'));
 
             this._router.navigate(['Home']);
         });
-    }
-
-    logout() {
-        localStorage.removeItem('profile');
-        localStorage.removeItem('id_token');
-        this._router.navigate(['Login']);
     }
 
     loggedIn() {
