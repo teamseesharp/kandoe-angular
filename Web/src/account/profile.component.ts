@@ -7,7 +7,6 @@ import {BodyContentComponent} from '../defaultcomponents/body-content.component'
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Account} from './model/account';
-import {AccountDTO} from './model/account.dto';
 import {AccountService} from './account.service';
 
 @Component({
@@ -17,26 +16,20 @@ import {AccountService} from './account.service';
 })
 
 export class ProfileComponent {
-    model = new Account("helsen.bennie@hotmail.be", "Test1234");
-    submitted = false;
-    private accountDTO: AccountDTO = new AccountDTO();
+    model = new Account();
+    private account: Account = new Account();
 
     constructor(private _router: Router, private _accountService: AccountService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _accountService.getAccount()
             .subscribe(
-            data => console.log(data.json()),
+            data => this.model = _accountService.accountFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
         );
-        console.log(this.accountDTO);
     }
 
     onSubmit() {
-        this.submitted = true;
-        //Todo call to backend
-
+        this._accountService.postAccount(this.model);
     }
-
-    get diagnostic() { return JSON.stringify(this.model); }
 }

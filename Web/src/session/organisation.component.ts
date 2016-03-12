@@ -15,23 +15,23 @@ import {Organisation} from './model/organisation';
 
 export class OrganisationComponent{
     organisation: Organisation;
-    model = new Organisation("","");
+    model = new Organisation();
 
     constructor(private _router: Router, private _routeParams: RouteParams) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         
         //vervangen door api call, get van session, id meegeven
-        this.organisation = new Organisation("testorganisatie", "testeigenaar");
+        this.organisation = new Organisation();
         this.organisation.id = parseInt(this._routeParams.get('id'));
-        this.organisation.users = ["joske@hotmail.com", "jefke@hotmail.com"];
+        //this.organisation.users = ["joske@hotmail.com", "jefke@hotmail.com"];
         this.model = this.organisation;
     }
 
     onEditOrganisation() {
         var organisationTags = document.getElementsByClassName("tag");
-        this.model.users = [];
+        //this.model.users = [];
         for (var i = 0; i < organisationTags.length; i++) {
-            this.model.users.push(organisationTags[i].firstChild.textContent);
+            //this.model.users.push(organisationTags[i].firstChild.textContent);
         }
     }
 }

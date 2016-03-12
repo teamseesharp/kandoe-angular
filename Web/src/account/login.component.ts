@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
     jwtHelper: JwtHelper = new JwtHelper();
-    model = new Account("test", "test");
+    model = new Account();
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp) {
     }

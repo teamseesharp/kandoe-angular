@@ -22,16 +22,16 @@
                            [(ngModel)]="model.name"
                            ngControl="name" #name="ngForm">
                     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                        Naam is vereist!
+                        Voornaam is vereist!
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstname">Voornaam</label>
-                    <input id="firstname" type="text" class="form-control" required
-                           [(ngModel)]="model.firstname"
-                           ngControl="firstname" #firstname="ngForm">
-                    <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
-                        Voornaam is vereist!
+                    <label for="lastname">Achternaam</label>
+                    <input id="lastname" type="text" class="form-control" required
+                           [(ngModel)]="model.surname"
+                           ngControl="lastname" #lastname="ngForm">
+                    <div [hidden]="lastname.valid || lastname.pristine" class="alert alert-danger">
+                        Achternaam is vereist!
                     </div>
                 </div>
                 <div class="form-group">

@@ -16,32 +16,40 @@ import {Organisation} from './model/organisation';
 export class OrganisationsComponent {
 
     public organisations: Array<Organisation>;
-    model = new Organisation("", "");
+    model = new Organisation();
     
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        this.initializeOrganisations();
+    }
 
-        var org1 = new Organisation("KdG", "Marvin");
-        var org2 = new Organisation("De Baldadige Bierbowlers", "Louise");
-        var org3 = new Organisation("FC De Kampioenen", "Jolyn");
-        var org4 = new Organisation("De postduif", "Luc");
+    initializeOrganisations() {
+        var org1 = new Organisation();
+        var org2 = new Organisation();
+        var org3 = new Organisation();
+        var org4 = new Organisation();
 
         org1.id = 1;
+        org1.name = "KdG";
         org2.id = 2;
+        org2.name = "De Baldadige Bierbowlers";
         org3.id = 3;
+        org3.name = "FC De Kampioenen"
         org4.id = 4;
+        org4.name = "De postduif"
+
         this.organisations = [org1, org2, org3, org4];
     }
 
     onCreateOrganisation() {
         var organisationTags = document.getElementsByClassName("tag");
-        this.model.users = [];
+        //this.model.users = [];
         for (var i = 0; i < organisationTags.length; i++) {
-            this.model.users.push(organisationTags[i].firstChild.textContent);
+            //this.model.users.push(organisationTags[i].firstChild.textContent);
         }
 
         this.organisations.push(this.model);
-        this.model = new Organisation("", "");
+        this.model = new Organisation();
     }
 
     onEdit(organisation: Organisation) {

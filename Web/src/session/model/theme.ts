@@ -1,11 +1,16 @@
-﻿import {Organisation} from './organisation';
-export class Theme {
-    public organisation: Organisation;
-    public id: number;
-    public tags: Array<String>;
+﻿import {Card} from './card';
+import {Subtheme} from './subtheme';
 
-    constructor(
-        public name: string,
-        public description: string
-    ) { }
+export class Theme {
+
+    public id: number;
+    public name: string;
+    public description: string;
+    public organisationId: number;
+    public organiser: number;
+    public tags: string;
+
+    public selectionCards: Array<Card>;
+    public subthemes: Array<Subtheme>;
+
 }
