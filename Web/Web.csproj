@@ -77,6 +77,7 @@
     <Content Include="resources\css\bootstrap-typeahead.css" />
     <Content Include="resources\css\bootstrap.min.css" />
     <Content Include="resources\css\defaultstyle.css" />
+    <Content Include="resources\css\jasny-bootstrap.min.css" />
     <Content Include="resources\css\timeline.css" />
     <Content Include="resources\images\backgroundkandoe.png" />
     <Content Include="resources\images\cardbackground.png" />
@@ -97,7 +98,9 @@
     <Content Include="resources\js\bootstrap-tagsinput.min.js" />
     <Content Include="resources\js\bootstrap-typeahead.js" />
     <Content Include="resources\js\bootstrap.min.js" />
+    <Content Include="resources\js\uploadprofilepic.js" />
     <Content Include="resources\js\custom.js" />
+    <Content Include="resources\js\jasny-bootstrap.min.js" />
     <Content Include="resources\js\jquery-2.2.1.min.js" />
     <Content Include="resources\js\timeline.js" />
     <Content Include="src\account\login.html" />

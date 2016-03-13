@@ -30,6 +30,7 @@ export class ProfileComponent {
     }
 
     onSubmit() {
+        var id = document.getElementById('profilepicture');
         this._accountService.postAccount(this.model);
     }
 }
