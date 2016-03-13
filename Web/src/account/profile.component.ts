@@ -30,6 +30,9 @@ export class ProfileComponent {
     }
 
     onSubmit() {
+        var picture = document.getElementById('profilepicture').innerText;
+        this.model.picture = "http://i.imgur.com/" + picture + ".png";
+
         this._accountService.patchAccount(this.model)
             .subscribe(
             err => console.log(err),

@@ -13,12 +13,12 @@
     <div class="row">
         <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
             <div class="col-xs-6">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                        <img src="http://i.imgur.com/zG0qXMN.jpg" alt="profiel foto" />
+                <div class="fileinput fileinput-new" id="uploadpicturespace" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="max-width: 170%; height: 14em;">
+                        <img src="{{model.picture}}" alt="profiel foto" />
                         <div id="profilepicture" type="text" hidden></div>
                     </div>
-                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 170%; max-height: 14em;"></div>
                     <div>
                         <span class="btn btn-info btn-file"><span class="fileinput-new">Selecteer een foto</span><span class="fileinput-exists">Wijzig</span><input type="file" name="..."></span>
                         <a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Verwijder</a>
@@ -60,6 +60,7 @@
             </div>
         </form>
     </div>
+    <div class="row" id="profilefooter"></div>
 
   <!-- Modal -->
   <div id="changesModal" class="modal fade" role="dialog">
