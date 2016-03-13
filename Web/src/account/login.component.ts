@@ -1,36 +1,37 @@
-﻿import {Component} from 'angular2/core';
+﻿import {Component, OnInit} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {Router} from 'angular2/router';
-import {Account} from '../account/model/account';
 import {HTTP_PROVIDERS, Http} from "angular2/http";
 import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
+
+import {Account} from '../account/model/account';
 
 declare var Auth0Lock;
 
 @Component({
     selector: 'login-form',
-    templateUrl: 'src/account/login-form.html'
+    templateUrl: 'src/account/login.html'
 })
 
-export class LoginFormComponent {
+export class LoginComponent implements OnInit {
 
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
     jwtHelper: JwtHelper = new JwtHelper();
+    model = new Account();
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp) {
     }
 
-    model = new Account("test", "test");
-
-    submitted = false;
-
-    onSubmit() {
-        this._router.navigate(['Home']);
+    ngOnInit() {
+        this.login();
     }
 
     login() {
-        this.lock.show((err: string, profile: string, id_token: string) => {
-
+        this.lock.show({
+            dict: 'nl',
+            container: 'login-container',
+            icon: 'http://i.imgur.com/Ito7Jwe.png'
+        }, (err: string, profile: string, id_token: string) => {
             if (err) {
                 throw new Error(err);
             }
@@ -40,12 +41,6 @@ export class LoginFormComponent {
 
             this._router.navigate(['Home']);
         });
-    }
-
-    logout() {
-        localStorage.removeItem('profile');
-        localStorage.removeItem('id_token');
-        this._router.navigate(['Login']);
     }
 
     loggedIn() {

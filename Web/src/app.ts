@@ -1,7 +1,7 @@
 ﻿import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 
-import {AccountFormsComponent} from './account/account-forms.component';
+import {LoginComponent} from './account/login.component';
 import {ProfileComponent} from './account/profile.component';
 import {HomeComponent} from './home/home.component';
 import {SessionsComponent} from './session/sessions.component';
@@ -16,13 +16,13 @@ import {AnalysisComponent} from './session/analysis.component';
 
 @Component({
     selector: "app",
-    directives: [ HomeComponent, ProfileComponent, AccountFormsComponent, ROUTER_DIRECTIVES],
+    directives: [ HomeComponent, ProfileComponent, LoginComponent, ROUTER_DIRECTIVES],
     template: `<router-outlet></router-outlet>`
 })
 
 @RouteConfig([
     { path: "/", name: "Home", component: HomeComponent, useAsDefault: true },
-    { path: "/login", name: "Login", component: AccountFormsComponent },
+    { path: "/login", name: "Login", component: LoginComponent },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
     { path: "/sessies/:id", name: "Session", component: SessionComponent },

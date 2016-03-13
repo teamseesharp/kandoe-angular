@@ -6,7 +6,6 @@ import {SessionType} from './model/session';
 export class SessionTypePipe implements PipeTransform {
 
     transform(value: SessionType, args: string[]): string {
-        //return value == SessionType.sync ? 'sync' : 'async';
         return SessionType[value];
     }
 }

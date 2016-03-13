@@ -77,8 +77,10 @@
     <Content Include="resources\css\bootstrap-typeahead.css" />
     <Content Include="resources\css\bootstrap.min.css" />
     <Content Include="resources\css\defaultstyle.css" />
+    <Content Include="resources\css\jasny-bootstrap.min.css" />
     <Content Include="resources\css\timeline.css" />
-    <Content Include="resources\images\card.png" />
+    <Content Include="resources\images\backgroundkandoe.png" />
+    <Content Include="resources\images\cardbackground.png" />
     <Content Include="resources\images\cardCircleGreen.png" />
     <Content Include="resources\images\descriptionicon.png" />
     <Content Include="resources\images\editicon.png" />
@@ -96,13 +98,13 @@
     <Content Include="resources\js\bootstrap-tagsinput.min.js" />
     <Content Include="resources\js\bootstrap-typeahead.js" />
     <Content Include="resources\js\bootstrap.min.js" />
+    <Content Include="resources\js\uploadprofilepic.js" />
     <Content Include="resources\js\custom.js" />
+    <Content Include="resources\js\jasny-bootstrap.min.js" />
     <Content Include="resources\js\jquery-2.2.1.min.js" />
     <Content Include="resources\js\timeline.js" />
-    <Content Include="src\account\account.html" />
-    <Content Include="src\account\login-form.html" />
+    <Content Include="src\account\login.html" />
     <Content Include="src\account\profile.html" />
-    <Content Include="src\account\register-form.html" />
     <Content Include="src\defaultcomponents\body-content.html" />
     <Content Include="src\defaultcomponents\heading.html" />
     <Content Include="src\defaultcomponents\sidebar.html" />
@@ -134,11 +136,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <TypeScriptCompile Include="src\account\account-forms.component.ts" />
-    <TypeScriptCompile Include="src\account\login-form.component.ts" />
+    <TypeScriptCompile Include="src\account\account.service.ts" />
+    <TypeScriptCompile Include="src\account\login.component.ts" />
     <TypeScriptCompile Include="src\account\model\account.ts" />
     <TypeScriptCompile Include="src\account\profile.component.ts" />
-    <TypeScriptCompile Include="src\account\register-form.component.ts" />
     <TypeScriptCompile Include="src\app.ts" />
     <TypeScriptCompile Include="src\boot.ts" />
     <TypeScriptCompile Include="src\defaultcomponents\body-content.component.ts" />
@@ -149,6 +150,8 @@
     <TypeScriptCompile Include="src\message\model\message.ts" />
     <TypeScriptCompile Include="src\session\analysis.component.ts" />
     <TypeScriptCompile Include="src\session\cards.component.ts" />
+    <TypeScriptCompile Include="src\session\model\subtheme.ts" />
+    <TypeScriptCompile Include="src\session\organisation.service.ts" />
     <TypeScriptCompile Include="src\session\model\card.ts" />
     <TypeScriptCompile Include="src\session\model\cardContainer.ts" />
     <TypeScriptCompile Include="src\session\model\organisation.ts" />

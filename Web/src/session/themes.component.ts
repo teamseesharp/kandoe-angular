@@ -18,30 +18,50 @@ export class ThemesComponent {
 
     public themes: Array<Theme>;
     public organisations: Array<Organisation>;
-    model = new Theme("", "");
+    model = new Theme();
 
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.themes = [
-            new Theme("Avondje uit", "Welk café nemen we?"),
-            new Theme("Nieuw tennisveld", "Welke ondergrond kiezen we, gravel of hard court?")
-        ];
-        this.themes[0].tags = ["drinken", "gezelligheid", "bier"];
-        this.themes[1].tags = ["tennisveld", "gravel", "hard court"];
-        this.organisations = [
-            new Organisation("KdG", "Bennie"),
-            new Organisation("De kampioenen", "Olivier")
-        ];
+        this.initializeThemes();
+        this.initializeOrganisations();
+    }
+
+    initializeThemes() {
+        var theme1 = new Theme();
+        var theme2 = new Theme();
+        theme1.description = "Welk café nemen we?";
+        theme1.name = "Avondje uit";
+        theme2.description = "Welke ondergrond kiezen we, gravel of hard court?";
+        theme2.name = "Nieuw tennisveld";
+    }
+
+    initializeOrganisations() {
+        var org1 = new Organisation();
+        var org2 = new Organisation();
+        var org3 = new Organisation();
+        var org4 = new Organisation();
+
+        org1.id = 1;
+        org1.name = "KdG";
+        org2.id = 2;
+        org2.name = "De Baldadige Bierbowlers";
+        org3.id = 3;
+        org3.name = "FC De Kampioenen"
+        org4.id = 4;
+        org4.name = "De postduif"
+
+        this.organisations = [org1, org2, org3, org4];
     }
 
     onCreateTheme() {
         var organisationTags = document.getElementsByClassName("tag");
-        this.model.tags = [];
+        // tags is nu 1 string (gescheiden door ,? idk fosho), geen array van strings
+        /*this.model.tags = [];
         for (var i = 0; i < organisationTags.length; i++) {
             this.model.tags.push(organisationTags[i].firstChild.textContent);
-        }
+        }*/
 
         this.themes.push(this.model);
-        this.model = new Theme("", "");
+        this.model = new Theme();
     }
 }

@@ -16,20 +16,22 @@ import {Card} from './model/card';
 export class CardsComponent {
 
     public cards: Array<Card>;
-    model = new Card("", 0);
+    model = new Card();
     submitted = false;
     cardToChange: Card;
     
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.cards = [
-            new Card("Kaartje voor verlaging verkeersdrempel", 0),
-            new Card("Kaartje voor organisatie wielerwedstrijd", 0),
-            new Card("Verkiezing verantwoordelijke studentenraad", 1),
-            new Card("Een ander kaartje", 1),
-            new Card("Het vijfde kaartje", 0),
-            new Card("Het allerlaatste kaartje", 0)
-        ];
+        this.initializeCards();
+    }
+
+    initializeCards() {
+        this.cards = [];
+        var cardStrings = ["Kaartje voor verlaging verkeersdrempel", "Kaartje voor organisatie wielerwedstrijd", "Verkiezing verantwoordelijke studentenraad", "Een ander kaartje", "Het allerlaatste kaartje"];
+        for (var i = 0; i < 5; i++) {
+            var card = new Card();
+            card.text = cardStrings[i];
+        }
     }
 
     onSubmit() {
@@ -44,7 +46,7 @@ export class CardsComponent {
     }
 
     onCloseModal() {
-        this.model = new Card("", 0);
+        this.model = new Card();
     }
 
     onCreateCard() {

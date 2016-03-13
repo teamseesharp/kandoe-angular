@@ -15,5 +15,6 @@
                 local: ['a', 'b', 'c', 'd']
             }        });
         $('[data-toggle="tooltip"]').tooltip();
+
     }, 500);
 });

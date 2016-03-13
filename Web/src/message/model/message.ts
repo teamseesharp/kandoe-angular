@@ -1,6 +1,9 @@
 ﻿export class Message {
-    constructor(
-        public id: number,
-        public content: string
-    ) { }
+
+    public id: number;
+    public messengerId: number;
+    public sessionId: number;
+    public text: string;
+    public timestamp: Date;
+
 }

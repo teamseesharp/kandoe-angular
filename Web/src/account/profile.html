@@ -11,27 +11,37 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6">
-            <img src="../../resources/images/userman.png" class="img-circle" alt="profiel foto" />
-        </div>
-        <div class="col-xs-6 profile">
-            <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+        <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+            <div class="col-xs-6">
+                <div class="fileinput fileinput-new" id="uploadpicturespace" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="max-width: 170%; height: 14em;">
+                        <img src="{{model.picture}}" alt="profiel foto" />
+                        <div id="profilepicture" type="text" hidden></div>
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 170%; max-height: 14em;"></div>
+                    <div>
+                        <span class="btn btn-info btn-file"><span class="fileinput-new">Selecteer een foto</span><span class="fileinput-exists">Wijzig</span><input type="file" name="..."></span>
+                        <a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Verwijder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 profile">
                 <div class="form-group">
                     <label for="name">Naam</label>
                     <input id="lastname" type="text" class="form-control" required
                            [(ngModel)]="model.name"
                            ngControl="name" #name="ngForm">
                     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                        Naam is vereist!
+                        Voornaam is vereist!
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstname">Voornaam</label>
-                    <input id="firstname" type="text" class="form-control" required
-                           [(ngModel)]="model.firstname"
-                           ngControl="firstname" #firstname="ngForm">
-                    <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
-                        Voornaam is vereist!
+                    <label for="lastname">Achternaam</label>
+                    <input id="lastname" type="text" class="form-control" required
+                           [(ngModel)]="model.surname"
+                           ngControl="lastname" #lastname="ngForm">
+                    <div [hidden]="lastname.valid || lastname.pristine" class="alert alert-danger">
+                        Achternaam is vereist!
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,13 +53,14 @@
                         E-mail is vereist!
                     </div>
                 </div>
-                <button id="btnopslaan" type="submit" class="btn btn-default"
+                <button id="saveProfileChangesButton" type="submit" class="btn btn-info"
                         [disabled]="!profileForm.form.valid" data-toggle="modal" data-target="#changesModal">
                     Wijzigingen opslaan
                 </button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+    <div class="row" id="profilefooter"></div>
 
   <!-- Modal -->
   <div id="changesModal" class="modal fade" role="dialog">
@@ -65,7 +76,7 @@
           <p>De wijzigingen zijn doorgebracht.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
         </div>
       </div>
     </div>
