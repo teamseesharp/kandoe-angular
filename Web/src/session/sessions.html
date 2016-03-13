@@ -62,10 +62,10 @@
                     <button type="button" class="btn btn-info" (click)="playOrAnalyseSession(sessionDetail)">{{sessionVerlopen}}</button>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)">Kopieer</button>
+                    <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="deleteSession(sessionDetail)">Verwijder</button>
+                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)">Wijzigen</button>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
         <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Nieuwe organisatie</h4>
+            <h4 class="modal-title">Nieuwe sessie</h4>
         </div>
         <div class="modal-body">
 
@@ -127,4 +127,60 @@
         </div>
         </div>
     </div>
+
+  <!-- Modal
+  <div id="sessionModal" class="modal" role="form">
+    <div class="modal-dialog">
+
+      <!-- Modal content
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Sessie wijzigen</h4>
+        </div>
+        <div class="modal-body">
+
+          <!-- Create organisation form
+          <form (ngSubmit)="onSubmit()" #sessionForm="ngForm">
+            <div class="form-group">
+              <label for="description">Omschrijving</label>
+              <input type="text" class="form-control" required=""
+                        ngModel=""
+                      ngControl="description" #description="ngForm">
+                <div [hidden]="description.valid || description.pristine || description.untouched" class="alert alert-danger">
+                  De nieuwe sessie vereist een omschrijving.
+                </div>
+              </div>
+            <div class="form-group">
+              <label for="sessionType">Sessietype</label>
+              <select class="form-control" [(ngModel)]="model.type">
+                <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subtheme">Subthema</label>
+              <select class="form-control" [(ngModel)]="model.subtheme">
+                <option *ngFor="#subtheme of subthemes" [value]="subtheme">{{ subtheme }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="startDate">Start datum</label>
+              <input id="startdate" type="date" class="form-control" [(ngModel)]="model.start"/>
+            </div>
+            <div class="form-group">
+              <label for="endDate">Eind datum</label>
+              <input id="enddate" type="date" class="form-control" [(ngModel)]="model.end"/>
+            </div>
+            <div class="form-group">
+              <label for="users">Gebruikers toevoegen</label>
+              <br />
+              <input type="text" name="users" class="form-control" id="users" [(ngModel)]="model.users">
+                </div>
+            <button type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>-->
 </section>

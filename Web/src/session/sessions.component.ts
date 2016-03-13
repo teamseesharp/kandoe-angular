@@ -27,24 +27,21 @@ export class SessionsComponent implements OnInit {
     public progress: string;
     public sessionDetailHidden: boolean;
     public sessionVerlopen: string;
-
-    model = new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
-    
+    model: Session;
+        
     constructor(private _router: Router, private _routeParams: RouteParams) {
-        var ses1 = new Session("test1.com", SessionType.sync, "beschrijving", new Date(2016, 0, 12), new Date(2016, 5, 17));
-        var ses2 = new Session("test2.com", SessionType.sync, "minder goede beschrijving", new Date(2016, 1, 7), new Date(2016, 10, 27));
-        var ses3 = new Session("test3.com", SessionType.async, "zeer goede beschrijving", new Date(2016, 1, 27), new Date(2016, 7, 8));
-        var ses4 = new Session("test4.com", SessionType.async, "Een gewone beschrijving", new Date(2016, 1, 15), new Date(2016, 2, 9));
+        this.model = this.resetSession();
+
+        var ses1 = new Session("test1.com", SessionType.sync, "beschrijving", new Date(2016, 0, 12), new Date(2016, 5, 17), "subthema 1");
+        var ses2 = new Session("test2.com", SessionType.sync, "minder goede beschrijving", new Date(2016, 1, 7), new Date(2016, 10, 27), "subthema 2");
+        var ses3 = new Session("test3.com", SessionType.async, "zeer goede beschrijving", new Date(2016, 1, 27), new Date(2016, 7, 8), "subthema 3");
+        var ses4 = new Session("test4.com", SessionType.async, "Een gewone beschrijving", new Date(2016, 1, 15), new Date(2016, 2, 9), "subthema 4" );
         ses1.id = 1;
-        ses1.subtheme = "subthema 1";
         ses2.id = 2;
-        ses2.subtheme = "subthema 2";
         ses3.id = 3;
-        ses3.subtheme = "subthema 3";
         ses4.id = 4;
-        ses4.subtheme = "subthema 4";
         this.sessions = [ses1, ses2, ses3, ses4];
-        this.sessionDetail = new Session("", SessionType.sync, "", new Date(), new Date());
+        this.sessionDetail = this.resetSession();
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
 
@@ -68,9 +65,10 @@ export class SessionsComponent implements OnInit {
     onSubmit() {
         this.model.link = "url/#/sessies/id"
         this.model.start = new Date(Date.parse(this.model.start.toString()));
+        console.log(this.model.start.toString());
         this.model.end = new Date(Date.parse(this.model.end.toString()));
         this.sessions.push(this.model);
-        this.model = new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()));
+        this.model = this.resetSession();
     }
     
     private calculateProgress() {
@@ -92,9 +90,12 @@ export class SessionsComponent implements OnInit {
     }
 
     private cloneSession(session: Session) {
+        this.model = session;
+        this.model.subtheme = "mijn subthema";
+
     }
 
-    private deleteSession(session: Session) {
+    private changeSession(session: Session) {
         /*var tempsessions: Array<Session>;
         var counter = 0;
         for (var sessionvar in this.sessions) {
@@ -104,5 +105,9 @@ export class SessionsComponent implements OnInit {
             counter++;
         }
         this.sessions = tempsessions.reverse();*/
+    }
+
+    private resetSession() : Session {
+        return new Session("", SessionType.async, "", new Date(Date.now()), new Date(Date.now()), "");
     }
 }

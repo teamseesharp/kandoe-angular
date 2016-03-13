@@ -1,8 +1,8 @@
 ﻿<header>
-    <heading></heading>
+  <heading></heading>
 </header>
 <section id="sidebar">
-    <sidebar></sidebar>
+  <sidebar></sidebar>
 </section>
 <section id="main">
   <div class="row" id="sessionTitle">
@@ -11,4 +11,23 @@
     </div>
   </div>
 
+  <div class="row" >
+    <div class="col-xs-6">
+    <form>
+      Kies een subthema dat u wilt analyseren: <br/>
+      <select class="form-control" [(ngModel)]="model.subtheme">
+        <option *ngFor="#subtheme of subthemes" [value]="subtheme">{{ subtheme }}</option>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  </div>
+  <div class="col-xs-6">
+    <form>
+      Kies zelf sessies die u wilt analyseren: <br/>
+      
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  </div>
 </section>

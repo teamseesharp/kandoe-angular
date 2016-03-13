@@ -6,7 +6,6 @@
 export class Session {
     public cardReviewAllowed: boolean
     public cardCreationsAllowed: boolean
-    public subtheme: string
     public users: Array<String>
     public id: number
 
@@ -15,6 +14,7 @@ export class Session {
         public type: SessionType,
         public description: string,
         public start: Date,
-        public end: Date
+        public end: Date,
+        public subtheme: string
     ) { }
 }
