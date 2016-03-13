@@ -5,12 +5,14 @@ import {HTTP_PROVIDERS, Http} from "angular2/http";
 import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 import {Account} from '../account/model/account';
+import {AccountService} from './account.service';
 
 declare var Auth0Lock;
 
 @Component({
     selector: 'login-form',
-    templateUrl: 'src/account/login.html'
+    templateUrl: 'src/account/login.html',
+    providers: [AccountService]
 })
 
 export class LoginComponent implements OnInit {
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
     jwtHelper: JwtHelper = new JwtHelper();
     model = new Account();
 
-    constructor(private _router: Router, public http: Http, public authHttp: AuthHttp) {
+    constructor(private _router: Router, public http: Http, public authHttp: AuthHttp, private _accountService: AccountService) {
     }
 
     ngOnInit() {
@@ -39,6 +41,13 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('profile', JSON.stringify(profile));
             localStorage.setItem('id_token', id_token);
 
+            var acc: Account = new Account();
+            this._accountService.getAccount()
+                .subscribe(
+                data => acc = this._accountService.accountFromJson(data.json()),
+                err => console.log(err),
+                () => localStorage.setItem('user_id', acc.id.toString())
+                );
             this._router.navigate(['Home']);
         });
     }

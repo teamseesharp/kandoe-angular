@@ -7,38 +7,27 @@ import {BodyContentComponent} from '../defaultcomponents/body-content.component'
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Organisation} from './model/organisation';
+import {OrganisationService} from './organisation.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'src/session/organisations.html'
+    templateUrl: 'src/session/organisations.html',
+    providers: [OrganisationService]
 })
 
 export class OrganisationsComponent {
 
-    public organisations: Array<Organisation>;
+    public organisations: Array<Organisation> = [];
     model = new Organisation();
     
-    constructor(private _router: Router) {
+    constructor(private _router: Router, private _organisationService: OrganisationService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.initializeOrganisations();
-    }
-
-    initializeOrganisations() {
-        var org1 = new Organisation();
-        var org2 = new Organisation();
-        var org3 = new Organisation();
-        var org4 = new Organisation();
-
-        org1.id = 1;
-        org1.name = "KdG";
-        org2.id = 2;
-        org2.name = "De Baldadige Bierbowlers";
-        org3.id = 3;
-        org3.name = "FC De Kampioenen"
-        org4.id = 4;
-        org4.name = "De postduif"
-
-        this.organisations = [org1, org2, org3, org4];
+        _organisationService.getOrganisationsByUser()
+            .subscribe(
+            data => this.organisations = _organisationService.organisationFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Complete')
+            );
     }
 
     onCreateOrganisation() {
