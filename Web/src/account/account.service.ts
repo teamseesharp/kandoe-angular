@@ -22,10 +22,10 @@ export class AccountService {
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
-    public postAccount(account: Account) {
+    public patchAccount(account: Account) {
         var apiURL = 'http://kandoe-api.azurewebsites.net/api/accounts';
-        this.authHttp.post(apiURL, JSON.stringify(account), { headers: this.header });
         console.log("verstuurde acc:" + JSON.stringify(account));
+        return this.authHttp.patch(apiURL, JSON.stringify(account), { headers: this.header });
     }
 
     public accountToJson(account: Account) {

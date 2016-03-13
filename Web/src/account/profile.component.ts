@@ -30,6 +30,10 @@ export class ProfileComponent {
     }
 
     onSubmit() {
-        this._accountService.postAccount(this.model);
+        this._accountService.patchAccount(this.model)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Request Complete')
+            );
     }
 }
