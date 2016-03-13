@@ -161,6 +161,7 @@
     <TypeScriptCompile Include="src\session\organisations.component.ts" />
     <TypeScriptCompile Include="src\session\session-type.pipe.ts" />
     <TypeScriptCompile Include="src\session\session.component.ts" />
+    <TypeScriptCompile Include="src\session\session.service.ts" />
     <TypeScriptCompile Include="src\session\sessions.component.ts" />
     <TypeScriptCompile Include="src\session\themes.component.ts" />
   </ItemGroup>
