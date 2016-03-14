@@ -4,20 +4,20 @@ import {AuthHttp} from 'angular2-jwt';
 import {Response, Headers} from 'angular2/http';
 
 import {Theme} from './model/theme';
+import {SubthemeService} from './subtheme.service';
 
 @Injectable()
 export class ThemeService {
-
+    public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
     public header: Headers = new Headers();
 
-    constructor(private authHttp: AuthHttp) {
+    constructor(private authHttp: AuthHttp, private _subthemeService: SubthemeService) {
         this.header.append('Accept', 'text/json');
         this.header.append('Content-Type', 'application/json');
-
     }
 
     public getThemesByOrganisation(organisationId: number) {
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/verbose/themes/by-organisation/' + organisationId;
+        var apiURL = this.apiPrefix + 'api/verbose/themes/by-organisation/' + organisationId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
@@ -32,8 +32,7 @@ export class ThemeService {
             theme.organiserId = data[i].OrganiserId;
             theme.tags = data[i].Tags;
             theme.selectionCards = data[i].SelectionCards;
-            theme.subthemes = data[i].Subthemes;
-            console.log(theme.subthemes[0]);
+            theme.subthemes = this._subthemeService.subthemesFromJson(data[i].Subthemes);
             themes.push(theme);
         }
 

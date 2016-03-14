@@ -9,11 +9,12 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Theme} from './model/theme';
 import {Organisation} from './model/organisation';
 import {ThemeService} from './theme.service';
+import {SubthemeService} from './subtheme.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/themes.html',
-    providers: [ThemeService]
+    providers: [ThemeService, SubthemeService]
 })
 
 export class ThemesComponent {
