@@ -7,7 +7,7 @@ export class Theme {
     public name: string;
     public description: string;
     public organisationId: number;
-    public organiser: number;
+    public organiserId: number;
     public tags: string;
 
     public selectionCards: Array<Card>;

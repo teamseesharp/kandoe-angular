@@ -1,5 +1,5 @@
 ﻿import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Router, RouteParams} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';
@@ -8,10 +8,12 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Theme} from './model/theme';
 import {Organisation} from './model/organisation';
+import {ThemeService} from './theme.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'src/session/themes.html'
+    templateUrl: 'src/session/themes.html',
+    providers: [ThemeService]
 })
 
 export class ThemesComponent {
@@ -20,19 +22,15 @@ export class ThemesComponent {
     public organisations: Array<Organisation>;
     model = new Theme();
 
-    constructor(private _router: Router) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _themeService: ThemeService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.initializeThemes();
+        _themeService.getThemesByOrganisation(parseInt(this._routeParams.get('id')))
+            .subscribe(
+                data => this.themes = _themeService.themeFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Complete theme')
+            );
         this.initializeOrganisations();
-    }
-
-    initializeThemes() {
-        var theme1 = new Theme();
-        var theme2 = new Theme();
-        theme1.description = "Welk café nemen we?";
-        theme1.name = "Avondje uit";
-        theme2.description = "Welke ondergrond kiezen we, gravel of hard court?";
-        theme2.name = "Nieuw tennisveld";
     }
 
     initializeOrganisations() {

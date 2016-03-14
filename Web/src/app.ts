@@ -30,9 +30,9 @@ import {AnalysisComponent} from './session/analysis.component';
     { path: "/organisaties/:id", name: "Organisation", component: OrganisationComponent},
     { path: "/berichten", name: "Messages", component: MessagesComponent },
     { path: "/themas", name: "Themes", component: ThemesComponent },
+    { path: "/themas/organisaties/:id", name: "ThemesByOrganisation", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent },
     { path: "/analyse/:id", name: "Analysis", component: AnalysisComponent }
-        
 ])
 
 export class AppComponent {

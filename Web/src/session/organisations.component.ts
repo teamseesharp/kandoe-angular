@@ -24,9 +24,9 @@ export class OrganisationsComponent {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _organisationService.getOrganisationsByUser()
             .subscribe(
-            data => this.organisations = _organisationService.organisationFromJson(data.json())),
-            err => console.log(err),
-            () => console.log('Complete')
+                data => this.organisations = _organisationService.organisationFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Complete')
             );
     }
 

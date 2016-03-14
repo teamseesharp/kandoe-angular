@@ -22,22 +22,16 @@
                 <div class="col-xs-12">
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Thema: {{ theme.name }}</h3>
+                            <h3 class="panel-title"><b>Thema: {{ theme.name }}</b></h3>
                         </div>
                         <div class="panel-body">
-                            Beschrijving: {{ theme.description }} <br />
-                            Tags: {{ theme.tags }} <br />
+                            <b>Beschrijving:</b> {{ theme.description }} <br />
+                            <b>Tags:</b> {{ theme.tags }} <br />
                         </div>
                         <table class="table">
-                            <tr>
-                                <td>Subthema 1</td>
+                            <tr *ngFor="#subtheme of theme.subthemes">
+                                <td>{{ subtheme.name }}</td>
                                 <td></td>
-                            </tr>
-                            <tr>
-                                <td>Subthema 2</td>
-                            </tr>
-                            <tr>
-                                <td>Subthema 3</td>
                             </tr>
                         </table>
                     </div>
