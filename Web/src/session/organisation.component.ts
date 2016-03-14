@@ -7,10 +7,12 @@ import {BodyContentComponent} from '../defaultcomponents/body-content.component'
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Organisation} from './model/organisation';
+import {OrganisationService} from './organisation.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/organisation.html',
+    providers: []
 })
 
 export class OrganisationComponent{

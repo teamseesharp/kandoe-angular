@@ -24,20 +24,22 @@ export class OrganisationsComponent {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _organisationService.getOrganisationsByUser()
             .subscribe(
-            data => this.organisations = _organisationService.organisationFromJson(data.json())),
+            data => this.organisations = _organisationService.organisationsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
             );
     }
 
     onCreateOrganisation() {
-        var organisationTags = document.getElementsByClassName("tag");
-        //this.model.users = [];
-        for (var i = 0; i < organisationTags.length; i++) {
-            //this.model.users.push(organisationTags[i].firstChild.textContent);
-        }
-
-        this.organisations.push(this.model);
+        var organisation: Organisation = new Organisation();    
+        organisation = this.model;
+        organisation.organiserId = localStorage.getItem('user_id');
+        this._organisationService.postOrganisation(organisation)
+            .subscribe(
+            data => this.organisations.push(this._organisationService.organisationFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Complete')
+            );
         this.model = new Organisation();
     }
 
