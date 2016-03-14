@@ -28,11 +28,6 @@ export class AccountService {
         return this.authHttp.patch(apiURL, JSON.stringify(account), { headers: this.header });
     }
 
-    public accountToJson(account: Account) {
-        
-
-    }
-
     public accountFromJson(data: any): Account {
         var account: Account = new Account();
         account.id = data.Id;
