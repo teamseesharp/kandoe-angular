@@ -52,12 +52,32 @@ ul.themesoverviewUl .panel-heading {
     color: whitesmoke;
 }
 
-#newThemesRow {
-    height: 4em;
+li.themesoverviewLi {
+    bottom: 20em;
 }
 
-.editthemebutton {
-    width: 10%;
+#newThemesRow {
+    height: 6em;
+}
+
+.editthemebuttonimage {
+    width: 1.3em;
+}
+
+.buttonRightAlign {
+    text-align: right;
+}
+
+table.subthemetable {
+    background-color: rgba(65,111,20,0.2);
+}
+
+.buttonRightAlign .btn-info {
+    background-color: #416f14;
+}
+
+.buttonRightAlign .btn-info:hover {
+    background-color: #84c148;
 }
 
 /* Organisations */

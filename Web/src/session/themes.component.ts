@@ -1,5 +1,5 @@
 ﻿import {Component} from 'angular2/core';
-import {Router, RouteParams} from 'angular2/router';
+import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';
@@ -12,7 +12,7 @@ import {ThemeService} from './theme.service';
 import {SubthemeService} from './subtheme.service';
 
 @Component({
-    directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
+    directives: [HeadingComponent, BodyContentComponent, SidebarComponent, ROUTER_DIRECTIVES],
     templateUrl: 'src/session/themes.html',
     providers: [ThemeService, SubthemeService]
 })
