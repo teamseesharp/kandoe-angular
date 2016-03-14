@@ -103,8 +103,8 @@
                 </div>
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
-                    <select class="form-control" [(ngModel)]="model.subtheme">
-                        <option *ngFor="#subtheme of subthemes" [value]="subtheme">{{ subtheme }}</option>
+                    <select class="form-control" [(ngModel)]="model.subthemeId">
+                        <option *ngFor="#subtheme of subthemes" [value]="subtheme.id">{{ subtheme.name }}</option>
                     </select>
                 </div>
                 <div class="form-group">

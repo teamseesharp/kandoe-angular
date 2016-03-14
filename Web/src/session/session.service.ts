@@ -7,30 +7,50 @@ import {Session} from './model/session';
 
 @Injectable()
 export class SessionService {
-
+    
+    public apiPrefix: string = 'http://localhost:51787/';
+    //public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp) {
         this.header.append('Accept', 'text/json');
         this.header.append('Content-Type', 'application/json');
-
     }
 
-    public getSessions() {
-        var profile = JSON.parse(localStorage.getItem('profile'));
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/sessions/by-auth0-user-id/' + profile.user_id;
+    public getSessionsByUser() {
+        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
-    public patchSession(session: Session) {
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/sessions';
-        console.log("verstuurde acc:" + JSON.stringify(session));
-        return this.authHttp.patch(apiURL, JSON.stringify(session), { headers: this.header });
+    public postSession(session: Session) {
+        var apiURL = this.apiPrefix + 'api/sessions';
+        return this.authHttp.post(apiURL, JSON.stringify(session), { headers: this.header });
     }
 
-    public sessionToJson(session: Session) {
-
-
+    public sessionsFromJson(data: any): Array<Session> {
+        var sessions: Array<Session> = [];
+        for (var i = 0; i < data.length; i++) {
+            var session: Session = new Session();
+            session.description = data[i].Description;
+            session.id = data[i].Id;
+            session.cardCreationAllowed = data[i].CardCreationAllowed;
+            session.currentPlayerIndex = data[i].CurrentPlayerIndex;
+            session.end = data[i].end;
+            session.isFinished = data[i].IsFinished;
+            session.maxCardsToChoose = data[i].MaxCardsToChoose;
+            session.maxParticipants = data[i].MaxParticipants;
+            session.modus = data[i].Modus;
+            session.organisationId = data[i].OrganisationId;
+            session.round = data[i].Round;
+            session.subthemeId = data[i].SubthemeId;
+            session.start = data[i].Start;
+            session.sessionCards = data[i].SessionCards;
+            session.chatMessages = data[i].ChatMessages;
+            session.organisers = data[i].Organisers;
+            session.participants = data[i].Participants;
+            sessions.push(session);
+        }
+        return sessions;
     }
 
     public sessionFromJson(data: any): Session {

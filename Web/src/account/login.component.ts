@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('id_token', id_token);
 
             var acc: Account = new Account();
-            this._accountService.getAccount()
+            this._accountService.getAccountByAuth0UserId()
                 .subscribe(
                 data => acc = this._accountService.accountFromJson(data.json()),
                 err => console.log(err),

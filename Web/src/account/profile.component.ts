@@ -21,7 +21,7 @@ export class ProfileComponent {
 
     constructor(private _router: Router, private _accountService: AccountService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _accountService.getAccount()
+        _accountService.getAccountByUserId(localStorage.getItem('user_id'))
             .subscribe(
             data => this.model = _accountService.accountFromJson(data.json()),
             err => console.log(err),

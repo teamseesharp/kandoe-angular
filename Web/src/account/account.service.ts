@@ -8,23 +8,28 @@ import {Account} from './model/account';
 @Injectable()
 export class AccountService {
 
+    public apiPrefix: string = 'http://localhost:51787/';
+    //public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp) {
         this.header.append('Accept', 'text/json');
         this.header.append('Content-Type', 'application/json');
-
     }
 
-    public getAccount() {
+    public getAccountByAuth0UserId() {
         var profile = JSON.parse(localStorage.getItem('profile'));
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/accounts/by-auth0-user-id/' + profile.user_id;
+        var apiURL = this.apiPrefix + 'api/accounts/by-auth0-user-id/' + profile.user_id;
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
+    public getAccountByUserId(id: string) {
+        var apiURL = this.apiPrefix + 'api/accounts/' + id;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
     public patchAccount(account: Account) {
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/accounts';
-        console.log("verstuurde acc:" + JSON.stringify(account));
+        var apiURL = this.apiPrefix + 'api/accounts';
         return this.authHttp.patch(apiURL, JSON.stringify(account), { headers: this.header });
     }
 
@@ -40,8 +45,8 @@ export class AccountService {
         account.organisations = data.Organisations;
         account.organisedSessions = data.OrganisedSessions;
         account.participatingSessions = data.ParticipatingSessions;
-        account.themes = data.themes;
-        account.subthemes = data.subthemes;
+        account.themes = data.Themes;
+        account.subthemes = data.Subthemes;
         return account;
     }
 }
