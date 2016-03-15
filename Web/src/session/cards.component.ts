@@ -11,7 +11,8 @@ import {CardService} from './card.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'src/session/cards.html'
+    templateUrl: 'src/session/cards.html',
+    providers: [CardService]
 })
 
 export class CardsComponent {
@@ -21,15 +22,15 @@ export class CardsComponent {
     submitted = false;
     cardToChange: Card;
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _cardService CardService) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _cardService: CardService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _cardService.getThemesByOrganisation(parseInt(this._routeParams.get('id')))
+        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('id')))
             .subscribe(
-            data => this.card = _cardService.getCardsBySubtheme(data.json()),
+            data => this.cards = _cardService.cardsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete theme')
+            () => console.log('Complete card')
             );
-        this.initializeCards();
+        //this.initializeCards();
     }
 
     initializeCards() {
