@@ -149,6 +149,7 @@
     <TypeScriptCompile Include="src\message\messages.component.ts" />
     <TypeScriptCompile Include="src\message\model\message.ts" />
     <TypeScriptCompile Include="src\session\analysis.component.ts" />
+    <TypeScriptCompile Include="src\session\card.service.ts" />
     <TypeScriptCompile Include="src\session\cards.component.ts" />
     <TypeScriptCompile Include="src\session\model\subtheme.ts" />
     <TypeScriptCompile Include="src\session\theme.service.ts" />

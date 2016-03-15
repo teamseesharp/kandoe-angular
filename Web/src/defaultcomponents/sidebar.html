@@ -1,14 +1,34 @@
-﻿<ul class="nav nav-pills nav-stacked">
+﻿<div class="row">
+    <div class="col-md-12"><img src="{{account.picture}}" id="sidebarprofilepicture" alt="profiel foto" /></div>    
+</div>
+<h3 class="welcomeText">Goeiedag {{account.name}}</h3>
+<ul class="nav nav-pills nav-stacked">
     <li id="organisations">
-        <a [routerLink]="['Organisations']">Organisaties</a>
+        <a data-toggle="collapse" href="#sub1" class="collapsed" aria-expanded="true">Organisaties</a>
+        <ul class="nav collapse" id="sub1" aria-expanded="true">
+            <li>
+                <a [routerLink]="['Organisations']">Mijn organisaties</a>
+            </li>
+            <li>
+                <a [routerLink]="['Organisations']">Alle organisaties</a>
+            </li>
+        </ul>
     </li>
     <li id="sessions">
-        <a [routerLink]="['Sessions']">Sessies</a>
-    </li>
-    <li id="themes">
-        <a [routerLink]="['Themes']">Thema's</a>
-    </li>
-    <li id="cards">
-        <a [routerLink]="['Cards']">Kaartjes</a>
+        <a data-toggle="collapse" href="#sub2" class="collapsed" aria-expanded="true">Sessies</a>
+        <ul class="nav collapse" id="sub2" aria-expanded="true">
+            <li>
+                <a [routerLink]="['Sessions']">Mijn sessies</a>
+            </li>
+            <li>
+                <a [routerLink]="['Sessions']">Geplande sessies</a>
+            </li>
+            <li>
+                <a [routerLink]="['Sessions']">Afgesloten sessies</a>
+            </li>
+            <li>
+                <a [routerLink]="['Sessions']">Alle sessies</a>
+            </li>
+        </ul>
     </li>
 </ul>

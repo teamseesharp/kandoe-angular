@@ -11,8 +11,8 @@
         </div>
     </div>
     <div class="row" id="newThemesRow">
-        <div class="col-xs-9"></div>
-        <div class="col-xs-3">
+        <div class="col-xs-6 col-sm-6 col-md-9"></div>
+        <div class="col-xs-6 col-sm-6 col-md-3">
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#themeModal">Nieuw thema</button>
         </div>
     </div>
@@ -20,18 +20,40 @@
         <ul class="themesoverviewUl">
             <li *ngFor="#theme of themes">
                 <div class="col-xs-12">
+                    <hr />
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><b>Thema: {{ theme.name }}</b></h3>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-3 col-md-8">
+                                    <h4>{{ theme.name }}</h4>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-1 buttonRightAlign">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editThemeModal">
+                                        <img src="../../resources/images/editicon.png" class="editthemebuttonimage" />
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-3 buttonRightAlign">   
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#subthemeModal" (click)="openSubthemeModal(theme.id)">Voeg subthema toe</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="panel-body">
-                            <b>Beschrijving:</b> {{ theme.description }} <br />
-                            <b>Tags:</b> {{ theme.tags }} <br />
+                            <div class="row">
+                                <div class="col-xs-6"><b>Beschrijving:</b> {{ theme.description }}</div>
+                                <div class="col-xs-6"><b>Tags:</b> {{ theme.tags }}</div>
+                            </div>
                         </div>
-                        <table class="table">
+                        <table class="table subthemetable">
                             <tr *ngFor="#subtheme of theme.subthemes">
-                                <td>{{ subtheme.name }}</td>
-                                <td></td>
+                                <td width="80%">Subthema <h4>{{ subtheme.name }}</h4></td>
+                                <td width="7%">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editThemeModal">
+                                        <img src="../../resources/images/editicon.png" class="editthemebuttonimage" />
+                                    </button>
+                                </td>
+                                <td width="13%">
+                                    <a [routerLink]="['CardsBySubtheme', {id: subtheme.id}]" class="btn btn-info">Kaartjes</a>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -51,8 +73,6 @@
                     <h4 class="modal-title">Nieuwe organisatie</h4>
                 </div>
                 <div class="modal-body">
-
-                    <!-- Create organisation form -->
                     <form (ngSubmit)="onCreateTheme()" #themeForm="ngForm">
                         <div class="form-group">
                             <label for="name">Naam</label>
@@ -73,17 +93,40 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="organisation">Organisatie</label>
-                            <select class="form-control" [(ngModel)]="model.organisation">
-                                <option *ngFor="#organisation of organisations" [value]="organisation">{{ organisation.name }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="tags">Tags (bevestig elke tag d.m.v. een spatie)</label>
                             <br />
                             <input type="text" name="tags" class="form-control typeahead tt-query tags" [(ngModel)]="model.tags">
                         </div>
                         <button type="submit" class="btn btn-info" [disabled]="!themeForm.form.valid" data-toggle="modal" data-target="#themeModal">Maak thema aan</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="subthemeModal" class="modal fade" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Subthema toevoegen</h4>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onAddSubtheme()" #subthemeForm="ngForm">
+                        <div class="form-group">
+                            <label for="name">Naam</label>
+                            <input type="text" class="form-control" required=""
+                                   [(ngModel)]="subthemeModel.name"
+                                   ngControl="name" #name="ngForm">
+                            <div [hidden]="name.valid || name.pristine || name.untouched" class="alert alert-danger">
+                                Het nieuwe subthema vereist een naam.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info" [disabled]="!subthemeForm.form.valid" data-toggle="modal" data-target="#subthemeModal">Voeg subthema toe</button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>

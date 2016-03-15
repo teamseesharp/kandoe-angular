@@ -7,7 +7,7 @@ import {Organisation} from './model/organisation';
 
 @Injectable()
 export class OrganisationService {
-
+    public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp) {
@@ -16,12 +16,12 @@ export class OrganisationService {
     }
 
     public getOrganisationsByUser() {
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/organisations/by-organiser/' + localStorage.getItem('user_id');
+        var apiURL = this.apiPrefix + 'api/organisations/by-organiser/' + localStorage.getItem('user_id');
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
     public postOrganisation(organisation: Organisation) {
-        var apiURL = 'http://kandoe-api.azurewebsites.net/api/organisations';
+        var apiURL = this.apiPrefix + 'api/organisations';
         return this.authHttp.post(apiURL, JSON.stringify(organisation), { headers: this.header });
     }
 

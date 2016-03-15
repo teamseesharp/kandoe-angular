@@ -1,5 +1,5 @@
 ﻿import {Component} from 'angular2/core';
-import {Router, RouteParams, RouterLink} from 'angular2/router';
+import {Router, RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';
@@ -10,7 +10,7 @@ import {Organisation} from './model/organisation';
 import {OrganisationService} from './organisation.service';
 
 @Component({
-    directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
+    directives: [HeadingComponent, BodyContentComponent, SidebarComponent, ROUTER_DIRECTIVES],
     templateUrl: 'src/session/organisations.html',
     providers: [OrganisationService]
 })
