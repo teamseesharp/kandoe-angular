@@ -70,14 +70,15 @@ export class ThemesComponent {
 
         this._subthemeService.postSubtheme(subtheme)
             .subscribe(
-            data => subtheme = this._subthemeService.subthemeFromJson(data.json()),
+            data => {
+                subtheme = this._subthemeService.subthemeFromJson(data.json());
+                this.getThemesByOrganisation();
+            },
             err => console.log(err),
             () => console.log('Subtheme added')
             );
 
         this.subthemeModel = new Subtheme();
-        console.log(JSON.stringify(subtheme));
-        this.getThemesByOrganisation();
     }
 
     // When opening the modal to add a subtheme, this method will fill in the right themeId in the subthemeModel
