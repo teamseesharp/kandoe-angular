@@ -68,8 +68,7 @@ export class CardsComponent {
                     },
                     err => console.log(err),
                     () => console.log('Complete card change')
-                );
-                console.log('HIER ' + this.cards[i].text)           
+                );      
             }
         }
         this.onCloseModal();

@@ -20,9 +20,19 @@ export class OrganisationService {
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
+    public getOrganisationById(organisationId: number) {
+        var apiURL = this.apiPrefix + 'api/verbose/organisations/' + organisationId;
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
     public postOrganisation(organisation: Organisation) {
         var apiURL = this.apiPrefix + 'api/organisations';
         return this.authHttp.post(apiURL, JSON.stringify(organisation), { headers: this.header });
+    }
+
+    public putOrganisation(organisationToChange: Organisation) {
+        var apiURL = this.apiPrefix + 'api/organisations';
+        return this.authHttp.put(apiURL, JSON.stringify(organisationToChange), { headers: this.header });
     }
 
     public organisationsFromJson(data: any): Array<Organisation> {
@@ -48,4 +58,6 @@ export class OrganisationService {
         organisation.themes = data.Themes;
         return organisation;
     }
+
+
 }
