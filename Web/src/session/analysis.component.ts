@@ -6,6 +6,9 @@ import {HeadingComponent} from '../defaultcomponents/heading.component';
 import {BodyContentComponent} from '../defaultcomponents/body-content.component';
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
+import {SessionTypePipe} from './session-type.pipe';
+import {SessionParticipantsPipe} from './session-participants.pipe';
+
 import {Session} from './model/session';
 import {Card} from './model/card';
 import {Subtheme} from './model/subtheme';
@@ -14,8 +17,9 @@ import {SessionService} from './session.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
-    templateUrl: 'src/session/analysis.html'
-
+    templateUrl: 'src/session/analysis.html',
+    pipes: [SessionTypePipe, SessionParticipantsPipe],
+    providers: [SessionService, SubthemeService]
 })
 
 export class AnalysisComponent {
@@ -24,11 +28,15 @@ export class AnalysisComponent {
     sessions: Array<Session>;
     model = new Subtheme();
     modelSession = new Session();
+    sessionToShow: Session = new Session();
+    public sessionMasterHidden: boolean;
 
     sessionsToAnalyse: Array<Session>;
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        this.sessionMasterHidden = true;
+
         _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
             .subscribe(
             data => this.subthemes = _subthemeService.subthemesFromJson(data.json()),
@@ -47,13 +55,18 @@ export class AnalysisComponent {
 
     //onsubmit all sessions from subtheme
     onSubmitSubtheme() {
+        this.model.id = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
         this._sessionService.getSessionsBySubtheme(this.model.id)
             .subscribe(
-            data => this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
+            data => {
+                this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
+                    console.log('NUMBER OF SESSIONS: ' + this.sessionsToAnalyse.length);
+                console.log('NUMBER OF CARDS: ' + this.sessionsToAnalyse[0].sessionCards.length);
+                    this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
+            },
             err => console.log(err),
             () => console.log('Complete: get sessions to analyse ')
         );
-        this.masterCircle(this.sessionsToAnalyse);
     }
 
     //onOthersubmit all session from selected sessions
@@ -64,7 +77,8 @@ export class AnalysisComponent {
         this.masterCircle(this.sessionsToAnalyse);
     }
 
-    private masterCircle(sessions: Array<Session>) : Session {
+    private masterCircle(sessions: Array<Session>): Session {
+        //controle of er wel sessions zijn en of er kaarten zijn..
         var master = sessions[0];
 
         for (var i = 1; 1 < sessions.length; i++) {
@@ -77,6 +91,11 @@ export class AnalysisComponent {
                 }
             }
         }
+        this.sessionMasterHidden = false;
+        console.log('MASTER: ' + master.id);
+        console.log('MASTER: ' + master.description);
+        console.log('MASTER: ' + master.sessionCards[0].sessionLevel);
+
 
         return master;
     }

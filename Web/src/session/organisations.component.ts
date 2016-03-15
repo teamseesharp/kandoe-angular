@@ -21,7 +21,7 @@ export class OrganisationsComponent {
     model = new Organisation();
     
     constructor(private _router: Router, private _organisationService: OrganisationService) {
-        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        //if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _organisationService.getOrganisationsByUser()
             .subscribe(
             data => this.organisations = _organisationService.organisationsFromJson(data.json()),

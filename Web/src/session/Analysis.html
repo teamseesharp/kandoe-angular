@@ -15,28 +15,57 @@
     <div class="col-xs-6">
     <form (ngSubmit)="onSubmitSubtheme()" #profileForm="ngForm">
       Kies een subthema dat u wilt analyseren: <br/>
-      <select class="form-control" [(ngModel)]="model">
-        <option *ngFor="#subtheme of subthemes" [value]="subtheme.id">{{ subtheme }}</option>
+      <label class="col-xs-3 control-label">Subthema</label>
+      <select class="form-control" [(ngModel)]="model.subtheme" id="subthemeSelect">
+        <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
       </select>
-      <input type="submit" value="Analyseer" [disabled]="!profileForm.form.valid">
+      <input type="submit" class="btn btn-info btn-lg" value="Analyseer" [disabled]="!profileForm.form.valid">
     </form>
-  </div>
   </div>
   
   <div class="col-xs-6">
     <form (ngSubmit)="onSubmitSession()" id="multiSessionSelect" method="post" class="form-horizontal">
       Kies zelf sessies die u wilt analyseren: <br/>
       <div class="form-group">
-        <label class="col-xs-3 control-label">Browser</label>
+        <label class="col-xs-3 control-label">Session</label>
         <div class="col-xs-5">
-          <select class="form-control" name="sessions" multiple [(ngModel)]="modelSession">
+          <select class="form-control" name="sessions" [(ngModel)]="modelSession" multiple="true">
             <option *ngFor="#session of sessions" [value]="session.id">{{session.description}}</option>
           </select>
         </div>
       </div>
-      <input type="submit" value="Analyseer">
+      <input type="submit" class="btn btn-info btn-lg" value="Analyseer">
     </form>
   </div>
-  
-  
+  </div>
+
+  <div class="row" [hidden]="sessionMasterHidden">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="../../resources/images/descriptionicon.png" class="descriptionicon" /> {{sessionToShow.description}}<br /><br />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="../../resources/images/linkicon.png" class="sessionlink" />http://kandoe-angular.azurewebsites.net/#/sessies/{{ sessionToShow.subthemeId }}
+          <br /><br />
+          <b>Type: </b> {{ sessionToShow.type | sessionTypePipe }}<br />
+          <b>Aantal deelnemers: </b>{{ sessionToShow.participants | sessionParticipantsPipe }}<br /><br />
+        </div>
+      </div>
+      <div class="row">
+        <ul id="cardlist" class="cardlist">
+          <li *ngFor="#card of sessionToShow.sessionCards">
+            <div class="col-xs-4 col-md-3">
+              <div class="thumbnail">
+                <p>{{ card.text }}</p>
+                <p>{{card.sessionLevel}}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
