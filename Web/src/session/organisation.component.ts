@@ -12,28 +12,36 @@ import {OrganisationService} from './organisation.service';
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/organisation.html',
-    providers: []
+    providers: [OrganisationService]
 })
 
 export class OrganisationComponent{
-    organisation: Organisation;
+    organisation: Organisation = new Organisation;
     model = new Organisation();
 
-    constructor(private _router: Router, private _routeParams: RouteParams) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _organisationService: OrganisationService) {
+
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        _organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => {
+                this.organisation = _organisationService.organisationFromJson(data.json()),
+                this.model = this.organisation;
+            },
+            err => console.log(err),
+            () => console.log('Complete organisation')
+            );
+
         
-        //vervangen door api call, get van session, id meegeven
-        this.organisation = new Organisation();
-        this.organisation.id = parseInt(this._routeParams.get('id'));
-        //this.organisation.users = ["geld", "voetbal"];
-        this.model = this.organisation;
     }
 
     onEditOrganisation() {
-        var organisationTags = document.getElementsByClassName("tag");
-        //this.model.users = [];
-        for (var i = 0; i < organisationTags.length; i++) {
-            //this.model.users.push(organisationTags[i].firstChild.textContent);
-        }
+        this._organisationService.putOrganisation(this.model)
+            .subscribe(
+            data => {     
+            },
+            err => console.log(err),
+            () => console.log('Complete organisation change')
+            );
     }
 }

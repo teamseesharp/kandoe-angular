@@ -13,21 +13,30 @@
 
   <div class="row" >
     <div class="col-xs-6">
-    <form>
+    <form (ngSubmit)="onSubmitSubtheme()" #profileForm="ngForm">
       Kies een subthema dat u wilt analyseren: <br/>
-      <select class="form-control" [(ngModel)]="model.subtheme">
-        <option *ngFor="#subtheme of subthemes" [value]="subtheme">{{ subtheme }}</option>
+      <select class="form-control" [(ngModel)]="model">
+        <option *ngFor="#subtheme of subthemes" [value]="subtheme.id">{{ subtheme }}</option>
       </select>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Analyseer" [disabled]="!profileForm.form.valid">
     </form>
   </div>
   </div>
+  
   <div class="col-xs-6">
-    <form>
+    <form (ngSubmit)="onSubmitSession()" id="multiSessionSelect" method="post" class="form-horizontal">
       Kies zelf sessies die u wilt analyseren: <br/>
-      
-      <input type="submit" value="Submit">
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Browser</label>
+        <div class="col-xs-5">
+          <select class="form-control" name="sessions" multiple [(ngModel)]="modelSession">
+            <option *ngFor="#session of sessions" [value]="session.id">{{session.description}}</option>
+          </select>
+        </div>
+      </div>
+      <input type="submit" value="Analyseer">
     </form>
   </div>
-  </div>
+  
+  
 </section>

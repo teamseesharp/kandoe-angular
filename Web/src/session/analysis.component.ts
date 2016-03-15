@@ -8,6 +8,9 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Session} from './model/session';
 import {Card} from './model/card';
+import {Subtheme} from './model/subtheme';
+import {SubthemeService} from './subtheme.service';
+import {SessionService} from './session.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
@@ -16,7 +19,50 @@ import {Card} from './model/card';
 })
 
 export class AnalysisComponent {
-    private cardToMerge: Card;
+    private cardToMerge: Card = new Card();
+    subthemes: Array<Subtheme>;
+    sessions: Array<Session>;
+    model = new Subtheme();
+    modelSession = new Session();
+
+    sessionsToAnalyse: Array<Session>;
+
+    constructor(private _router: Router, private _routeParams: RouteParams, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
+        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
+            .subscribe(
+            data => this.subthemes = _subthemeService.subthemesFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Complete: number of subthemes ' + this.subthemes.length)
+        );
+        _sessionService.getSessionsByUser()
+            .subscribe(
+            data => this.sessions = _sessionService.sessionsFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Complete: number of sessions ' + this.sessions.length)
+        );
+
+        this.sessionsToAnalyse = new Array<Session>();
+    }
+
+    //onsubmit all sessions from subtheme
+    onSubmitSubtheme() {
+        this._sessionService.getSessionsBySubtheme(this.model.id)
+            .subscribe(
+            data => this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Complete: get sessions to analyse ')
+        );
+        this.masterCircle(this.sessionsToAnalyse);
+    }
+
+    //onOthersubmit all session from selected sessions
+    onSubmitSession() {
+        //Some magic
+        //http://stackoverflow.com/questions/20305489/select-multiple-objects-and-save-to-ng-model
+        //http://jsfiddle.net/EsQsW/2/
+        this.masterCircle(this.sessionsToAnalyse);
+    }
 
     private masterCircle(sessions: Array<Session>) : Session {
         var master = sessions[0];
