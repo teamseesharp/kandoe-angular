@@ -8,6 +8,7 @@ import {Theme} from '../session/model/theme';
 import {Card} from '../session/model/card';
 import {Account} from '../account/model/account';
 import {AccountService} from '../account/account.service';
+import {tokenNotExpired} from 'angular2-jwt';
 
 @Component({
     selector: 'sidebar',
@@ -21,11 +22,12 @@ export class SidebarComponent {
     public account: Account = new Account();
 
     constructor(private _accountService: AccountService) {
-        _accountService.getAccountByUserId(localStorage.getItem('user_id'))
+        if (tokenNotExpired()) {
+            _accountService.getAccountByUserId(localStorage.getItem('user_id'))
             .subscribe(
             data => this.account = _accountService.accountFromJson(data.json()),
             err => console.log(err),
             () => console.log('Sidebar complete')
-        );
+            );}
     }
 }
