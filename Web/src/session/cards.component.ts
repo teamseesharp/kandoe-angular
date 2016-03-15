@@ -24,11 +24,11 @@ export class CardsComponent {
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _cardService: CardService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('id')))
+        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeid')))
             .subscribe(
             data => this.cards = _cardService.cardsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete card')
+            () => console.log('Complete card' + this.cards.length)
             );
         //this.initializeCards();
     }
@@ -45,11 +45,14 @@ export class CardsComponent {
     onSubmit() {
         var cardToAdd: Card = new Card;
         cardToAdd = this.model;
+        cardToAdd.subthemeId = this._routeParams.get('subthemeId');
+        cardToAdd.themeId = this._routeParams.get('themeId');
+
         this._cardService.postCard(cardToAdd)
             .subscribe(
             data => this.cards.push(this._cardService.cardFromJson(data.json())),
             err => console.log(err),
-            () => console.log('Complete')
+            () => console.log('Complete card added')
             );
         this.onCloseModal();
     }
