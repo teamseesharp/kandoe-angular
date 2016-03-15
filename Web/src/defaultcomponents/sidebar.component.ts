@@ -6,7 +6,7 @@ import {SessionType} from '../session/model/session';
 import {Organisation} from '../session/model/organisation';
 import {Theme} from '../session/model/theme';
 import {Card} from '../session/model/card';
-
+import {Account} from '../account/model/account';
 import {AccountService} from '../account/account.service';
 
 @Component({
@@ -18,14 +18,14 @@ import {AccountService} from '../account/account.service';
 
 export class SidebarComponent {
 
-    public profileName: string;
+    public account: Account = new Account();
 
     constructor(private _accountService: AccountService) {
         _accountService.getAccountByUserId(localStorage.getItem('user_id'))
             .subscribe(
-            data => this.profileName = _accountService.accountFromJson(data.json()).name,
+            data => this.account = _accountService.accountFromJson(data.json()),
             err => console.log(err),
             () => console.log('Sidebar complete')
-            );
+        );
     }
 }
