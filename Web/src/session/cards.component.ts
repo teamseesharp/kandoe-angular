@@ -1,5 +1,5 @@
 ﻿import {Component} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Router, RouteParams} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
 import {HeadingComponent} from '../defaultcomponents/heading.component';
@@ -7,6 +7,7 @@ import {BodyContentComponent} from '../defaultcomponents/body-content.component'
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Card} from './model/card';
+import {CardService} from './card.service';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
@@ -19,9 +20,15 @@ export class CardsComponent {
     model = new Card();
     submitted = false;
     cardToChange: Card;
-    
-    constructor(private _router: Router) {
+
+    constructor(private _router: Router, private _routeParams: RouteParams, private _cardService CardService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+        _cardService.getThemesByOrganisation(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => this.card = _cardService.getCardsBySubtheme(data.json()),
+            err => console.log(err),
+            () => console.log('Complete theme')
+            );
         this.initializeCards();
     }
 
