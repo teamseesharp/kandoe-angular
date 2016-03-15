@@ -76,6 +76,7 @@ export class ThemesComponent {
             );
 
         this.subthemeModel = new Subtheme();
+        console.log(JSON.stringify(subtheme));
         this.getThemesByOrganisation();
     }
 
