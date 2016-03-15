@@ -21,7 +21,12 @@ export class ThemeService {
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
-    public themeFromJson(data: any): Array<Theme> {
+    public postTheme(theme: Theme) {
+        var apiURL = this.apiPrefix + 'api/themes';
+        return this.authHttp.post(apiURL, JSON.stringify(theme), { headers: this.header });
+    }
+
+    public themesFromJson(data: any): Array<Theme> {
         var themes: Array<Theme> = [];
         for (var i = 0; i < data.length; i++) {
             var theme: Theme = new Theme();
@@ -37,5 +42,18 @@ export class ThemeService {
         }
 
         return themes;
+    }
+
+    public themeFromJson(data: any): Theme {
+        var theme: Theme = new Theme();
+        theme.id = data.Id;
+        theme.name = data.Name;
+        theme.description = data.Description;
+        theme.organisationId = data.OrganisationId
+        theme.organiserId = data.OrganiserId;
+        theme.tags = data.Tags;
+        theme.selectionCards = data.SelectionCards;
+        theme.subthemes = data.Subthemes;
+        return theme;
     }
 }
