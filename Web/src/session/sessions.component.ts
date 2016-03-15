@@ -6,8 +6,7 @@ import {HeadingComponent} from '../defaultcomponents/heading.component';
 import {BodyContentComponent} from '../defaultcomponents/body-content.component';
 import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
-import {Session} from './model/session';
-import {SessionType} from './model/session';
+import {Session, SessionType} from './model/session';
 import {Subtheme} from './model/subtheme';
 import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
@@ -70,6 +69,7 @@ export class SessionsComponent implements OnInit {
     onSubmit() {
         var sessionToAdd: Session = new Session();
         sessionToAdd = this.model;
+        console.log('subthemeid: ' + this.model.subthemeId);
         sessionToAdd.organisationId = parseInt(localStorage.getItem('user_id'));
         sessionToAdd.start = new Date(Date.parse(this.model.start.toString()));
         sessionToAdd.end = new Date(Date.parse(this.model.end.toString()));
