@@ -98,6 +98,7 @@
     <Content Include="resources\js\bootstrap-tagsinput.min.js" />
     <Content Include="resources\js\bootstrap-typeahead.js" />
     <Content Include="resources\js\bootstrap.min.js" />
+    <Content Include="resources\js\sessionanalysis.js" />
     <Content Include="resources\js\uploadprofilepic.js" />
     <Content Include="resources\js\custom.js" />
     <Content Include="resources\js\jasny-bootstrap.min.js" />
