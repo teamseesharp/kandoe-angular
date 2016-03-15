@@ -24,29 +24,19 @@ export class CardsComponent {
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _cardService: CardService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeid')))
+        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeId')))
             .subscribe(
             data => this.cards = _cardService.cardsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete card' + this.cards.length)
+            () => console.log('Complete: number of cards ' + this.cards.length)
             );
-        //this.initializeCards();
-    }
-
-    initializeCards() {
-        this.cards = [];
-        var cardStrings = ["Kaartje voor verlaging verkeersdrempel", "Kaartje voor organisatie wielerwedstrijd", "Verkiezing verantwoordelijke studentenraad", "Een ander kaartje", "Het allerlaatste kaartje"];
-        for (var i = 0; i < 5; i++) {
-            var card = new Card();
-            card.text = cardStrings[i];
-        }
     }
 
     onSubmit() {
         var cardToAdd: Card = new Card;
         cardToAdd = this.model;
-        cardToAdd.subthemeId = this._routeParams.get('subthemeId');
-        cardToAdd.themeId = this._routeParams.get('themeId');
+        cardToAdd.subthemeId = parseInt(this._routeParams.get('subthemeId'));
+        cardToAdd.themeId = parseInt(this._routeParams.get('themeId'));
 
         this._cardService.postCard(cardToAdd)
             .subscribe(
@@ -67,9 +57,9 @@ export class CardsComponent {
     }
 
     onChangeCard() {
-        var changedCard: Card;
+        var changedCard: Card = new Card();
         for (var i = 0; i < this.cards.length; i++) {
-            if (this.cards[i] === this.cardToChange) {
+            if (this.cards[i] == this.cardToChange) {
                 //todo: kaart effectief wijzigen
                 this._cardService.putCard(this.model)
                     .subscribe(
@@ -77,6 +67,7 @@ export class CardsComponent {
                     err => console.log(err),
                     () => console.log('Complete card change')
                 );
+                console.log('HIER' + this.cards[i].text)
                 this.cards[i].text = changedCard.text;                
             }
         }

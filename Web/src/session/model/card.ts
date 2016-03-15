@@ -9,7 +9,7 @@ export class Card {
     public sessionLevel: number;
     public subthemeId: number;
     public text: string;
-    public themeId: string;
+    public themeId: number;
 
     public subthemes: Array<Subtheme>;
     public sessions: Array<Session>;
