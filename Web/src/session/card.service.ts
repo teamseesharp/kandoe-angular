@@ -19,6 +19,29 @@ export class CardService {
         var apiURL = this.apiPrefix + 'api/selection-cards/by-subtheme/' + subThemeId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
+    
+    public postCard(card: Card) {
+        var apiURL = this.apiPrefix + 'api/selection-cards';
+        return this.authHttp.post(apiURL, JSON.stringify(card), { headers: this.header });
+    }
+
+    public putCard(card: Card) {
+        var apiURL = this.apiPrefix + 'api/selection-cards';
+        return this.authHttp.put(apiURL, JSON.stringify(card), { headers: this.header });
+    }
+
+    public cardFromJson(data: any): Card {
+            var card: Card = new Card();
+            card.id = data.Id;
+            card.sessionId = data.SessionId;
+            card.sessionLevel = data.SessionLevel;
+            card.subthemeId = data.SubthemeId;
+            card.text = data.Text;
+            card.themeId = data.ThemeId;
+            card.subthemes = data.Subthemes;
+            card.sessions = data.Sessions;
+        return card;
+    }
 
     public cardsFromJson(data: any): Array<Card> {
         var cards: Array<Card> = [];
@@ -36,6 +59,5 @@ export class CardService {
         }
         return cards;
     }
-
    
 }

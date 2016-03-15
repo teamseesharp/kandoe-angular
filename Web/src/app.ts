@@ -32,7 +32,7 @@ import {AnalysisComponent} from './session/analysis.component';
     { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/themas/organisaties/:id", name: "ThemesByOrganisation", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent },
-    { path: "/kaartjes/subthema/:id", name: "CardsBySubtheme", component: CardsComponent },
+    { path: "/kaartjes/subthema/:themeId/:subthemeId", name: "CardsBySubtheme", component: CardsComponent },
     { path: "/analyse/:id", name: "Analysis", component: AnalysisComponent }
 ])
 

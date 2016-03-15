@@ -24,11 +24,11 @@ export class CardsComponent {
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _cardService: CardService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('id')))
+        _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeid')))
             .subscribe(
             data => this.cards = _cardService.cardsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete card')
+            () => console.log('Complete card' + this.cards.length)
             );
         //this.initializeCards();
     }
@@ -43,30 +43,41 @@ export class CardsComponent {
     }
 
     onSubmit() {
-        this.cards.push(this.model);
+        var cardToAdd: Card = new Card;
+        cardToAdd = this.model;
+        cardToAdd.subthemeId = this._routeParams.get('subthemeId');
+        cardToAdd.themeId = this._routeParams.get('themeId');
+
+        this._cardService.postCard(cardToAdd)
+            .subscribe(
+            data => this.cards.push(this._cardService.cardFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Complete card added')
+            );
         this.onCloseModal();
     }
 
     onChangeModal(card: Card) {
         this.model = card;
         this.cardToChange = card;
-        //todo: kaart effectief toevoegen
     }
 
     onCloseModal() {
         this.model = new Card();
     }
 
-    onCreateCard() {
-        this.cards.push(this.model);
-        //Todo kaart pushen
-        this.onCloseModal();
-    }
-
     onChangeCard() {
+        var changedCard: Card;
         for (var i = 0; i < this.cards.length; i++) {
             if (this.cards[i] === this.cardToChange) {
-                this.cards[i].text = this.model.text;
+                //todo: kaart effectief wijzigen
+                this._cardService.putCard(this.model)
+                    .subscribe(
+                    data => changedCard = this._cardService.cardFromJson(data.json()),
+                    err => console.log(err),
+                    () => console.log('Complete card change')
+                );
+                this.cards[i].text = changedCard.text;                
             }
         }
         this.onCloseModal();

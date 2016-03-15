@@ -47,7 +47,7 @@
       <div class="modal-body">
 
         <!-- Create organisation form -->
-        <form (ngSubmit)="onCreateCard()" #organisationForm="ngForm">
+        <form (ngSubmit)="onSubmit()" #organisationForm="ngForm">
           <div class="form-group">
             <label for="description">Beknopte omschrijving</label>
             <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="model.text"
