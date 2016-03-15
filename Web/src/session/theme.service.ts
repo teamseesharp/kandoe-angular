@@ -26,6 +26,11 @@ export class ThemeService {
         return this.authHttp.post(apiURL, JSON.stringify(theme), { headers: this.header });
     }
 
+    public updateTheme(theme: Theme) {
+        var apiURL = this.apiPrefix + 'api/themes';
+        return this.authHttp.put(apiURL, JSON.stringify(theme), { headers: this.header });
+    }
+
     public themesFromJson(data: any): Array<Theme> {
         var themes: Array<Theme> = [];
         for (var i = 0; i < data.length; i++) {
