@@ -29,7 +29,7 @@ export class CardsComponent {
             data => this.cards = _cardService.cardsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of cards ' + this.cards.length)
-            );
+        );
     }
 
     onSubmit() {
@@ -63,12 +63,13 @@ export class CardsComponent {
                 //todo: kaart effectief wijzigen
                 this._cardService.putCard(this.model)
                     .subscribe(
-                    data => changedCard = this._cardService.cardFromJson(data.json()),
+                    data => {
+                        this._cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeId')));
+                    },
                     err => console.log(err),
                     () => console.log('Complete card change')
                 );
-                console.log('HIER' + this.cards[i].text)
-                this.cards[i].text = changedCard.text;                
+                console.log('HIER ' + this.cards[i].text)           
             }
         }
         this.onCloseModal();

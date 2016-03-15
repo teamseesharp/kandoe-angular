@@ -47,14 +47,14 @@ export class CardService {
         var cards: Array<Card> = [];
         for (var i = 0; i < data.length; i++) {
             var card: Card = new Card();
-            card.id = data.Id;
-            card.sessionId = data.SessionId;
-            card.sessionLevel = data.SessionLevel;
-            card.subthemeId = data.SubthemeId;
-            card.text = data.Text;
-            card.themeId = data.ThemeId;
-            card.subthemes = data.Subthemes;
-            card.sessions = data.Sessions;
+            card.id = data[i].Id;
+            card.sessionId = data[i].SessionId;
+            card.sessionLevel = data[i].SessionLevel;
+            card.subthemeId = data[i].SubthemeId;
+            card.text = data[i].Text;
+            card.themeId = data[i].ThemeId;
+            card.subthemes = data[i].Subthemes;
+            card.sessions = data[i].Sessions;
             cards.push(card);
         }
         return cards;
