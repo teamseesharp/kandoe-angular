@@ -9,10 +9,9 @@ export enum SessionType {
 }
 
 export class Session {
-    // voorlopig houden voor build, later wordt description van session gewoon de description van subthema
-    public description: string;
 
     public id: number;
+    public description: string;
     public cardCreationAllowed: boolean;
     public currentPlayerIndex: number;
     public end: Date;
@@ -72,5 +71,4 @@ export class SessionDto {
         this.organisers = session.organisers;
         this.participants = session.participants;
     }
-
 }*/

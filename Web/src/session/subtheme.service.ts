@@ -17,6 +17,11 @@ export class SubthemeService {
         this.header.append('Content-Type', 'application/json');
     }
 
+    public getSubthemeById(id: number) {
+        var apiURL = this.apiPrefix + 'api/subthemes/{id}' + id.toString();
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
     public getSubthemesByOrganiser(id: string) {
         var apiURL = this.apiPrefix + 'api/subthemes/by-organiser/' + id;
         return this.authHttp.get(apiURL, { headers: this.header });
@@ -54,7 +59,6 @@ export class SubthemeService {
             subtheme.selectionCards = data[i].SelectionCards;
             subtheme.sessions = data[i].Sessions;
             subthemes.push(subtheme);
-            console.log('subtheme: ' + subtheme.name);
         }
         return subthemes;
     }

@@ -12,12 +12,13 @@ import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
 
 import {SessionTypePipe} from './session-type.pipe';
+import {SessionParticipantsPipe} from './session-participants.pipe';
 import {DatePipe} from 'angular2/common';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
-    pipes: [SessionTypePipe],
+    pipes: [SessionTypePipe, SessionParticipantsPipe],
     providers: [SessionService, SubthemeService]
 })
 
@@ -29,7 +30,7 @@ export class SessionsComponent implements OnInit {
     public subthemes: Array<Subtheme> = [];
     public progress: string;
     public sessionDetailHidden: boolean;
-    public sessionVerlopen: string;
+    public sessionExpired: boolean;
 
     model = new Session();
     
@@ -45,7 +46,9 @@ export class SessionsComponent implements OnInit {
         );
         this._subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
-            data => this.subthemes = this._subthemeService.subthemesFromJson(data.json()),
+            data => {
+                this.subthemes = this._subthemeService.subthemesFromJson(data.json());
+            },
             err => console.log(err),
             () => console.log('Complete')
         );
@@ -59,20 +62,23 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = session;
         this.calculateProgress();
         this.sessionDetailHidden = false;
+        this.sessionExpired = false;
         if (session.end < new Date()) {
-            this.sessionVerlopen = "Analyse";
-        } else {
-            this.sessionVerlopen = "Speel";
+            this.sessionExpired = true;
         }
     }
 
     onSubmit() {
         var sessionToAdd: Session = new Session();
         sessionToAdd = this.model;
-        console.log('subthemeid: ' + this.model.subthemeId);
+        sessionToAdd.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+        sessionToAdd.description = this.subthemes.filter(subtheme => subtheme.id == sessionToAdd.subthemeId)[0].name;
         sessionToAdd.organisationId = parseInt(localStorage.getItem('user_id'));
         sessionToAdd.start = new Date(Date.parse(this.model.start.toString()));
         sessionToAdd.end = new Date(Date.parse(this.model.end.toString()));
+        sessionToAdd.currentPlayerIndex = 0;
+        sessionToAdd.isFinished = false;
+        if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
         this._sessionService.postSession(sessionToAdd)
             .subscribe(
             data => this.sessions.push(this._sessionService.sessionFromJson(data.json())),
@@ -92,12 +98,12 @@ export class SessionsComponent implements OnInit {
         this.progress = "width: " + result + "%";
     }
 
-    private playOrAnalyseSession(session: Session) {
-        if (this.sessionVerlopen == "Speel") {
-            this._router.navigate(['Session', { id: session.id }]);
-        } else {
-            this._router.navigate(['Analysis', { id: session.id }]);
-        }
+    private analyseSession(session: Session) {
+        this._router.navigate(['Analysis', { id: session.id }]);
+    }
+
+    private playSession(session: Session) {
+        this._router.navigate(['Session', { id: session.id }]);
     }
 
     private cloneSession(session: Session) {

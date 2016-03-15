@@ -34,11 +34,10 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <img src="../../resources/images/linkicon.png" class="sessionlink" /> {{ sessionDetail.link }}
+                    <img src="../../resources/images/linkicon.png" class="sessionlink" />http://kandoe-angular.azurewebsites.net/#/sessies/{{ sessionDetail.subthemeId }}
                     <br /><br />
-                    <b>Type:</b> {{ sessionDetail.type | sessionTypePipe }}<br />
-                    <b>Subthema:</b> {{ sessionDetail.subtheme }}<br />
-                    <b>Aantal deelnemers:</b> 4<br /><br />
+                    <b>Type: </b> {{ sessionDetail.type | sessionTypePipe }}<br />
+                    <b>Aantal deelnemers: </b>{{ sessionDetail.participants | sessionParticipantsPipe }}<br /><br />
                 </div>
             </div>
             <div class="row">
@@ -59,7 +58,8 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="playOrAnalyseSession(sessionDetail)">{{sessionVerlopen}}</button>
+                    <button type="button" *ngIf="!sessionExpired" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
+                    <button type="button" *ngIf="sessionExpired" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
                 </div>
                 <div class="col-xs-4">
                     <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Kopieer</button>
@@ -87,13 +87,10 @@
             <!-- Create organisation form -->
             <form (ngSubmit)="onSubmit()" #sessionForm="ngForm">
                 <div class="form-group">
-                    <label for="description">Omschrijving</label>
-                    <input type="text" class="form-control" required=""
-                            [(ngModel)]="model.description"
-                            ngControl="description" #description="ngForm">
-                    <div [hidden]="description.valid || description.pristine || description.untouched" class="alert alert-danger">
-                        De nieuwe sessie vereist een omschrijving.
-                    </div>
+                    <label for="subtheme">Subthema</label>
+                    <select class="form-control" [(ngModel)]="model.subtheme" id="subthemeSelect">
+                        <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="sessionType">Sessietype</label>
@@ -102,12 +99,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="subtheme">Subthema</label>
-                    <select class="form-control" [(ngModel)]="model.subthemeId">
-                        <option *ngFor="#subtheme of subthemes" [value]="subtheme.id">{{ subtheme.name }}</option>
-                    </select>
+                    <label for="cardCreationAllowed">Kaartjes aanmaken toegestaan: </label>
+                    <div class="checkbox">
+                        <label><input type="checkbox" [(ngModel)]="model.cardCreationAllowed"/></label>
+                    </div>
                 </div>
                 <div class="form-group">
+                    <label for="startDate">Maximum kaarjes: </label>
+                    <input type="number" class="form-control" [(ngModel)]="model.maxCardsToChoose" />
+                </div>
+                <div class="form-group"> 
                     <label for="startDate">Start datum</label>
                     <input type="date" class="form-control" [(ngModel)]="model.start"/>
                 </div>

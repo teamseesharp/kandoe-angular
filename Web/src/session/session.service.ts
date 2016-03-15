@@ -8,7 +8,8 @@ import {Session} from './model/session';
 @Injectable()
 export class SessionService {
     
-    public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
+    //public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
+    public apiPrefix: string = 'http://localhost:51787/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp) {
@@ -35,11 +36,10 @@ export class SessionService {
         var sessions: Array<Session> = [];
         for (var i = 0; i < data.length; i++) {
             var session: Session = new Session();
-            session.description = data[i].Description;
             session.id = data[i].Id;
+            session.description = data[i].Description;
             session.cardCreationAllowed = data[i].CardCreationAllowed;
             session.currentPlayerIndex = data[i].CurrentPlayerIndex;
-            session.end = data[i].end;
             session.isFinished = data[i].IsFinished;
             session.maxCardsToChoose = data[i].MaxCardsToChoose;
             session.maxParticipants = data[i].MaxParticipants;
@@ -47,7 +47,8 @@ export class SessionService {
             session.organisationId = data[i].OrganisationId;
             session.round = data[i].Round;
             session.subthemeId = data[i].SubthemeId;
-            session.start = data[i].Start;
+            session.start = new Date(Date.parse(data[i].Start));
+            session.end = new Date(Date.parse(data[i].End));
             session.sessionCards = data[i].SessionCards;
             session.chatMessages = data[i].ChatMessages;
             session.organisers = data[i].Organisers;
@@ -59,11 +60,10 @@ export class SessionService {
 
     public sessionFromJson(data: any): Session {
         var session: Session = new Session();
-        session.description = data.Description;
         session.id = data.Id;
+        session.description = data.Description;
         session.cardCreationAllowed = data.CardCreationAllowed;
         session.currentPlayerIndex = data.CurrentPlayerIndex;
-        session.end = data.end;
         session.isFinished = data.IsFinished;
         session.maxCardsToChoose = data.MaxCardsToChoose;
         session.maxParticipants = data.MaxParticipants;
@@ -71,7 +71,8 @@ export class SessionService {
         session.organisationId = data.OrganisationId;
         session.round = data.Round;
         session.subthemeId = data.SubthemeId;
-        session.start = data.Start;
+        session.start = new Date(Date.parse(data.Start));
+        session.end = new Date(Date.parse(data.End));
         session.sessionCards = data.SessionCards;
         session.chatMessages = data.ChatMessages;
         session.organisers = data.Organisers;
