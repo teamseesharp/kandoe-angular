@@ -27,6 +27,11 @@ export class SubthemeService {
         return this.authHttp.post(apiURL, JSON.stringify(subtheme), { headers: this.header });
     }
 
+    public updateTheme(subtheme: Subtheme) {
+        var apiURL = this.apiPrefix + 'api/subthemes';
+        return this.authHttp.put(apiURL, JSON.stringify(subtheme), { headers: this.header });
+    }
+
     public subthemeFromJson(data: any): Subtheme {
         var subtheme: Subtheme = new Subtheme();
         subtheme.id = data.Id;

@@ -41,6 +41,7 @@ export class ThemeService {
             theme.organisationId = data[i].OrganisationId;
             theme.organiserId = data[i].OrganiserId;
             theme.tags = data[i].Tags;
+            theme.taags = theme.tags.split(';');
             theme.selectionCards = data[i].SelectionCards;
             theme.subthemes = this._subthemeService.subthemesFromJson(data[i].Subthemes);
             themes.push(theme);
@@ -57,6 +58,7 @@ export class ThemeService {
         theme.organisationId = data.OrganisationId
         theme.organiserId = data.OrganiserId;
         theme.tags = data.Tags;
+        theme.taags = theme.tags.split(';');
         theme.selectionCards = data.SelectionCards;
         theme.subthemes = data.Subthemes;
         return theme;

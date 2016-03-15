@@ -42,8 +42,6 @@ export class ThemesComponent {
     onCreateTheme() {
         var theme: Theme = new Theme();
         theme = this.model;
-        theme.organiserId = localStorage.getItem('user_id');
-        theme.organisationId = parseInt(this._routeParams.get('id'));
 
         var themeTags = document.getElementsByClassName("tag");
         this.model.tags = "";
@@ -66,7 +64,6 @@ export class ThemesComponent {
     onAddSubtheme() {
         var subtheme: Subtheme = new Subtheme();
         subtheme = this.subthemeModel;
-        subtheme.organiserId = localStorage.getItem('user_id');
 
         this._subthemeService.postSubtheme(subtheme)
             .subscribe(
@@ -81,9 +78,60 @@ export class ThemesComponent {
         this.subthemeModel = new Subtheme();
     }
 
-    // When opening the modal to add a subtheme, this method will fill in the right themeId in the subthemeModel
-    openSubthemeModal(themeId: number) {
+    onEditTheme() {
+        var theme: Theme = new Theme();
+        theme = this.model;
+
+        /*var themeTags = document.getElementsByClassName("tag");
+        this.model.tags = "";
+        // concatenate all input tags to one string
+        for (var i = 0; i < themeTags.length; i++) {
+            this.model.tags += themeTags[i].firstChild.textContent + ";";
+        }*/
+
+        this._themeService.updateTheme(theme)
+            .subscribe(
+            data => { this.getThemesByOrganisation(); },
+            err => console.log(err),
+            () => console.log('Theme edited')
+            );
+
+        this.model.tags = "";
+        this.model = new Theme();
+    }
+
+    onEditSubtheme() {
+        var subtheme: Subtheme = new Subtheme();
+        subtheme = this.subthemeModel;
+
+        this._subthemeService.updateTheme(subtheme)
+            .subscribe(
+            data => { this.getThemesByOrganisation(); },
+            err => console.log(err),
+            () => console.log('Subtheme edited')
+            );
+    }
+
+    /* When opening the modal the next methods will fill in the right information in the subthemeModel or model */
+
+    onOpenCreateModal() {
+        this.model = new Theme();
+        this.model.organiserId = localStorage.getItem('user_id');
+        this.model.organisationId = parseInt(this._routeParams.get('id'));
+    }
+
+    onOpenSubthemeModal(themeId: number) {
+        this.subthemeModel = new Subtheme();
         this.subthemeModel.themeId = themeId;
-        console.log('id set: ' + this.subthemeModel.themeId);
+        this.subthemeModel.organiserId = localStorage.getItem('user_id');
+    }
+
+    onOpenEditThemeModal(theme: Theme) {
+        this.model = theme;
+        //this.model.tags = theme.tags.replace(';', ',');
+    }
+
+    onOpenEditSubthemeModal(subtheme: Subtheme) {
+        this.subthemeModel = subtheme;
     }
 }

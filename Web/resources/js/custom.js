@@ -8,12 +8,10 @@
             }
         });
 
-        $('.tags').tagsinput({
-            confirmKeys: [32],
-            typeahead: {
-                name: 'tags',
-                local: ['a', 'b', 'c', 'd']
-            }        });
+        $('#createTags').tagsinput({
+            confirmKeys: [32]
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
 
     }, 500);

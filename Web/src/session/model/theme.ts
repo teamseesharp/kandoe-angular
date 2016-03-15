@@ -12,5 +12,4 @@ export class Theme {
 
     public selectionCards: Array<Card>;
     public subthemes: Array<Subtheme>;
-
 }

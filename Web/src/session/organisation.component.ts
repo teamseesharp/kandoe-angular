@@ -25,7 +25,7 @@ export class OrganisationComponent{
         //vervangen door api call, get van session, id meegeven
         this.organisation = new Organisation();
         this.organisation.id = parseInt(this._routeParams.get('id'));
-        //this.organisation.users = ["joske@hotmail.com", "jefke@hotmail.com"];
+        //this.organisation.users = ["geld", "voetbal"];
         this.model = this.organisation;
     }
 

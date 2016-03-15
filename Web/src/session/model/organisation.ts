@@ -9,5 +9,4 @@ export class Organisation {
 
     public sessions: Array<Session>;
     public themes: Array<Theme>;
-
 }
