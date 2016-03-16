@@ -1,9 +1,11 @@
-﻿import {Injectable}     from 'angular2/core';
+﻿import {Injectable, Component}     from 'angular2/core';
 import {Observable}     from 'rxjs/Observable';
 import {AuthHttp} from 'angular2-jwt';
 import {Response, Headers} from 'angular2/http';
 
 import {Session} from './model/session';
+
+import {CardService} from './card.service';
 
 @Injectable()
 export class SessionService {
@@ -12,9 +14,14 @@ export class SessionService {
     //public apiPrefix: string = 'http://localhost:9000/';
     public header: Headers = new Headers();
 
-    constructor(private authHttp: AuthHttp) {
+    constructor(private authHttp: AuthHttp, private _cardService: CardService) {
         this.header.append('Accept', 'text/json');
         this.header.append('Content-Type', 'application/json');
+    }
+
+    public getSessionVerbose(id: number) {
+        var apiURL = this.apiPrefix + 'api/verbose/sessions/' + id.toString();
+        return this.authHttp.get(apiURL, { headers: this.header });
     }
 
     public getSessionsByUser() {
@@ -49,7 +56,7 @@ export class SessionService {
             session.subthemeId = data[i].SubthemeId;
             session.start = new Date(Date.parse(data[i].Start));
             session.end = new Date(Date.parse(data[i].End));
-            session.sessionCards = data[i].SessionCards;
+            session.sessionCards = this._cardService.cardsFromJson(data[i].SessionCards);
             session.chatMessages = data[i].ChatMessages;
             session.organisers = data[i].Organisers;
             session.participants = data[i].Participants;
@@ -73,7 +80,7 @@ export class SessionService {
         session.subthemeId = data.SubthemeId;
         session.start = new Date(Date.parse(data.Start));
         session.end = new Date(Date.parse(data.End));
-        session.sessionCards = data.SessionCards;
+        session.sessionCards = this._cardService.cardsFromJson(data.SessionCards);
         session.chatMessages = data.ChatMessages;
         session.organisers = data.Organisers;
         session.participants = data.Participants;
