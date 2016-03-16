@@ -160,7 +160,7 @@
     <TypeScriptCompile Include="src\session\theme.service.ts" />
     <TypeScriptCompile Include="src\session\organisation.service.ts" />
     <TypeScriptCompile Include="src\session\model\card.ts" />
-    <TypeScriptCompile Include="src\session\model\cardContainer.ts" />
+    <TypeScriptCompile Include="src\session\model\card-square.ts" />
     <TypeScriptCompile Include="src\session\model\organisation.ts" />
     <TypeScriptCompile Include="src\session\model\session.ts" />
     <TypeScriptCompile Include="src\session\model\theme.ts" />

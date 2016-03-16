@@ -30,21 +30,4 @@ export class AccountService {
         var apiURL = this.apiPrefix + 'api/accounts';
         return this.authHttp.patch(apiURL, JSON.stringify(account), { headers: this.header });
     }
-
-    public accountFromJson(data: any): Account {
-        var account: Account = new Account();
-        account.id = data.Id;
-        account.email = data.Email;
-        account.name = data.Name;
-        account.surname = data.Surname;
-        account.secret = data.Secret;
-        account.picture = data.Picture;
-        account.chatMessages = data.ChatMessages;
-        account.organisations = data.Organisations;
-        account.organisedSessions = data.OrganisedSessions;
-        account.participatingSessions = data.ParticipatingSessions;
-        account.themes = data.Themes;
-        account.subthemes = data.Subthemes;
-        return account;
-    }
 }

@@ -8,6 +8,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Account} from './model/account';
 import {AccountService} from './account.service';
+import {AccountJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
@@ -23,7 +24,7 @@ export class ProfileComponent {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _accountService.getAccountByUserId(localStorage.getItem('user_id'))
             .subscribe(
-            data => this.model = _accountService.accountFromJson(data.json()),
+            data => this.model = new AccountJsonMapper().accountFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
         );

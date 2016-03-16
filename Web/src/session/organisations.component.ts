@@ -9,6 +9,8 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Organisation} from './model/organisation';
 import {OrganisationService} from './organisation.service';
 
+import {OrganisationJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, ROUTER_DIRECTIVES],
     templateUrl: 'src/session/organisations.html',
@@ -24,7 +26,7 @@ export class OrganisationsComponent {
         //if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _organisationService.getOrganisationsByUser()
             .subscribe(
-            data => this.organisations = _organisationService.organisationsFromJson(data.json()),
+            data => this.organisations = new OrganisationJsonMapper().organisationsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
             );
@@ -36,7 +38,7 @@ export class OrganisationsComponent {
         organisation.organiserId = localStorage.getItem('user_id');
         this._organisationService.postOrganisation(organisation)
             .subscribe(
-            data => this.organisations.push(this._organisationService.organisationFromJson(data.json())),
+            data => this.organisations.push(new OrganisationJsonMapper().organisationFromJson(data.json())),
             err => console.log(err),
             () => console.log('Complete')
             );
