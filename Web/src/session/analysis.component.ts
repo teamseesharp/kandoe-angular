@@ -26,8 +26,8 @@ export class AnalysisComponent {
     private cardToMerge: Card = new Card();
     subthemes: Array<Subtheme>;
     sessions: Array<Session>;
-    model = new Subtheme();
-    modelSession = new Session();
+    modelSubtheme: Subtheme;
+    modelSession: Session;
     sessionToShow: Session = new Session();
     public sessionMasterHidden: boolean;
 
@@ -55,8 +55,8 @@ export class AnalysisComponent {
 
     //onsubmit all sessions from subtheme
     onSubmitSubtheme() {
-        this.model.id = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
-        this._sessionService.getSessionsBySubtheme(this.model.id)
+        this.modelSubtheme.id = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+        this._sessionService.getSessionsBySubtheme(this.modelSubtheme.id)
             .subscribe(
             data => {
                 this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
@@ -74,7 +74,7 @@ export class AnalysisComponent {
         //Some magic
         //http://stackoverflow.com/questions/20305489/select-multiple-objects-and-save-to-ng-model
         //http://jsfiddle.net/EsQsW/2/
-        this.masterCircle(this.sessionsToAnalyse);
+        //this.masterCircle(this.sessionsToAnalyse);
     }
 
     private masterCircle(sessions: Array<Session>): Session {
@@ -114,5 +114,40 @@ export class AnalysisComponent {
         var newSessionLevel = (first.sessionLevel + second.sessionLevel) / 2;
         this.cardToMerge.sessionLevel = newSessionLevel;
         return this.cardToMerge;
+    }
+
+    public addSession() {
+        if (this.sessions.length > 0) {
+
+            var sessionToAdd: Session = new Session();
+            sessionToAdd = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('addSession')).value));
+
+            this.sessionsToAnalyse.push(sessionToAdd);
+            this.sessions.splice(this.sessions.indexOf(sessionToAdd), 1);
+        }
+    }
+
+    public removeSession() {
+        if (this.sessionsToAnalyse.length > 0) {
+            var sessionToRemove: Session = new Session();
+            sessionToRemove = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('removeSession')).value));
+
+            this.sessions.push(sessionToRemove);
+            this.sessionsToAnalyse.splice(this.sessions.indexOf(sessionToRemove), 1);
+        }
+    }
+
+    private getSessionFromId(id: number): Session {
+        for (var i: number = 0; i < this.sessions.length; i++) {
+            if (this.sessions[i].id == id) {
+                return this.sessions[i];
+            }
+        }
+
+        for (var i: number = 0; i < this.sessionsToAnalyse.length; i++) {
+            if (this.sessionsToAnalyse[i].id == id) {
+                return this.sessionsToAnalyse[i];
+            }
+        }
     }
 } 

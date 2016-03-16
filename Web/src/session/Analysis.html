@@ -16,7 +16,7 @@
     <form (ngSubmit)="onSubmitSubtheme()" #profileForm="ngForm">
       Kies een subthema dat u wilt analyseren: <br/>
       <label class="col-xs-3 control-label">Subthema</label>
-      <select class="form-control" [(ngModel)]="model.subtheme" id="subthemeSelect">
+      <select class="form-control" [(ngModel)]="subthemes" id="subthemeSelect">
         <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
       </select>
       <input type="submit" class="btn btn-info btn-lg" value="Analyseer" [disabled]="!profileForm.form.valid">
@@ -29,9 +29,19 @@
       <div class="form-group">
         <label class="col-xs-3 control-label">Session</label>
         <div class="col-xs-5">
-          <select class="form-control" name="sessions" [(ngModel)]="modelSession" multiple="true">
-            <option *ngFor="#session of sessions" [value]="session.id">{{session.description}}</option>
+          <select class="form-control" id="addSession" >
+            <option *ngFor="#s of sessions" [value]="s.id">
+              {{ s.description }}
+            </option>
           </select>
+          <button class="btn btn-info" role="button" (click)="addSession()" >Toevoegen</button>
+          
+          <select class="form-control" id="removeSession">
+            <option *ngFor="#s of sessionsToAnalyse" [value]="s.id">
+              {{ s.description }}
+            </option>
+          </select>
+          <button class="btn btn-info" role="button" (click)="removeSession()" >Verwijderen</button>
         </div>
       </div>
       <input type="submit" class="btn btn-info btn-lg" value="Analyseer">
