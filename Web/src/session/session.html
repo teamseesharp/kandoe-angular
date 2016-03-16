@@ -28,12 +28,12 @@
             <div *ngFor="#row of cardGrid">
                 <div *ngFor="#item of row">
                     <img class="gameGridItem" 
-                         (click)="clickTest(item)"
+                         (click)="onCardClick(item)"
                          [style]="item.visibility" 
                          src="resources/images/cardCircleGreen.png" 
                          alt="Kaart" 
                          data-toggle="tooltip" 
-                         data-placement="top" 
+                         data-placement="top"
                          [title]="item.card.text"
                        />
                 </div>
@@ -41,16 +41,12 @@
             </div>
         </div>
     </div>
-
-    <button (click)="placeTestCard()">+</button>
-  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#chooseCardModal" >Kies kaarten</button>
     
   <div class="row">
     <h2>{{session.description}}</h2>
 
     {{ session.id }}<br />
     {{ session.description }}<br />
-    {{ session.link }}<br />
     {{ session.type | sessionTypePipe }}<br />
     {{ session.start | date:'dd MM yyyy' }}<br />
     {{ session.end | date:'dd MM yyyy' }}
@@ -72,46 +68,75 @@
 
 <!-- Modal -->
 <div id="chooseCardModal" class="modal fade" role="form">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button id="newcard" type="button" class="close" data-dismiss="modal" >&times;</button>
-        <h4 class="modal-title">Kaarten kiezen</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <p>Alle kaarten</p>
-          <ul id="allcardlist" class="cardlistModal">
-            <li *ngFor="#cardd of allCards">
-              <div class="col-xs-3 col-md-2">
-                <div class="thumbnail">
-                  <p>{{ cardd.text }}</p>
-                  <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="newcard" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Kaarten kiezen</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Alle kaarten</p>
+                    <ul id="allcardlist" class="cardlistModal">
+                        <li *ngFor="#cardd of allCards">
+                            <div class="col-xs-3 col-md-2">
+                                <div class="thumbnail">
+                                    <p>{{ cardd.text }}</p>
+                                    <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="row">
-          <p>Gekozen kaarten</p>
-          <br/>
-          <ul id="mycardlist" class="cardlistModal">
-            <li *ngFor="#carddd of myCards">
-              <div class="col-xs-3 col-md-2">
-                <div class="thumbnail">
-                  <p>{{ carddd.text }}</p>
-                  <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
+                <div class="row">
+                    <p>Gekozen kaarten</p>
+                    <br />
+                    <ul id="mycardlist" class="cardlistModal">
+                        <li *ngFor="#carddd of myCards">
+                            <div class="col-xs-3 col-md-2">
+                                <div class="thumbnail">
+                                    <p>{{ carddd.text }}</p>
+                                    <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-            </li>
-          </ul>
+                <div class="row">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="submitCards()">Start</button>
+                </div>
+            </div>
         </div>
-          <div class="row">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="submitCards()" >Start</button>
-      </div>
     </div>
+</div>
+
+<!-- Trigger the modal from code with a hidden button -->
+<button type="button" style="display: none;" id="btnShowUpvoteModal" class="btn btn-primary btn-lg"
+        data-toggle="modal" data-target="#upvoteCardModal">
+    Hidden button
+</button>
+
+<!-- Modal -->
+<div id="upvoteCardModal" class="modal fade" role="form">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ card.text }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Deze kaart ligt op cirkel {{ card.sessionLevel }}</p>
+                </div>
+                <div class="row">
+                    <button type="button" id="upvote" class="btn btn-default" data-dismiss="modal" (click)="upvoteCard()">Stem naar het midden!</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nee bedankt.</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

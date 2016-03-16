@@ -9,6 +9,8 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Organisation} from './model/organisation';
 import {OrganisationService} from './organisation.service';
 
+import {OrganisationJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/organisation.html',
@@ -25,7 +27,7 @@ export class OrganisationComponent{
         _organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
             .subscribe(
             data => {
-                this.organisation = _organisationService.organisationFromJson(data.json()),
+                this.organisation = new OrganisationJsonMapper().organisationFromJson(data.json()),
                 this.model = this.organisation;
             },
             err => console.log(err),

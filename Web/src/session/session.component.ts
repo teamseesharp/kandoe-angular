@@ -17,6 +17,8 @@ import {CardService} from './card.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 
+import {SessionJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/session.html',
@@ -35,17 +37,19 @@ export class SessionComponent implements OnInit {
     public space: string;
     public progress: number;
     public currentPlayer: number;
+    public card: Card = new Card();
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService) {
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
-                this.session = _sessionService.sessionFromJson(data.json());
+                this.session = new SessionJsonMapper().sessionFromJson(data.json());
                 this.initCardGrid();
             },
             err => console.log(err),
             () => console.log('Complete')
         );
+        this.card.text = "";
         this.accounts = [];
         this.allCards = [];
         this.myCards = [];
@@ -82,13 +86,11 @@ export class SessionComponent implements OnInit {
         var skipSquares: boolean;
         for (var i in this.cardGrid) {
             //
-            if (parseInt(i) % 5 == 0) skipSquares = false;
+            if (parseInt(i) % 2 == 0) skipSquares = false;
             for (var j in this.cardGrid[i]) {
                 if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
-                    console.log('lengte: ' + cards.length + ' index: ' + cardIndex);
                     this.cardGrid[i][j].card = cards[cardIndex];
                     this.cardGrid[i][j].setVisibility();
-                    console.log(this.cardGrid[i][j].card.text);
                     cardIndex++;
                     skipSquares = true;
                 }
@@ -98,7 +100,7 @@ export class SessionComponent implements OnInit {
 
     private calculateRadius(item: CardSquare): number {
         var r = Math.sqrt(Math.pow(item.xCoordinate, 2) + Math.pow(item.yCoordinate, 2));
-        return Math.round(r);
+        return r;
     }
 
     setCardTooltipText(item: CardSquare) {
@@ -107,38 +109,25 @@ export class SessionComponent implements OnInit {
         console.log(this.tooltipText);
     }
 
-    placeTestCard() {
-        this.cardGrid[15][17].card = new Card();
-        this.cardGrid[15][17].card.text = "Dit is een andere kaart";
-        this.cardGrid[15][17].setVisibility();
-        window.location.reload();
+    upvoteCard() {
+        //window.location.href = ;
     }
 
-    //testing math.. math awesomeness in progress.. remove this later pl0x..
-    clickTest(item: CardSquare) {
-        var r = this.calculateRadius(item);
-        if (r <= 10 && r >= -10) {
-            item.card = new Card();
-            item.setVisibility();
+    onCardClick(cardSquare: CardSquare) {
+        if (cardSquare.card.text != '') {
+            this.card = cardSquare.card;
+            (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
         }
-        alert("text: "
-            + item.card.text
-            + " | straal: "
-            + r
-            + " | coordinates: "
-            + item.xCoordinate
-            + ", "
-            + item.yCoordinate);
     }
 
     calculatePlayerLine() {
         var numberOfPlayers = this.accounts.length;
-        var bol = 4.65;
+        var ball = 4.65;
 
-        var result = (100 - (bol * numberOfPlayers)) / (numberOfPlayers + 1);
+        var result = (100 - (ball * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        this.progress = (result + bol) * this.currentPlayer;
+        this.progress = (result + ball) * this.currentPlayer;
     }
 
     onAddCard(cardToAdd: Card) {

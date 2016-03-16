@@ -6,6 +6,7 @@ import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 import {Account} from '../account/model/account';
 import {AccountService} from './account.service';
+import {AccountJsonMapper} from '../utility/json-mapper';
 
 declare var Auth0Lock;
 
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
             var acc: Account = new Account();
             this._accountService.getAccountByAuth0UserId()
                 .subscribe(
-                data => acc = this._accountService.accountFromJson(data.json()),
+                data => acc = new AccountJsonMapper().accountFromJson(data.json()),
                 err => console.log(err),
                 () => localStorage.setItem('user_id', acc.id.toString())
                 );

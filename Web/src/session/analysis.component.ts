@@ -15,6 +15,8 @@ import {Subtheme} from './model/subtheme';
 import {SubthemeService} from './subtheme.service';
 import {SessionService} from './session.service';
 
+import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/analysis.html',
@@ -39,13 +41,13 @@ export class AnalysisComponent {
 
         _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
             .subscribe(
-            data => this.subthemes = _subthemeService.subthemesFromJson(data.json()),
+            data => this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of subthemes ' + this.subthemes.length)
         );
         _sessionService.getSessionsByUser()
             .subscribe(
-            data => this.sessions = _sessionService.sessionsFromJson(data.json()),
+            data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.sessions.length)
         );
@@ -59,7 +61,7 @@ export class AnalysisComponent {
         this._sessionService.getSessionsBySubtheme(this.modelSubtheme.id)
             .subscribe(
             data => {
-                this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
+                this.sessionsToAnalyse = new SessionJsonMapper().sessionsFromJson(data.json()),
                     console.log('NUMBER OF SESSIONS: ' + this.sessionsToAnalyse.length);
                 console.log('NUMBER OF CARDS: ' + this.sessionsToAnalyse[0].sessionCards.length);
                     this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);

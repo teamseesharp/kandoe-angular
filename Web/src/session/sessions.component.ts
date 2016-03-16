@@ -16,6 +16,8 @@ import {SessionTypePipe} from './session-type.pipe';
 import {SessionParticipantsPipe} from './session-participants.pipe';
 import {DatePipe} from 'angular2/common';
 
+import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
@@ -41,14 +43,14 @@ export class SessionsComponent implements OnInit {
         this.sessionDetailHidden = true;
         this._sessionService.getSessionsByUser()
             .subscribe(
-            data => this.sessions = this._sessionService.sessionsFromJson(data.json()),
+            data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
         );
         this._subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
             data => {
-                this.subthemes = this._subthemeService.subthemesFromJson(data.json());
+                this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json());
             },
             err => console.log(err),
             () => console.log('Complete')
@@ -82,7 +84,7 @@ export class SessionsComponent implements OnInit {
         //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
         this._sessionService.postSession(sessionToAdd)
             .subscribe(
-            data => this.sessions.push(this._sessionService.sessionFromJson(data.json())),
+            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
             err => console.log(err),
             () => console.log('Complete')
         );
