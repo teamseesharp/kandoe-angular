@@ -1,4 +1,9 @@
-﻿body { 
+﻿@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.eot') format('embedded-opentype');
+}
+
+body { 
     background:url("../images/backgroundkandoe.png") fixed;
     background-size: cover;
 }

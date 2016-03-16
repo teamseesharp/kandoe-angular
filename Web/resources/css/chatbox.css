@@ -1,0 +1,160 @@
+﻿#fixed {
+    bottom: 0;
+    left: 50%;
+    margin-left: -200px;
+    overflow: hidden;
+    padding: 0 5px;
+    position: fixed;
+    width: 400px;
+    z-index: 1001;
+}
+
+.fixedHeader {
+    background: none repeat scroll 0 0 #416f14;
+    border: 2px solid whitesmoke;
+    border-radius: 4px;
+    border-bottom: none;
+    color: #fff;
+    height: 3em;
+    margin: 0 auto;
+    padding: 5px;
+    width: 400px;   
+    font-weight:700;
+    font-size:15px;
+}
+
+.fixedContent {
+    background: none repeat scroll 0 0 whitesmoke;
+    margin: 0 auto;   
+    width: 400px;
+    height:300px;
+    overflow: auto;
+}
+
+.userinput{
+    width: 400px;
+    height: 4em;
+    outline:none;
+    display:block;
+    resize:none;
+    padding: 5px;    
+}
+
+.messages{
+    background-color: red;
+    color: white;
+    border-radius: 8px;
+    line-height: 1.28;
+    padding:5px;
+    margin-top: 1px;
+    margin-left:70px;
+    font-size: 14px;
+    display: block;
+}
+
+.userwrap{
+    position:relative;
+}
+
+.user{
+    padding: 5px ;
+    font-size:12px;
+    color:#888;
+    font-weight:700;
+    position:absolute;
+    left:0; top:0;
+}
+
+#sendChatMessage {
+    height: 3.7em;
+    background-color: #84c148;
+    border-color: #416f14;
+}
+
+.mar-btm {
+    margin-bottom: 15px;
+}
+
+.media-block .media-left {
+    display: block;
+    float: left;
+}
+
+.img-sm {
+    width: 46px;
+    height: 46px;
+}
+
+.media-block .media-body {
+    display: block;
+    overflow: hidden;
+    width: auto;
+}
+
+.pad-hor {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.speech {
+    position: relative;
+    background: #b7dcfe;
+    color: #317787;
+    display: inline-block;
+    border-radius: 0;
+    padding: 12px 20px;
+}
+.speech:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 7px solid #b7dcfe;
+    margin: 15px 0 0 -6px;
+}
+.speech-right>.speech:before {
+    left: auto;
+    right: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid #ffdc91;
+    border-right: 0;
+    margin: 15px -6px 0 0;
+}
+.speech .media-heading {
+    font-size: 1.2em;
+    color: #317787;
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-weight: 300;
+}
+.speech-time {
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: .8em;
+    font-weight: 300;
+}
+.media-block .media-right {
+    float: right;
+}
+.speech-right {
+    text-align: right;
+}
+.pad-hor {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.speech-right>.speech {
+    background: #ffda87;
+    color: #a07617;
+    text-align: right;
+}
+.speech-right>.speech .media-heading {
+    color: #a07617;
+}

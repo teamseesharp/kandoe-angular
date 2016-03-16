@@ -76,6 +76,7 @@
     <Content Include="resources\css\bootstrap-tagsinput.css" />
     <Content Include="resources\css\bootstrap-typeahead.css" />
     <Content Include="resources\css\bootstrap.min.css" />
+    <Content Include="resources\css\chatbox.css" />
     <Content Include="resources\css\defaultstyle.css" />
     <Content Include="resources\css\jasny-bootstrap.min.css" />
     <Content Include="resources\css\timeline.css" />
@@ -135,7 +136,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="resources\fonts\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\account\account.service.ts" />
     <TypeScriptCompile Include="src\account\login.component.ts" />
@@ -192,6 +195,7 @@
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

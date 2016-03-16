@@ -47,7 +47,8 @@ export class LoginComponent implements OnInit {
                 data => acc = this._accountService.accountFromJson(data.json()),
                 err => console.log(err),
                 () => localStorage.setItem('user_id', acc.id.toString())
-                );
+            );
+
             this._router.navigate(['Home']);
         });
     }
