@@ -10,6 +10,7 @@ import {Session, SessionType} from './model/session';
 import {Subtheme} from './model/subtheme';
 import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
+import {CardService} from './card.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 import {SessionParticipantsPipe} from './session-participants.pipe';
@@ -19,7 +20,7 @@ import {DatePipe} from 'angular2/common';
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
     pipes: [SessionTypePipe, SessionParticipantsPipe],
-    providers: [SessionService, SubthemeService]
+    providers: [SessionService, SubthemeService, CardService]
 })
 
 export class SessionsComponent implements OnInit {
@@ -64,7 +65,7 @@ export class SessionsComponent implements OnInit {
         this.sessionDetailHidden = false;
         this.sessionExpired = false;
         if (session.end < new Date()) {
-            this.sessionExpired = true;
+            //this.sessionExpired = true;
         }
     }
 
@@ -78,7 +79,7 @@ export class SessionsComponent implements OnInit {
         sessionToAdd.end = new Date(Date.parse(this.model.end.toString()));
         sessionToAdd.currentPlayerIndex = 0;
         sessionToAdd.isFinished = false;
-        if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
+        //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
         this._sessionService.postSession(sessionToAdd)
             .subscribe(
             data => this.sessions.push(this._sessionService.sessionFromJson(data.json())),
