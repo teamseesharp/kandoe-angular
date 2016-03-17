@@ -63,8 +63,56 @@
       </li>
     </ul>
   </div>
-
 </section>
+
+<!-- Chatbox -->
+<div id="fixed">
+    <div class="fixedHeader">Chat</div>
+    <div class="fixedContent">
+        <ul class="list-unstyled media-block">
+            <li class="mar-btm">
+                <div class="media-left">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
+                </div>
+                <div class="media-body pad-hor">
+                    <div class="speech">
+                        <a href="#" class="media-heading">Jos</a>
+                        <p>Hallo Jef, hoe ist?</p>
+                        <p class="speech-time">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 09:23AM
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="mar-btm">
+                <div class="media-right">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
+                </div>
+                <div class="media-body pad-hor speech-right">
+                    <div class="speech">
+                        <a href="#" class="media-heading">Jef</a>
+                        <p>Goe Jos, me jou?</p>
+                        <p class="speech-time">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 09:24AM
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="chatbox">
+        <div class="row" style="height: 3em;">
+            <div class="col-xs-9">
+                <input type="text" placeholder="Typ hier je bericht" id="chatMessageInput" class="form-control chat-input userinput">
+            </div>
+            <div class="col-xs-3">
+                <button class="btn btn-primary btn-block" id="sendChatMessage" type="submit">Verzend</button>
+                <button type="button" id="autoAddChatMessage" (click)="addChatMessage()" hidden></button>
+                <button type="button" id="autoGetChatMessages" (click)="getChatMessages()" hidden></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal -->
 <div id="chooseCardModal" class="modal fade" role="form">

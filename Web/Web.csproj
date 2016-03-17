@@ -150,6 +150,7 @@
     <TypeScriptCompile Include="src\defaultcomponents\heading.component.ts" />
     <TypeScriptCompile Include="src\defaultcomponents\sidebar.component.ts" />
     <TypeScriptCompile Include="src\home\home.component.ts" />
+    <TypeScriptCompile Include="src\message\message.service.ts" />
     <TypeScriptCompile Include="src\message\messages.component.ts" />
     <TypeScriptCompile Include="src\message\model\message.ts" />
     <TypeScriptCompile Include="src\session\analysis.component.ts" />

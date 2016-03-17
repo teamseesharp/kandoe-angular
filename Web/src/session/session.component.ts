@@ -11,19 +11,21 @@ import {SessionType} from './model/session';
 import {Account} from '../account/model/account';
 import {Card} from './model/card';
 import {CardSquare} from './model/card-square';
+import {Message} from '../message/model/message';
 
 import {SessionService} from './session.service';
 import {CardService} from './card.service';
+import {MessageService} from '../message/message.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 
-import {SessionJsonMapper} from '../utility/json-mapper';
+import {SessionJsonMapper, ChatMessageJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/session.html',
     pipes: [SessionTypePipe],
-    providers: [SessionService, CardService]
+    providers: [SessionService, CardService, MessageService]
 })
 
 export class SessionComponent implements OnInit {
@@ -34,16 +36,19 @@ export class SessionComponent implements OnInit {
     private allCards: Array<Card>;
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardSquare>> = [];
+    private chatMessages: Array<Message>;
     public space: string;
     public progress: number;
     public currentPlayer: number;
     public card: Card = new Card();
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
+        private _messageService: MessageService) {
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
                 this.session = new SessionJsonMapper().sessionFromJson(data.json());
+                console.log(data.json());
                 this.initCardGrid();
             },
             err => console.log(err),
@@ -53,7 +58,8 @@ export class SessionComponent implements OnInit {
         this.accounts = [];
         this.allCards = [];
         this.myCards = [];
-        this.currentPlayer = 4;
+        this.chatMessages = [];
+        this.currentPlayer = 0;
         this.progress = 0;
         this.tooltipText = "";
         this.calculatePlayerLine();
@@ -156,4 +162,27 @@ export class SessionComponent implements OnInit {
         //Todo allCards lijst meegeven aan backend, gekozen kaarten zijn er niet meer bij.
     }
 
+    getChatMessages() {
+        this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => { this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json()); },
+            err => console.log(err),
+            () => console.log('Complete get messages')
+            );
+    }
+
+    addChatMessage() {
+        var message: Message = new Message();
+        message.sessionId = parseInt(this._routeParams.get('id'));
+        message.text = (<HTMLInputElement>document.getElementById('chatMessageInput')).value;
+        message.messengerId = parseInt(localStorage.getItem('user_id'));
+        console.log(message);
+
+        this._messageService.postMessage(message)
+            .subscribe(
+            data => this.chatMessages.push(new ChatMessageJsonMapper().chatMessageFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Chatmessage added')
+            );
+    }
 }

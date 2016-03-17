@@ -5,5 +5,4 @@
     public sessionId: number;
     public text: string;
     public timestamp: Date;
-
 }

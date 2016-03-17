@@ -1,12 +1,13 @@
 ﻿#fixed {
     bottom: 0;
-    left: 50%;
+    left: 85%;
     margin-left: -200px;
     overflow: hidden;
     padding: 0 5px;
     position: fixed;
     width: 400px;
     z-index: 1001;
+    border-radius: 4px;
 }
 
 .fixedHeader {
@@ -97,11 +98,12 @@
 }
 .speech {
     position: relative;
-    background: #b7dcfe;
-    color: #317787;
+    background: #416f14;
+    color: whitesmoke;
     display: inline-block;
-    border-radius: 0;
+    border-radius: 4px;
     padding: 12px 20px;
+    min-width: 200px;
 }
 .speech:before {
     content: "";
@@ -113,7 +115,7 @@
     top: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-right: 7px solid #b7dcfe;
+    border-right: 7px solid #416f14;
     margin: 15px 0 0 -6px;
 }
 .speech-right>.speech:before {
@@ -121,13 +123,13 @@
     right: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-left: 7px solid #ffdc91;
+    border-left: 7px solid #84c148;
     border-right: 0;
     margin: 15px -6px 0 0;
 }
 .speech .media-heading {
     font-size: 1.2em;
-    color: #317787;
+    color: whitesmoke;
     display: block;
     border-bottom: 1px solid rgba(0,0,0,0.1);
     margin-bottom: 10px;
@@ -151,10 +153,11 @@
     padding-right: 15px;
 }
 .speech-right>.speech {
-    background: #ffda87;
-    color: #a07617;
+    background: #84c148;
+    color: whitesmoke;
     text-align: right;
+    border-radius: 4px;
 }
 .speech-right>.speech .media-heading {
-    color: #a07617;
+    color: whitesmoke;
 }

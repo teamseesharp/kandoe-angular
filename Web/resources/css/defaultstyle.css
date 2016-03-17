@@ -383,7 +383,7 @@ section#main .profile {
     width: 80%;
 }
 
-.welcomeText {
+#welcomeText {
     color: whitesmoke;
     background-color: #416f14;
     text-align: center;

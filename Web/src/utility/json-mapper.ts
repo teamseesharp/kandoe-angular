@@ -4,6 +4,7 @@ import {Session} from '../session/model/session';
 import {Theme} from '../session/model/theme';
 import {Subtheme} from '../session/model/subtheme';
 import {Card} from '../session/model/card';
+import {Message} from '../message/model/message';
 
 export class AccountJsonMapper {
 
@@ -199,5 +200,31 @@ export class CardJsonMapper {
             cards.push(card);
         }
         return cards;
+    }
+}
+
+export class ChatMessageJsonMapper {
+    public chatMessageFromJson(data: any): Message {
+        var message: Message = new Message();
+        message.id = data.Id;
+        message.messengerId = data.MessengerId;
+        message.sessionId = data.SessionId;
+        message.text = data.Text;
+        message.timestamp = new Date(Date.parse(data.Timestamp));
+        return message;
+    }
+
+    public chatMessagesFromJson(data: any): Array<Message> {
+        var messages: Array<Message> = [];
+        for (var i = 0; i < data.length; i++) {
+            var message: Message = new Message();
+            message.id = data[i].Id;
+            message.messengerId = data[i].MessengerId;
+            message.sessionId = data[i].SessionId;
+            message.text = data[i].Text;
+            message.timestamp = new Date(Date.parse(data[i].Timestamp));
+            messages.push(message);
+        }
+        return messages;
     }
 }
