@@ -41,7 +41,11 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = new Session();
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
-        //controle van routeparams
+        this.checkRouteParams();
+        
+    }
+
+    private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
             console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
@@ -51,12 +55,7 @@ export class SessionsComponent implements OnInit {
                 () => console.log('Complete')
                 );
         } else {
-<<<<<<< HEAD
             this._sessionService.getSessionsByOrganisation(parseInt(this._routeParams.get('id')))
-=======
-            console.log('MET ID: ' + this._routeParams.get('id'));
-            this._sessionService.getSessionsByOrganisation(this._routeParams.get('id'))
->>>>>>> 9136bf17f4b37b83e065be1cff1676988bfe761f
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
                 err => console.log(err),
@@ -70,7 +69,7 @@ export class SessionsComponent implements OnInit {
             },
             err => console.log(err),
             () => console.log('Complete')
-        );
+            );
     }
 
     ngOnInit() {
