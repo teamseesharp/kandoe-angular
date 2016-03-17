@@ -10,13 +10,14 @@
       <h1>Spel</h1>
     </div>
   </div>
+  <div id="currentPlayer" hidden>{{currentPlayerId}}</div>
   <div id="progress" hidden>{{progress}}</div>
   <div class="row" id="playersline">
     <div class="col-xs-12">
       <div id="timeline">
-        <div class="dot" *ngFor="#account of accounts" [style]="space">
+        <div class="dot" *ngFor="#account of accounts" id="account.id" [style]="space">
           <span></span>
-          <p>{{account.firstname}}</p>
+          <p>{{account.name}}</p>
         </div>
         <div class="inside"></div>
       </div>
@@ -108,7 +109,7 @@
             <div class="col-xs-3">
                 <button class="btn btn-primary btn-block" id="sendChatMessage" type="submit">Verzend</button>
                 <button type="button" id="autoAddChatMessage" (click)="addChatMessage()" hidden></button>
-                <button type="button" id="autoGetChatMessages" (click)="getChatMessages()" hidden></button>
+                <button type="button" id="autoGetChatMessages" (click)="getChatMessages()"></button>
             </div>
         </div>
     </div>

@@ -40,29 +40,32 @@ export class SessionComponent implements OnInit {
     public space: string;
     public progress: number;
     public currentPlayer: number;
+    public currentPlayerId: number;
     public card: Card = new Card();
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
         private _messageService: MessageService) {
+        // default value, used in custom.js to load the javascript for the chat
+        localStorage.setItem('isChatActive', "false");
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
                 this.session = new SessionJsonMapper().sessionFromJson(data.json());
+                this.accounts = this.session.participants;
                 console.log(data.json());
+                this.currentPlayer = this.session.currentPlayerIndex;
                 this.initCardGrid();
+                this.calculatePlayerLine();
             },
             err => console.log(err),
             () => console.log('Complete')
         );
         this.card.text = "";
-        this.accounts = [];
         this.allCards = [];
         this.myCards = [];
         this.chatMessages = [];
-        this.currentPlayer = 0;
         this.progress = 0;
         this.tooltipText = "";
-        this.calculatePlayerLine();
     }
 
     ngOnInit() {
@@ -128,12 +131,13 @@ export class SessionComponent implements OnInit {
 
     calculatePlayerLine() {
         var numberOfPlayers = this.accounts.length;
-        var ball = 4.65;
+        var ball = 4.60;
 
         var result = (100 - (ball * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
         this.progress = (result + ball) * this.currentPlayer;
+        this.currentPlayerId = this.session.participants[this.session.currentPlayerIndex - 1].id;
     }
 
     onAddCard(cardToAdd: Card) {
@@ -143,9 +147,7 @@ export class SessionComponent implements OnInit {
                 this.myCards.push(cardToAdd);
                 break;
             } 
-        }
-         
-         
+        }  
     }
 
     onRemoveCard(cardToRemove: Card) {
@@ -165,7 +167,10 @@ export class SessionComponent implements OnInit {
     getChatMessages() {
         this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
             .subscribe(
-            data => { this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json()); },
+            data => {
+                this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
+                console.log(this.chatMessages);
+            },
             err => console.log(err),
             () => console.log('Complete get messages')
             );
@@ -176,7 +181,6 @@ export class SessionComponent implements OnInit {
         message.sessionId = parseInt(this._routeParams.get('id'));
         message.text = (<HTMLInputElement>document.getElementById('chatMessageInput')).value;
         message.messengerId = parseInt(localStorage.getItem('user_id'));
-        console.log(message);
 
         this._messageService.postMessage(message)
             .subscribe(

@@ -60,6 +60,9 @@ div#timeline .dot:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
 }
+
+
+
 div#timeline .dot date {
   font-family: roboto;
   font-size: 1.1rem;

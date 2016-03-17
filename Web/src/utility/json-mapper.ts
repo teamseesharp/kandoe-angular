@@ -24,6 +24,28 @@ export class AccountJsonMapper {
         account.subthemes = data.Subthemes;
         return account;
     }
+
+    public accountsFromJson(data: any): Array<Account> {
+        var accounts: Array<Account> = [];
+        for (var i = 0; i < data.length; i++) {
+            var account: Account = new Account();
+            account.id = data[i].Id;
+            account.email = data[i].Email;
+            account.name = data[i].Name;
+            account.surname = data[i].Surname;
+            account.secret = data[i].Secret;
+            account.picture = data[i].Picture;
+            account.chatMessages = data[i].ChatMessages;
+            account.organisations = data[i].Organisations;
+            account.organisedSessions = data[i].OrganisedSessions;
+            account.participatingSessions = data[i].ParticipatingSessions;
+            account.themes = data[i].Themes;
+            account.subthemes = data[i].Subthemes;
+            accounts.push(account);
+        }
+        console.log(accounts);
+        return accounts;
+    }
 }
 
 export class OrganisationJsonMapper {
@@ -56,6 +78,7 @@ export class OrganisationJsonMapper {
 export class SessionJsonMapper {
 
     private cardMapper: CardJsonMapper = new CardJsonMapper();
+    private accountMapper: AccountJsonMapper = new AccountJsonMapper();
 
     public sessionFromJson(data: any): Session {
         var session: Session = new Session();
@@ -75,7 +98,8 @@ export class SessionJsonMapper {
         session.sessionCards = this.cardMapper.cardsFromJson(data.SessionCards);
         session.chatMessages = data.ChatMessages;
         session.organisers = data.Organisers;
-        session.participants = data.Participants;
+        session.participants = this.accountMapper.accountsFromJson(data.Participants);
+        console.log(session.participants);
         return session;
     }
 
@@ -99,7 +123,7 @@ export class SessionJsonMapper {
             session.sessionCards = this.cardMapper.cardsFromJson(data[i].SessionCards);
             session.chatMessages = data[i].ChatMessages;
             session.organisers = data[i].Organisers;
-            session.participants = data[i].Participants;
+            session.participants = this.accountMapper.accountsFromJson(data[i].Participants);
             sessions.push(session);
         }
         return sessions;
