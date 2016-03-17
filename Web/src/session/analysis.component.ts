@@ -60,7 +60,7 @@ export class AnalysisComponent {
             .subscribe(
             data => {
                 this.sessionsToAnalyse = this._sessionService.sessionsFromJson(data.json()),
-                    console.log('NUMBER OF SESSIONS: ' + this.sessionsToAnalyse.length);
+                console.log('NUMBER OF SESSIONS: ' + this.sessionsToAnalyse.length);
                 console.log('NUMBER OF CARDS: ' + this.sessionsToAnalyse[0].sessionCards.length);
                     this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
             },
