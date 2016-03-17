@@ -85,6 +85,7 @@
     <Content Include="resources\images\cardCircleGreen.png" />
     <Content Include="resources\images\descriptionicon.png" />
     <Content Include="resources\images\editicon.png" />
+    <Content Include="resources\images\kandoe-card.png" />
     <Content Include="resources\images\kandoeCircleBackground.png" />
     <Content Include="resources\images\KandoeText.png" />
     <Content Include="resources\images\linkicon.png" />
@@ -104,6 +105,7 @@
     <Content Include="resources\js\jasny-bootstrap.min.js" />
     <Content Include="resources\js\jquery-2.2.1.min.js" />
     <Content Include="resources\js\timeline.js" />
+    <Content Include="src\about\about.html" />
     <Content Include="src\account\login.html" />
     <Content Include="src\account\profile.html" />
     <Content Include="src\defaultcomponents\body-content.html" />
@@ -139,6 +141,7 @@
     <Folder Include="resources\fonts\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\about\about.component.ts" />
     <TypeScriptCompile Include="src\account\account.service.ts" />
     <TypeScriptCompile Include="src\account\login.component.ts" />
     <TypeScriptCompile Include="src\account\model\account.ts" />

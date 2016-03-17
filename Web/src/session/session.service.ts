@@ -11,7 +11,7 @@ import {CardService} from './card.service';
 export class SessionService {
     
     public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
-    //public apiPrefix: string = 'http://localhost:9000/';
+    //public apiPrefix: string = 'http://localhost:51787/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp, private _cardService: CardService) {
@@ -38,9 +38,29 @@ export class SessionService {
         var apiURL = this.apiPrefix + 'api/sessions/by-organisation/' + organisationId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
+
+    public getFutureSessionsByUser() {
+        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
+    public getOpenessionsByUser() {
+        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
+    public getClosedSessionsByUser() {
+        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
     
     public postSession(session: Session) {
         var apiURL = this.apiPrefix + 'api/sessions';
         return this.authHttp.post(apiURL, JSON.stringify(session), { headers: this.header });
+    }
+
+    public patchSessionCardLevel(session: Session, cardId: number) {
+        var apiUrL = this.apiPrefix + 'api/sessions/' + session.id.toString() + '/level-up-card/' + cardId.toString();
+        return this.authHttp.patch(apiUrL, JSON.stringify(session), { headers: this.header });
     }
 }
