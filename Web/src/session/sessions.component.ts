@@ -43,6 +43,7 @@ export class SessionsComponent implements OnInit {
         this.sessionDetailHidden = true;
         //controle van routeparams
         if (this._routeParams.get('id') == null) {
+            console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
@@ -50,6 +51,7 @@ export class SessionsComponent implements OnInit {
                 () => console.log('Complete')
                 );
         } else {
+            console.log('MET ID: ' + this._routeParams.get('id'));
             this._sessionService.getSessionsByOrganisation(this._routeParams.get('id'))
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),

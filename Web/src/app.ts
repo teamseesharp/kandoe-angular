@@ -2,6 +2,7 @@
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 
 import {LoginComponent} from './account/login.component';
+import {AboutComponent} from './about/about.component';
 import {ProfileComponent} from './account/profile.component';
 import {HomeComponent} from './home/home.component';
 import {SessionsComponent} from './session/sessions.component';
@@ -22,6 +23,7 @@ import {AnalysisComponent} from './session/analysis.component';
 
 @RouteConfig([
     { path: "/", name: "Home", component: HomeComponent, useAsDefault: true },
+    { path: "/over", name: "About", component: AboutComponent },
     { path: "/login", name: "Login", component: LoginComponent },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
