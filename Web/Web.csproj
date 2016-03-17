@@ -76,6 +76,7 @@
     <Content Include="resources\css\bootstrap-tagsinput.css" />
     <Content Include="resources\css\bootstrap-typeahead.css" />
     <Content Include="resources\css\bootstrap.min.css" />
+    <Content Include="resources\css\chatbox.css" />
     <Content Include="resources\css\defaultstyle.css" />
     <Content Include="resources\css\jasny-bootstrap.min.css" />
     <Content Include="resources\css\timeline.css" />
@@ -135,7 +136,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="resources\fonts\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\account\account.service.ts" />
     <TypeScriptCompile Include="src\account\login.component.ts" />
@@ -147,6 +150,7 @@
     <TypeScriptCompile Include="src\defaultcomponents\heading.component.ts" />
     <TypeScriptCompile Include="src\defaultcomponents\sidebar.component.ts" />
     <TypeScriptCompile Include="src\home\home.component.ts" />
+    <TypeScriptCompile Include="src\message\message.service.ts" />
     <TypeScriptCompile Include="src\message\messages.component.ts" />
     <TypeScriptCompile Include="src\message\model\message.ts" />
     <TypeScriptCompile Include="src\session\analysis.component.ts" />
@@ -157,7 +161,7 @@
     <TypeScriptCompile Include="src\session\theme.service.ts" />
     <TypeScriptCompile Include="src\session\organisation.service.ts" />
     <TypeScriptCompile Include="src\session\model\card.ts" />
-    <TypeScriptCompile Include="src\session\model\cardContainer.ts" />
+    <TypeScriptCompile Include="src\session\model\card-square.ts" />
     <TypeScriptCompile Include="src\session\model\organisation.ts" />
     <TypeScriptCompile Include="src\session\model\session.ts" />
     <TypeScriptCompile Include="src\session\model\theme.ts" />
@@ -192,6 +196,7 @@
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

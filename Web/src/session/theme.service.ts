@@ -30,35 +30,4 @@ export class ThemeService {
         var apiURL = this.apiPrefix + 'api/themes';
         return this.authHttp.put(apiURL, JSON.stringify(theme), { headers: this.header });
     }
-
-    public themesFromJson(data: any): Array<Theme> {
-        var themes: Array<Theme> = [];
-        for (var i = 0; i < data.length; i++) {
-            var theme: Theme = new Theme();
-            theme.id = data[i].Id;
-            theme.name = data[i].Name;
-            theme.description = data[i].Description;
-            theme.organisationId = data[i].OrganisationId;
-            theme.organiserId = data[i].OrganiserId;
-            theme.tags = data[i].Tags;
-            theme.selectionCards = data[i].SelectionCards;
-            theme.subthemes = this._subthemeService.subthemesFromJson(data[i].Subthemes);
-            themes.push(theme);
-        }
-
-        return themes;
-    }
-
-    public themeFromJson(data: any): Theme {
-        var theme: Theme = new Theme();
-        theme.id = data.Id;
-        theme.name = data.Name;
-        theme.description = data.Description;
-        theme.organisationId = data.OrganisationId
-        theme.organiserId = data.OrganiserId;
-        theme.tags = data.Tags;
-        theme.selectionCards = data.SelectionCards;
-        theme.subthemes = data.Subthemes;
-        return theme;
-    }
 }

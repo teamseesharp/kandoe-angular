@@ -9,8 +9,11 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Theme} from './model/theme';
 import {Subtheme} from './model/subtheme';
 import {Organisation} from './model/organisation';
+
 import {ThemeService} from './theme.service';
 import {SubthemeService} from './subtheme.service';
+
+import {ThemeJsonMapper, SubthemeJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, ROUTER_DIRECTIVES],
@@ -33,7 +36,7 @@ export class ThemesComponent {
     getThemesByOrganisation() {
         this._themeService.getThemesByOrganisation(parseInt(this._routeParams.get('id')))
             .subscribe(
-            data => this.themes = this._themeService.themesFromJson(data.json()),
+            data => this.themes = new ThemeJsonMapper().themesFromJson(data.json()),
             err => console.log(err),
             () => console.log('Read all themes')
             );
@@ -52,7 +55,7 @@ export class ThemesComponent {
 
         this._themeService.postTheme(theme)
             .subscribe(
-            data => this.themes.push(this._themeService.themeFromJson(data.json())),
+            data => this.themes.push(new ThemeJsonMapper().themeFromJson(data.json())),
             err => console.log(err),
             () => console.log('Theme created')
             );
@@ -68,7 +71,7 @@ export class ThemesComponent {
         this._subthemeService.postSubtheme(subtheme)
             .subscribe(
             data => {
-                subtheme = this._subthemeService.subthemeFromJson(data.json());
+                subtheme = new SubthemeJsonMapper().subthemeFromJson(data.json());
                 this.getThemesByOrganisation();
             },
             err => console.log(err),

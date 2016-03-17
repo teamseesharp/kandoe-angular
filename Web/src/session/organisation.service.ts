@@ -34,30 +34,4 @@ export class OrganisationService {
         var apiURL = this.apiPrefix + 'api/organisations';
         return this.authHttp.put(apiURL, JSON.stringify(organisationToChange), { headers: this.header });
     }
-
-    public organisationsFromJson(data: any): Array<Organisation> {
-        var organisations: Array<Organisation> = [];
-        for (var i = 0; i < data.length; i++) {
-            var organisation: Organisation = new Organisation();
-            organisation.id = data[i].Id;
-            organisation.name = data[i].Name;
-            organisation.organiserId = data[i].OrganiserId;
-            organisation.sessions = data[i].Sessions;
-            organisation.themes = data[i].Themes;
-            organisations.push(organisation);
-        }
-        return organisations;
-    }
-
-    public organisationFromJson(data: any): Organisation {
-        var organisation: Organisation = new Organisation();
-        organisation.id = data.Id;
-        organisation.name = data.Name;
-        organisation.organiserId = data.OrganiserId;
-        organisation.sessions = data.Sessions;
-        organisation.themes = data.Themes;
-        return organisation;
-    }
-
-
 }

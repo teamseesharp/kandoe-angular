@@ -36,32 +36,4 @@ export class SubthemeService {
         var apiURL = this.apiPrefix + 'api/subthemes';
         return this.authHttp.put(apiURL, JSON.stringify(subtheme), { headers: this.header });
     }
-
-    public subthemeFromJson(data: any): Subtheme {
-        var subtheme: Subtheme = new Subtheme();
-        subtheme.id = data.Id;
-        subtheme.name = data.Name;
-        subtheme.organiserId = data.OrganiserId;
-        subtheme.themeId = data.ThemeId;
-        subtheme.selectionCards = data.SelectionCards;
-        subtheme.sessions = data.Sessions;
-        return subtheme;
-    }
-
-    public subthemesFromJson(data: any): Array<Subtheme> {
-        var subthemes: Array<Subtheme> = [];
-        for (var i = 0; i < data.length; i++) {
-            var subtheme: Subtheme = new Subtheme();
-            subtheme.id = data[i].Id;
-            subtheme.name = data[i].Name;
-            subtheme.organiserId = data[i].OrganiserId;
-            subtheme.themeId = data[i].ThemeId;
-            subtheme.selectionCards = data[i].SelectionCards;
-            subtheme.sessions = data[i].Sessions;
-            subthemes.push(subtheme);
-        }
-        return subthemes;
-    }
-
-
 }

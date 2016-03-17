@@ -10,6 +10,8 @@ import {Account} from '../account/model/account';
 import {AccountService} from '../account/account.service';
 import {tokenNotExpired} from 'angular2-jwt';
 
+import {AccountJsonMapper} from '../utility/json-mapper';
+
 @Component({
     selector: 'sidebar',
     directives: [ROUTER_DIRECTIVES],
@@ -25,7 +27,7 @@ export class SidebarComponent {
         if (tokenNotExpired()) {
             _accountService.getAccountByUserId(localStorage.getItem('user_id'))
                 .subscribe(
-                data => this.account = _accountService.accountFromJson(data.json()),
+                data => this.account = new AccountJsonMapper().accountFromJson(data.json()),
                 err => console.log(err),
                 () => console.log('Sidebar complete')
                 );

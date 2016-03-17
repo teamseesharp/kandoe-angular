@@ -11,17 +11,21 @@ import {SessionType} from './model/session';
 import {Account} from '../account/model/account';
 import {Card} from './model/card';
 import {CardSquare} from './model/card-square';
+import {Message} from '../message/model/message';
 
 import {SessionService} from './session.service';
 import {CardService} from './card.service';
+import {MessageService} from '../message/message.service';
 
 import {SessionTypePipe} from './session-type.pipe';
+
+import {SessionJsonMapper, ChatMessageJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/session.html',
     pipes: [SessionTypePipe],
-    providers: [SessionService, CardService]
+    providers: [SessionService, CardService, MessageService]
 })
 
 export class SessionComponent implements OnInit {
@@ -32,24 +36,30 @@ export class SessionComponent implements OnInit {
     private allCards: Array<Card>;
     private myCards: Array<Card>;
     private cardGrid: Array<Array<CardSquare>> = [];
+    private chatMessages: Array<Message>;
     public space: string;
     public progress: number;
     public currentPlayer: number;
+    public card: Card = new Card();
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
+        private _messageService: MessageService) {
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
-                this.session = _sessionService.sessionFromJson(data.json());
+                this.session = new SessionJsonMapper().sessionFromJson(data.json());
+                console.log(data.json());
                 this.initCardGrid();
             },
             err => console.log(err),
             () => console.log('Complete')
         );
+        this.card.text = "";
         this.accounts = [];
         this.allCards = [];
         this.myCards = [];
-        this.currentPlayer = 4;
+        this.chatMessages = [];
+        this.currentPlayer = 0;
         this.progress = 0;
         this.tooltipText = "";
         this.calculatePlayerLine();
@@ -82,13 +92,11 @@ export class SessionComponent implements OnInit {
         var skipSquares: boolean;
         for (var i in this.cardGrid) {
             //
-            if (parseInt(i) % 5 == 0) skipSquares = false;
+            if (parseInt(i) % 2 == 0) skipSquares = false;
             for (var j in this.cardGrid[i]) {
                 if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
-                    console.log('lengte: ' + cards.length + ' index: ' + cardIndex);
                     this.cardGrid[i][j].card = cards[cardIndex];
                     this.cardGrid[i][j].setVisibility();
-                    console.log(this.cardGrid[i][j].card.text);
                     cardIndex++;
                     skipSquares = true;
                 }
@@ -98,7 +106,7 @@ export class SessionComponent implements OnInit {
 
     private calculateRadius(item: CardSquare): number {
         var r = Math.sqrt(Math.pow(item.xCoordinate, 2) + Math.pow(item.yCoordinate, 2));
-        return Math.round(r);
+        return r;
     }
 
     setCardTooltipText(item: CardSquare) {
@@ -107,38 +115,25 @@ export class SessionComponent implements OnInit {
         console.log(this.tooltipText);
     }
 
-    placeTestCard() {
-        this.cardGrid[15][17].card = new Card();
-        this.cardGrid[15][17].card.text = "Dit is een andere kaart";
-        this.cardGrid[15][17].setVisibility();
-        window.location.reload();
+    upvoteCard() {
+        //window.location.href = ;
     }
 
-    //testing math.. math awesomeness in progress.. remove this later pl0x..
-    clickTest(item: CardSquare) {
-        var r = this.calculateRadius(item);
-        if (r <= 10 && r >= -10) {
-            item.card = new Card();
-            item.setVisibility();
+    onCardClick(cardSquare: CardSquare) {
+        if (cardSquare.card.text != '') {
+            this.card = cardSquare.card;
+            (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
         }
-        alert("text: "
-            + item.card.text
-            + " | straal: "
-            + r
-            + " | coordinates: "
-            + item.xCoordinate
-            + ", "
-            + item.yCoordinate);
     }
 
     calculatePlayerLine() {
         var numberOfPlayers = this.accounts.length;
-        var bol = 4.65;
+        var ball = 4.65;
 
-        var result = (100 - (bol * numberOfPlayers)) / (numberOfPlayers + 1);
+        var result = (100 - (ball * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        this.progress = (result + bol) * this.currentPlayer;
+        this.progress = (result + ball) * this.currentPlayer;
     }
 
     onAddCard(cardToAdd: Card) {
@@ -167,4 +162,27 @@ export class SessionComponent implements OnInit {
         //Todo allCards lijst meegeven aan backend, gekozen kaarten zijn er niet meer bij.
     }
 
+    getChatMessages() {
+        this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => { this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json()); },
+            err => console.log(err),
+            () => console.log('Complete get messages')
+            );
+    }
+
+    addChatMessage() {
+        var message: Message = new Message();
+        message.sessionId = parseInt(this._routeParams.get('id'));
+        message.text = (<HTMLInputElement>document.getElementById('chatMessageInput')).value;
+        message.messengerId = parseInt(localStorage.getItem('user_id'));
+        console.log(message);
+
+        this._messageService.postMessage(message)
+            .subscribe(
+            data => this.chatMessages.push(new ChatMessageJsonMapper().chatMessageFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Chatmessage added')
+            );
+    }
 }

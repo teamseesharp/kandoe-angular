@@ -9,6 +9,8 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Card} from './model/card';
 import {CardService} from './card.service';
 
+import {CardJsonMapper} from '../utility/json-mapper';
+
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/cards.html',
@@ -26,7 +28,7 @@ export class CardsComponent {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _cardService.getCardsBySubtheme(parseInt(this._routeParams.get('subthemeId')))
             .subscribe(
-            data => this.cards = _cardService.cardsFromJson(data.json()),
+            data => this.cards = new CardJsonMapper().cardsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of cards ' + this.cards.length)
         );
@@ -40,7 +42,7 @@ export class CardsComponent {
 
         this._cardService.postCard(cardToAdd)
             .subscribe(
-            data => this.cards.push(this._cardService.cardFromJson(data.json())),
+            data => this.cards.push(new CardJsonMapper().cardFromJson(data.json())),
             err => console.log(err),
             () => console.log('Complete card added')
             );
