@@ -14,6 +14,7 @@ import {Card} from './model/card';
 import {Subtheme} from './model/subtheme';
 import {SubthemeService} from './subtheme.service';
 import {SessionService} from './session.service';
+import {CardService} from './card.service';
 
 import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 
@@ -21,7 +22,7 @@ import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/analysis.html',
     pipes: [SessionTypePipe, SessionParticipantsPipe],
-    providers: [SessionService, SubthemeService]
+    providers: [SessionService, SubthemeService, CardService]
 })
 
 export class AnalysisComponent {
@@ -32,12 +33,14 @@ export class AnalysisComponent {
     modelSession: Session;
     sessionToShow: Session = new Session();
     public sessionMasterHidden: boolean;
+    public sessionEmptyHidden: boolean;
 
     sessionsToAnalyse: Array<Session>;
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         this.sessionMasterHidden = true;
+        this.sessionEmptyHidden = true;
 
         _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
             .subscribe(
@@ -54,57 +57,56 @@ export class AnalysisComponent {
 
         this.sessionsToAnalyse = new Array<Session>();
     }
-
-    //onsubmit all sessions from subtheme
+    
     onSubmitSubtheme() {
         this.modelSubtheme.id = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
         this._sessionService.getSessionsBySubtheme(this.modelSubtheme.id)
             .subscribe(
             data => {
                 this.sessionsToAnalyse = new SessionJsonMapper().sessionsFromJson(data.json()),
-                    console.log('NUMBER OF SESSIONS: ' + this.sessionsToAnalyse.length);
-                console.log('NUMBER OF CARDS: ' + this.sessionsToAnalyse[0].sessionCards.length);
-                    this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
+                this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
             },
             err => console.log(err),
             () => console.log('Complete: get sessions to analyse ')
         );
     }
-
-    //onOthersubmit all session from selected sessions
+    
     onSubmitSession() {
-        //Some magic
-        //http://stackoverflow.com/questions/20305489/select-multiple-objects-and-save-to-ng-model
-        //http://jsfiddle.net/EsQsW/2/
-        //this.masterCircle(this.sessionsToAnalyse);
+        this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
     }
 
     private masterCircle(sessions: Array<Session>): Session {
-        //controle of er wel sessions zijn en of er kaarten zijn..
-        var master = sessions[0];
+        try {
+            var master = sessions[0];
+            var firstDescription = master.description;
+            master.description = "Merged circles: " + firstDescription;
 
-        for (var i = 1; 1 < sessions.length; i++) {
-            for (var j = 0; j < sessions[i].sessionCards.length; j++) {
-                if (this.cardsInDeck(sessions[i].sessionCards[j], master.sessionCards)) {
-                    master.sessionCards.push(this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge))
-                    master.sessionCards.splice(j);
-                } else {
-                    master.sessionCards.push(sessions[i].sessionCards[j]);
+            for (var i = 1; i < sessions.length; i++) {
+                for (var j = 0; j < sessions[i].sessionCards.length; j++) {
+                    if (this.cardsInDeck(sessions[i].sessionCards[j], master.sessionCards)) {
+                        master.sessionCards.push(this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge))
+                        master.sessionCards.splice(j);
+                    } else {
+                        master.sessionCards.push(sessions[i].sessionCards[j]);
+                    }
                 }
+                master.description += ", " + sessions[i].description; 
             }
+            if (master.sessionCards.length > 0) {
+                this.sessionMasterHidden = false;
+            } else {
+                this.sessionEmptyHidden = false;
+            } 
+            return master;
+        } catch (TypeError) {
+            console.log("There are no sessions or no cards: " + Error);
+            this.sessionEmptyHidden = false;
         }
-        this.sessionMasterHidden = false;
-        console.log('MASTER: ' + master.id);
-        console.log('MASTER: ' + master.description);
-        console.log('MASTER: ' + master.sessionCards[0].sessionLevel);
-
-
-        return master;
     }
 
     private cardsInDeck(card: Card, deck: Array<Card>): boolean {
-        for (var i = 1; 1 < deck.length; i++) {
-            if (card === deck[i]) {
+        for (var i : number = 0; i < deck.length; i++) {
+            if (card == deck[i]) {
                 this.cardToMerge = card;
                 return true;
             }
@@ -120,7 +122,6 @@ export class AnalysisComponent {
 
     public addSession() {
         if (this.sessions.length > 0) {
-
             var sessionToAdd: Session = new Session();
             sessionToAdd = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('addSession')).value));
 
@@ -135,7 +136,7 @@ export class AnalysisComponent {
             sessionToRemove = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('removeSession')).value));
 
             this.sessions.push(sessionToRemove);
-            this.sessionsToAnalyse.splice(this.sessions.indexOf(sessionToRemove), 1);
+            this.sessionsToAnalyse.splice(this.sessionsToAnalyse.indexOf(sessionToRemove), 1);
         }
     }
 

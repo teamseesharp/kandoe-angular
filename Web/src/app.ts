@@ -25,6 +25,7 @@ import {AnalysisComponent} from './session/analysis.component';
     { path: "/login", name: "Login", component: LoginComponent },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },
+    { path: "/sessies/organisaties/:id", name: "SessionsByOrganisation", component: SessionsComponent },
     { path: "/sessies/:id", name: "Session", component: SessionComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
     { path: "/organisaties/:id", name: "Organisation", component: OrganisationComponent},

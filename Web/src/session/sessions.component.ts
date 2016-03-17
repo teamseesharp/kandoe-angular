@@ -41,12 +41,22 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = new Session();
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
-        this._sessionService.getSessionsByUser()
-            .subscribe(
-            data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
-            err => console.log(err),
-            () => console.log('Complete')
-        );
+        //controle van routeparams
+        if (this._routeParams.get('id') == null) {
+            this._sessionService.getSessionsByUser()
+                .subscribe(
+                data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Complete')
+                );
+        } else {
+            this._sessionService.getSessionsByOrganisation(this._routeParams.get('id'))
+                .subscribe(
+                data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Complete')
+                );
+        }
         this._subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
             data => {
@@ -67,7 +77,7 @@ export class SessionsComponent implements OnInit {
         this.sessionDetailHidden = false;
         this.sessionExpired = false;
         if (session.end < new Date()) {
-            //this.sessionExpired = true;
+            this.sessionExpired = true;
         }
     }
 

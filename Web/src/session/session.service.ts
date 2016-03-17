@@ -33,6 +33,11 @@ export class SessionService {
         var apiURL = this.apiPrefix + 'api/sessions/by-subtheme/' + subthemeId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
+
+    public getSessionsByOrganisation(organisationId: number) {
+        var apiURL = this.apiPrefix + 'api/sessions/by-organisation/' + organisationId;
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
     
     public postSession(session: Session) {
         var apiURL = this.apiPrefix + 'api/sessions';
