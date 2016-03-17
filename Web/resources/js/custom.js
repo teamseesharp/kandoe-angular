@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     //init Tags Input
-    var isChatLoaded = false;
     setInterval(function (){
         $('#users').tagsinput({
             confirmKeys: [32],
@@ -18,8 +17,9 @@
         var user = document.getElementById('welcomeText').innerText.substring(9);
         var picture = document.getElementById('sidebarprofilepicture').getAttribute('src');
 
-        if (!isChatLoaded) {
-            isChatLoaded = true;
+        if (localStorage.getItem('isChatActive') === "false") {
+            localStorage.setItem('isChatActive', true);
+
             var toggle = false;
             var currentDate = new Date();
             var time = ((currentDate.getHours() < 10) ? "0" : "") + currentDate.getHours() + ':'
@@ -53,8 +53,8 @@
                 messageValue = $(this).val();
                 if (code == 13 && messageValue != "") {
                     $('#autoAddChatMessage').click();
-                    $('.media-block').append("<li class='mar-btm'><div class='media-right'><img src='"+ picture +"' class='img-circle img-sm' alt='Profiel foto'></div>"
-                        + "<div class='media-body pad-hor speech-right'><div class='speech'><a href='#' class='media-heading'>"+ user 
+                    $('.media-block').append("<li class='mar-btm'><div class='media-right'><img src='" + picture + "' class='img-circle img-sm' alt='Profiel foto'></div>"
+                        + "<div class='media-body pad-hor speech-right'><div class='speech'><a href='#' class='media-heading'>" + user
                         + "</a><p style='text-align: left;'>" + messageValue + "</p><p class='speech-time'><span class='glyphicon glyphicon-time' aria-hidden='true'></span> "
                         + time + "</p></div></div></li>");
 
@@ -81,5 +81,5 @@
 
         //$('#autoGetChatMessages').click();
 
-    }, 1000);
+    }, 2000);
 });
