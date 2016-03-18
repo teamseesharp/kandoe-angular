@@ -53,7 +53,6 @@ export class SessionsComponent implements OnInit {
 
     private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
-            console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
@@ -86,10 +85,6 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = session;
         this.calculateProgress();
         this.sessionDetailHidden = false;
-        this.sessionExpired = false;
-        if (session.end < new Date()) {
-            this.sessionExpired = true;
-        }
     }
 
     onSubmit() {
@@ -102,7 +97,6 @@ export class SessionsComponent implements OnInit {
         sessionToUse.end = new Date(Date.parse(this.model.end.toString()));
         sessionToUse.currentPlayerIndex = 0;
         sessionToUse.isFinished = false;
-        //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
 
         switch (this.action) {
             case Action.create:

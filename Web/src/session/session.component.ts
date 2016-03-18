@@ -33,7 +33,9 @@ export class SessionComponent implements OnInit {
 
     private session: Session = new Session();
     private accounts: Array<Account> = [];
-    private cards: Array<Card> = [];
+    private sessionCards: Array<Card> = [];
+    private subthemeCards: Array<Card> = [];
+    private playerCards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
     private chatMessages: Array<Message> = [];
     private chatProfiles: Array<Account> = [];
@@ -52,25 +54,39 @@ export class SessionComponent implements OnInit {
         private _accountService: AccountService) {
         // default value, used in custom.js to load the javascript for the chat
         localStorage.setItem('isChatActive', "false");
-        _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
-            .subscribe(
-            data => {
-                console.log(data.json());
-                this.session = new SessionJsonMapper().sessionFromJson(data.json());
-                this.cards = this.session.sessionCards;
-                this.accounts = this.session.participants;
-                this.currentPlayerIndex = this.session.currentPlayerIndex;
-                this.progress = this.calculatePlayerLine();
-                this.initCardGrid();
-            },
-            err => console.log(err),
-            () => console.log('Complete')
-        );
+        this.initializeData();
         this.card.text = "";
     }
 
     ngOnInit() {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+    }
+
+    private initializeData() {
+        this._sessionService.getSessionVerbose(parseInt(this._routeParams.get('id')))
+        .subscribe(
+        data => {
+            console.log(data.json());
+            this.session = new SessionJsonMapper().sessionFromJson(data.json());
+            this.sessionCards = this.session.sessionCards;
+            this.accounts = this.session.participants;
+            this.currentPlayerIndex = this.session.currentPlayerIndex;
+            this.progress = this.calculatePlayerLine();
+            this.initCardGrid();
+            this._cardService.getCardsBySubtheme(this.session.subthemeId)
+                .subscribe(
+                data => this.subthemeCards = new CardJsonMapper().cardsFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Complete')
+                );
+        },
+        err => console.log(err),
+        () => console.log('Complete')
+        );
+    }
+
+    private initializePlayerCards(cards: Array<Card>) {
+
     }
 
     private initCardGrid() {
@@ -144,38 +160,37 @@ export class SessionComponent implements OnInit {
         return (result + ball) * (this.currentPlayerIndex + 1);
     }
 
-    addCard() {
-        this._cardService.postCard(this.model)
+    addCardToSubtheme() {
+        var card: Card = this.model;
+        card.sessionId = this.session.id;
+        card.sessionLevel = 10;
+        card.subthemeId = this.session.subthemeId;
+        this._cardService.postCard(card)
             .subscribe(
-            data => this.cards.push(new CardJsonMapper().cardFromJson(data.json())),
+            data => this.subthemeCards.push(new CardJsonMapper().cardFromJson(data.json())),
             err => console.log(err),
             () => console.log('Complete')
             );
         this.model = new Card();
     }
 
-    onAddCard(cardToAdd: Card) {
-         /*for (var index = 0; index < this.allCards.length; index++) {
-            if (this.allCards[index] == cardToAdd) {
-                this.allCards.splice(index, 1);
-                this.myCards.push(cardToAdd);
-                break;
-            } 
-        }  */
+    addCardToSelection(card: Card) {
+        if (this.playerCards.length < this.session.maxCardsToChoose) {
+            this.playerCards.push(card);
+        }
     }
 
-    onRemoveCard(cardToRemove: Card) {
-        /*for (var index = 0; index < this.myCards.length; index++) {
-            if (this.myCards[index] == cardToRemove) {
-                this.myCards.splice(index, 1);
-                this.allCards.push(cardToRemove);
-                break;
-            }
-        }*/
+    removeCardFromSelection(card: Card) {
+        var index = this.playerCards.indexOf(card);
+        this.playerCards.splice(index, 1);
     }
 
     submitCards() {
-        //Todo allCards lijst meegeven aan backend, gekozen kaarten zijn er niet meer bij.
+        this._sessionService.patchSessionCards(this.playerCards, this.session.id)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Complete')
+        );
     }
 
     getChatMessages() {

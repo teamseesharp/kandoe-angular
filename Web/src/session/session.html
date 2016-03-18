@@ -42,22 +42,12 @@
             </div>
         </div>
     </div>
-
-  <div class="row">
-    <h2>Mijn kaarten</h2>
-    <ul id="cardlist" class="cardlist">
-      <li *ngFor="#card of cards">
-        <div class="col-xs-4 col-md-3">
-          <div class="thumbnail">
-            <p>{{ card.text }}</p>
-          </div>
+    <div class="row">
+        <div class="banner">
+            <h1>Mijn kaarten</h1>
         </div>
-      </li>
-    </ul>
-      <div class="col-xs-3">
-          <button *ngIf="session.cardCreationAllowed" type="button" id="newcard" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createCardModal">Nieuwe kaart</button>
-      </div>
-  </div>
+        <button type="button" id="choosecard" class="btn btn-info btn-lg" data-toggle="modal" data-target="#chooseCardModal">Kies kaarten</button>
+    </div>
 </section>
 
 <!-- Chatbox -->
@@ -125,13 +115,13 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <p>Alle kaarten</p>
+                    <button *ngIf="session.cardCreationAllowed" type="button" id="newcard" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createCardModal">Nieuwe kaart</button>
                     <ul id="allcardlist" class="cardlistModal">
-                        <li *ngFor="#cardd of allCards">
+                        <li *ngFor="#card of subthemeCards">
                             <div class="col-xs-3 col-md-2">
                                 <div class="thumbnail">
-                                    <p>{{ cardd.text }}</p>
-                                    <button type="button" class="btn btn-info" (click)="onAddCard(cardd)">Kies</button>
+                                    <p>{{ card.text }}</p>
+                                    <button type="button" class="btn btn-info" (click)="addCardToSelection(card)">Kies</button>
                                 </div>
                             </div>
                         </li>
@@ -141,11 +131,11 @@
                     <p>Gekozen kaarten</p>
                     <br />
                     <ul id="mycardlist" class="cardlistModal">
-                        <li *ngFor="#carddd of myCards">
+                        <li *ngFor="#card of playerCards">
                             <div class="col-xs-3 col-md-2">
                                 <div class="thumbnail">
-                                    <p>{{ carddd.text }}</p>
-                                    <button type="button" class="btn btn-info" (click)="onRemoveCard(carddd)">Verwijder</button>
+                                    <p>{{ card.text }}</p>
+                                    <button type="button" class="btn btn-info" (click)="removeCardFromSelection(card)">Verwijder</button>
                                 </div>
                             </div>
                         </li>
@@ -171,8 +161,8 @@
             </div>
             <div class="modal-body">
 
-                <!-- Create organisation form -->
-                <form (ngSubmit)="addCard()" #organisationForm="ngForm">
+                <!-- Create card form -->
+                <form (ngSubmit)="addCardToSubtheme()" #organisationForm="ngForm">
                     <div class="form-group">
                         <label for="description">Beknopte omschrijving</label>
                         <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="model.text"
