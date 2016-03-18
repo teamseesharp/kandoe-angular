@@ -12,33 +12,45 @@ import {Organisation} from './model/organisation';
 
 import {ThemeService} from './theme.service';
 import {SubthemeService} from './subtheme.service';
+import {OrganisationService} from './organisation.service';
 
-import {ThemeJsonMapper, SubthemeJsonMapper} from '../utility/json-mapper';
+import {ThemeJsonMapper, SubthemeJsonMapper, OrganisationJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, ROUTER_DIRECTIVES],
     templateUrl: 'src/session/themes.html',
-    providers: [ThemeService, SubthemeService]
+    providers: [ThemeService, SubthemeService, OrganisationService]
 })
 
 export class ThemesComponent {
 
     public themes: Array<Theme>;
+    private organisation: Organisation;
     model = new Theme();
     subthemeModel = new Subtheme();
 
     constructor(private _router: Router, private _routeParams: RouteParams,
-                private _themeService: ThemeService, private _subthemeService: SubthemeService) {
+        private _themeService: ThemeService, private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         this.getThemesByOrganisation();
+        this.getOrganisation();
     }
 
-    getThemesByOrganisation() {
+    private getThemesByOrganisation() {
         this._themeService.getThemesByOrganisation(parseInt(this._routeParams.get('id')))
             .subscribe(
             data => this.themes = new ThemeJsonMapper().themesFromJson(data.json()),
             err => console.log(err),
             () => console.log('Read all themes')
+            );
+    }
+
+    private getOrganisation() {
+        this._organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => this.organisation = new OrganisationJsonMapper().organisationFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Show organisation') 
             );
     }
 
