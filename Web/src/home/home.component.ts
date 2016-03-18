@@ -19,27 +19,23 @@ import {SessionJsonMapper} from '../utility/json-mapper';
 })    
 
 export class HomeComponent {
-    openSessions: Array<Session>;
-    futureSessions: Array<Session>;
-    pastSessions: Array<Session>;
+    private sessions: Array<Session>;
+    private openSessions: Array<Session>;
+    private futureSessions: Array<Session>;
+    private pastSessions: Array<Session>;
     
     constructor(private _router: Router, private _sessionService: SessionService) {
+
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _sessionService.getOpenedSessionsByUser()
+
+        _sessionService.getSessionsByUser()
             .subscribe(
-            data => this.openSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
-            err => console.log(err),
-            () => console.log('Complete')
-        );
-        _sessionService.getFutureSessionsByUser()
-            .subscribe(
-            data => this.futureSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
-            err => console.log(err),
-            () => console.log('Complete')
-        );
-        _sessionService.getClosedSessionsByUser()
-            .subscribe(
-            data => this.pastSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+            data => {
+                this.sessions = new SessionJsonMapper().sessionsFromJson(data.json());
+                this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
+                this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
+                this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
+            },
             err => console.log(err),
             () => console.log('Complete')
         );
