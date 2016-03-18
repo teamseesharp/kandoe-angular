@@ -16,16 +16,17 @@ import {Message} from '../message/model/message';
 import {SessionService} from './session.service';
 import {CardService} from './card.service';
 import {MessageService} from '../message/message.service';
+import {AccountService} from '../account/account.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 
-import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper} from '../utility/json-mapper';
+import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper, AccountJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/session.html',
     pipes: [SessionTypePipe],
-    providers: [SessionService, CardService, MessageService]
+    providers: [SessionService, CardService, MessageService, AccountService]
 })
 
 export class SessionComponent implements OnInit {
@@ -35,6 +36,7 @@ export class SessionComponent implements OnInit {
     private cards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
     private chatMessages: Array<Message> = [];
+    private chatProfiles: Array<Account> = [];
     public space: string;
     public progress: number = 0;
     public currentPlayerIndex: number;
@@ -46,7 +48,8 @@ export class SessionComponent implements OnInit {
         private _routeParams: RouteParams,
         private _sessionService: SessionService,
         private _messageService: MessageService,
-        private _cardService: CardService) {
+        private _cardService: CardService,
+        private _accountService: AccountService) {
         // default value, used in custom.js to load the javascript for the chat
         localStorage.setItem('isChatActive', "false");
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
@@ -180,7 +183,26 @@ export class SessionComponent implements OnInit {
             .subscribe(
             data => {
                 this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
-                console.log(this.chatMessages);
+
+                // get for each chatmessage the coupled Account
+                for (var i = 0; i < this.chatMessages.length; i++) {
+                    //for (var j = 0; j < this.accounts.length; j++) {
+                    this._accountService.getAccountByUserId(this.chatMessages[i].messengerId.toString())
+                        .subscribe(
+                        data => this.chatProfiles.push(new AccountJsonMapper().accountFromJson(data.json())),
+                        err => console.log(err),
+                        () => console.log('Complete get profiles')
+                    );
+                        /*if (this.accounts[j].id == this.chatMessages[i].messengerId) {
+                            var account: Account = new Account();
+                            account.name = this.accounts[j].name;
+                            account.picture = this.accounts[j].picture;
+                            this.chatProfiles.push(account);
+                            break;
+                        }*/
+                    //}
+                }
+                console.log(this.chatProfiles[0].name);
             },
             err => console.log(err),
             () => console.log('Complete get messages')

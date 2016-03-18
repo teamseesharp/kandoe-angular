@@ -19,6 +19,7 @@
 
         if (localStorage.getItem('isChatActive') === "false") {
             localStorage.setItem('isChatActive', true);
+            $('#autoGetChatMessages').click();
 
             var toggle = false;
             var currentDate = new Date();
@@ -41,7 +42,10 @@
                 else {
                     Parent.animate({ 'height': '30px' }, 300);
                 }
-
+                // scroll automatically to bottom
+                $(".fixedContent").animate({
+                    scrollTop: $(".fixedContent")[0].scrollHeight
+                }, -scrollY);
             });
 
             Chatbox.focus(function () {
@@ -53,12 +57,13 @@
                 messageValue = $(this).val();
                 if (code == 13 && messageValue != "") {
                     $('#autoAddChatMessage').click();
-                    $('.media-block').append("<li class='mar-btm'><div class='media-right'><img src='" + picture + "' class='img-circle img-sm' alt='Profiel foto'></div>"
-                        + "<div class='media-body pad-hor speech-right'><div class='speech'><a href='#' class='media-heading'>" + user
-                        + "</a><p style='text-align: left;'>" + messageValue + "</p><p class='speech-time'><span class='glyphicon glyphicon-time' aria-hidden='true'></span> "
-                        + time + "</p></div></div></li>");
-
-                    $(".fixedContent").scrollTop($(".fixedContent").height());
+                    $('#autoGetChatMessages').click();
+                    setTimeout(function () {
+                        $(".fixedContent").animate({
+                            scrollTop: $(".fixedContent")[0].scrollHeight
+                        }, -scrollY);
+                    }, 100)
+                   
                     $(this).val('');
                     messageValue = "";
                 }
@@ -66,12 +71,13 @@
                 $("#sendChatMessage").click(function () {
                     if (messageValue != "") {
                         $('#autoAddChatMessage').click();
-                        $('.media-block').append("<li class='mar-btm'><div class='media-right'><img src='" + picture + "' class='img-circle img-sm' alt='Profiel foto'></div>"
-                        + "<div class='media-body pad-hor speech-right'><div class='speech'><a href='#' class='media-heading'>" + user
-                        + "</a><p style='text-align: left;'>" + messageValue + "</p><p class='speech-time'><span class='glyphicon glyphicon-time' aria-hidden='true'></span> "
-                        + time + "</p></div></div></li>");
+                        $('#autoGetChatMessages').click();
+                        setTimeout(function () {
+                            $(".fixedContent").animate({
+                                scrollTop: $(".fixedContent")[0].scrollHeight
+                            }, -scrollY);
+                        }, 100)
 
-                        $(".fixedContent").scrollTop($(".fixedContent").height());
                         Chatbox.val('');
                         messageValue = "";
                     }
@@ -79,7 +85,9 @@
             });
         }
 
-        //$('#autoGetChatMessages').click();
+    }, 500);
 
-    }, 2000);
+    setInterval(function () {
+        $('#autoGetChatMessages').click();
+    }, 10000);
 });

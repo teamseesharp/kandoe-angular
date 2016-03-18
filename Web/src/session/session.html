@@ -17,7 +17,7 @@
       <div id="timeline">
         <div class="dot" *ngFor="#account of accounts" [attr.id]="account.id" [style]="space">
           <span></span>
-          <p>{{account.name}}</p>
+          <p style="margin-top: 0.5em">{{account.name}}</p>
         </div>
         <div class="inside"></div>
       </div>
@@ -65,35 +65,39 @@
     <div class="fixedHeader">Chat</div>
     <div class="fixedContent">
         <ul class="list-unstyled media-block">
-            <li class="mar-btm">
-                <div class="media-left">
-                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
-                </div>
-                <div class="media-body pad-hor">
-                    <div class="speech">
-                        <a href="#" class="media-heading">Jos</a>
-                        <p>Hallo Jef, hoe ist?</p>
-                        <p class="speech-time">
-                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 09:23AM
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li class="mar-btm">
-                <div class="media-right">
-                    <img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
-                </div>
-                <div class="media-body pad-hor speech-right">
-                    <div class="speech">
-                        <a href="#" class="media-heading">Jef</a>
-                        <p>Goe Jos, me jou?</p>
-                        <p class="speech-time">
-                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 09:24AM
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+            <li *ngFor="#chatMessage of chatMessages; #i=index; #last=last">
+                <ul class="list-unstyled">
+                    <li class="mar-btm">
+                        <div class="media-left">
+                            <img src="" class="img-circle img-sm" alt="Profile Picture">
+                        </div>
+                        <div class="media-body pad-hor">
+                            <div class="speech">
+                                <a href="#" class="media-heading"></a>
+                                <p style='text-align: left;'>{{chatMessages[i].text}}</p>
+                                <p class="speech-time">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{chatMessage.timestamp | date:'dd-MMMM HH:mm'}}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mar-btm">
+                        <div class="media-right">
+                            <img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
+                        </div>
+                        <div class="media-body pad-hor speech-right">
+                            <div class="speech">
+                                <a href="#" class="media-heading">Jef</a>
+                                <p style='text-align: left;'>{{chatMessage.text}}</p>
+                                <p class="speech-time">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span> 09:24AM
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+            </ul>
+        </li>
+    </ul>
     </div>
     <div class="chatbox">
         <div class="row" style="height: 3em;">
