@@ -47,6 +47,7 @@ export class SessionComponent implements OnInit {
     public currentPlayerId: number;
     public card: Card = new Card();
     model = new Card();
+    private accountIndex: number;
 
     constructor(private _router: Router,
         private _routeParams: RouteParams,
@@ -145,7 +146,7 @@ export class SessionComponent implements OnInit {
     }
 
     onCardClick(cardSquare: CardSquare) {
-        if (cardSquare.card.text != '') {
+        if (cardSquare.card.text != '' && this.session.currentPlayerIndex == parseInt(localStorage.getItem('user_id'))) {
             this.card = cardSquare.card;
             (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
         }
