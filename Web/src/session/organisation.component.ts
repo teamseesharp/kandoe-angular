@@ -20,9 +20,9 @@ import {OrganisationJsonMapper} from '../utility/json-mapper';
 export class OrganisationComponent{
     organisation: Organisation = new Organisation;
     model = new Organisation();
-
+    
     constructor(private _router: Router, private _routeParams: RouteParams, private _organisationService: OrganisationService) {
-
+    
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
             .subscribe(

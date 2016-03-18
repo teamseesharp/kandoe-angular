@@ -22,7 +22,7 @@ export class HomeComponent {
     openSessions: Array<Session>;
     futureSessions: Array<Session>;
     pastSessions: Array<Session>;
-
+    
     constructor(private _router: Router, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         _sessionService.getOpenessionsByUser()
