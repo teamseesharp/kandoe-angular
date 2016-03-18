@@ -18,12 +18,6 @@ import {DatePipe} from 'angular2/common';
 
 import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 
-export enum Action {
-    create,
-    modify,
-    clone
-}
- 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
@@ -40,7 +34,6 @@ export class SessionsComponent implements OnInit {
     public progress: string;
     public sessionDetailHidden: boolean;
     public sessionExpired: boolean;
-    private action: Action;
 
     model = new Session();
     
@@ -48,8 +41,11 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = new Session();
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
-        this.action = Action.create;
-        //controle van routeparams
+        this.checkRouteParams();
+        
+    }
+
+    private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
             console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
@@ -59,8 +55,7 @@ export class SessionsComponent implements OnInit {
                 () => console.log('Complete')
                 );
         } else {
-            console.log('MET ID: ' + this._routeParams.get('id'));
-            this._sessionService.getSessionsByOrganisation(this._routeParams.get('id'))
+            this._sessionService.getSessionsByOrganisation(parseInt(this._routeParams.get('id')))
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
                 err => console.log(err),
@@ -74,7 +69,7 @@ export class SessionsComponent implements OnInit {
             },
             err => console.log(err),
             () => console.log('Complete')
-        );
+            );
     }
 
     ngOnInit() {
@@ -92,46 +87,22 @@ export class SessionsComponent implements OnInit {
     }
 
     onSubmit() {
-        var sessionToUse: Session = new Session();
-        sessionToUse = this.model;
-        sessionToUse.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
-        sessionToUse.description = this.subthemes.filter(subtheme => subtheme.id == sessionToUse.subthemeId)[0].name;
-        sessionToUse.organisationId = parseInt(localStorage.getItem('user_id'));
-        sessionToUse.start = new Date(Date.parse(this.model.start.toString()));
-        sessionToUse.end = new Date(Date.parse(this.model.end.toString()));
-        sessionToUse.currentPlayerIndex = 0;
-        sessionToUse.isFinished = false;
+        var sessionToAdd: Session = new Session();
+        sessionToAdd = this.model;
+        sessionToAdd.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+        sessionToAdd.description = this.subthemes.filter(subtheme => subtheme.id == sessionToAdd.subthemeId)[0].name;
+        sessionToAdd.organisationId = parseInt(localStorage.getItem('user_id'));
+        sessionToAdd.start = new Date(Date.parse(this.model.start.toString()));
+        sessionToAdd.end = new Date(Date.parse(this.model.end.toString()));
+        sessionToAdd.currentPlayerIndex = 0;
+        sessionToAdd.isFinished = false;
         //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
-
-        switch (this.action) {
-            case Action.create:
-                this._sessionService.postSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session created')
-                    );
-                break;
-            case Action.clone: 
-                this._sessionService.postSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session cloned')
-                    );
-                break;
-            case Action.modify: 
-                this._sessionService.putSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session modified')
-                    );
-                break;
-            default: console.log('Wrong action');
-        }
-     
-        
+        this._sessionService.postSession(sessionToAdd)
+            .subscribe(
+            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Complete')
+        );
         this.model = new Session();
     }
     
@@ -153,13 +124,6 @@ export class SessionsComponent implements OnInit {
         this._router.navigate(['Session', { id: session.id }]);
     }
 
-    private cloneSession(sessionToClone: Session) {
-        this.model = sessionToClone;
-        this.action = Action.clone;
-    }
-
-    private changeSession(sessionToChange: Session) {
-        this.model = sessionToChange;
-        this.action = Action.modify;
+    private cloneSession(session: Session) {
     }
 }

@@ -19,7 +19,7 @@ import {MessageService} from '../message/message.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 
-import {SessionJsonMapper, ChatMessageJsonMapper} from '../utility/json-mapper';
+import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
@@ -31,41 +31,39 @@ import {SessionJsonMapper, ChatMessageJsonMapper} from '../utility/json-mapper';
 export class SessionComponent implements OnInit {
 
     private session: Session = new Session();
-    private tooltipText: string;
-    private accounts: Array<Account>;
-    private allCards: Array<Card>;
-    private myCards: Array<Card>;
+    private accounts: Array<Account> = [];
+    private cards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
-    private chatMessages: Array<Message>;
+    private chatMessages: Array<Message> = [];
     public space: string;
-    public progress: number;
+    public progress: number = 0;
     public currentPlayer: number;
     public currentPlayerId: number;
     public card: Card = new Card();
+    model = new Card();
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
-        private _messageService: MessageService) {
+    constructor(private _router: Router,
+        private _routeParams: RouteParams,
+        private _sessionService: SessionService,
+        private _messageService: MessageService,
+        private _cardService: CardService) {
         // default value, used in custom.js to load the javascript for the chat
         localStorage.setItem('isChatActive', "false");
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
                 this.session = new SessionJsonMapper().sessionFromJson(data.json());
+                this.cards = this.session.sessionCards;
                 this.accounts = this.session.participants;
-                console.log(data.json());
                 this.currentPlayer = this.session.currentPlayerIndex;
+                this.progress = this.calculatePlayerLine();
+                console.log('init');
                 this.initCardGrid();
-                this.calculatePlayerLine();
             },
             err => console.log(err),
             () => console.log('Complete')
         );
         this.card.text = "";
-        this.allCards = [];
-        this.myCards = [];
-        this.chatMessages = [];
-        this.progress = 0;
-        this.tooltipText = "";
     }
 
     ngOnInit() {
@@ -92,7 +90,7 @@ export class SessionComponent implements OnInit {
     private placeCards() {
         var cards: Array<Card> = this.session.sessionCards;
         var cardIndex: number = 0;
-        var skipSquares: boolean;
+        var skipSquares: boolean = false;
         for (var i in this.cardGrid) {
             //
             if (parseInt(i) % 2 == 0) skipSquares = false;
@@ -112,14 +110,17 @@ export class SessionComponent implements OnInit {
         return r;
     }
 
-    setCardTooltipText(item: CardSquare) {
-        console.log(item.card.text);
-        if (item.card != null) { this.tooltipText = item.card.text };
-        console.log(this.tooltipText);
-    }
-
     upvoteCard() {
-        //window.location.href = ;
+        this._sessionService.patchSessionCardLevel(this.session, this.card.id)
+            .subscribe(
+            data => {
+                this._router.navigate(['Home']);
+                this._router.navigate(['Session', { id: this.session.id }]);
+            },
+            err => console.log(err),
+            () => console.log('upvote complete')
+            );
+        console.log('upvote');
     }
 
     onCardClick(cardSquare: CardSquare) {
@@ -129,35 +130,45 @@ export class SessionComponent implements OnInit {
         }
     }
 
-    calculatePlayerLine() {
+    calculatePlayerLine() : number {
         var numberOfPlayers = this.accounts.length;
         var ball = 4.60;
 
         var result = (100 - (ball * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        this.progress = (result + ball) * this.currentPlayer;
         this.currentPlayerId = this.session.participants[this.session.currentPlayerIndex - 1].id;
+        return (result + ball) * this.currentPlayer;
+    }
+
+    addCard() {
+        this._cardService.postCard(this.model)
+            .subscribe(
+            data => this.cards.push(new CardJsonMapper().cardFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Complete')
+            );
+        this.model = new Card();
     }
 
     onAddCard(cardToAdd: Card) {
-         for (var index = 0; index < this.allCards.length; index++) {
-            if (this.allCards[index] === cardToAdd) {
+         /*for (var index = 0; index < this.allCards.length; index++) {
+            if (this.allCards[index] == cardToAdd) {
                 this.allCards.splice(index, 1);
                 this.myCards.push(cardToAdd);
                 break;
             } 
-        }  
+        }  */
     }
 
     onRemoveCard(cardToRemove: Card) {
-        for (var index = 0; index < this.myCards.length; index++) {
+        /*for (var index = 0; index < this.myCards.length; index++) {
             if (this.myCards[index] == cardToRemove) {
                 this.myCards.splice(index, 1);
                 this.allCards.push(cardToRemove);
                 break;
             }
-        }
+        }*/
     }
 
     submitCards() {

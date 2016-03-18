@@ -85,6 +85,7 @@
     <Content Include="resources\images\cardCircleGreen.png" />
     <Content Include="resources\images\descriptionicon.png" />
     <Content Include="resources\images\editicon.png" />
+    <Content Include="resources\images\kandoe-card.png" />
     <Content Include="resources\images\kandoeCircleBackground.png" />
     <Content Include="resources\images\KandoeText.png" />
     <Content Include="resources\images\linkicon.png" />
