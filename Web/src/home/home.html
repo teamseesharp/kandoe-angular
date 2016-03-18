@@ -14,11 +14,12 @@
     <div class="row sessionsoverview">
         <div class="col-xs-12">
             <h2>  Open sessies</h2>
-            <ul id="sessionUl" *ngFor="#session of openSessions">
+            <ul *ngIf="!noOpenSession" id="sessionUl" *ngFor="#session of openSessions">
                 <li id="sessionOpen">
                     <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}} open tot {{session?.end | date:'dd MMMM yyyy'}}</button>
                 </li>
             </ul>
+            <div *ngIf="noOpenSession">Er zijn geen sessies bezig.</div>
          </div>
     </div>
     <div class="row sessionsoverview">
@@ -41,5 +42,5 @@
             </ul>
          </div>
     </div>
-
+    <div class="row sesssionsfooter"></div>
 </section>

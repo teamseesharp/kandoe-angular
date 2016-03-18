@@ -41,7 +41,6 @@ export class SessionsComponent implements OnInit {
     public subthemes: Array<Subtheme> = [];
     public progress: string;
     public sessionDetailHidden: boolean;
-    public sessionExpired: boolean;
     private action: Action;
     private organisation: Organisation;
     model = new Session();
@@ -100,10 +99,6 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = session;
         this.calculateProgress();
         this.sessionDetailHidden = false;
-        this.sessionExpired = false;
-        if (session.end < new Date()) {
-            this.sessionExpired = true;
-        }
     }
 
     onSubmit() {
@@ -124,7 +119,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session created')
+                    () => console.log('Session created ' + sessionToUse.description)
                     );
                 break;
             case Action.clone:
@@ -132,7 +127,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session cloned')
+                    () => console.log('Session cloned ' + sessionToUse.description)
                     );
                 break;
             case Action.modify:
@@ -140,7 +135,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session modified')
+                    () => console.log('Session modified ' + sessionToUse.description)
                     );
                 break;
             default: console.log('Wrong action');
@@ -179,6 +174,6 @@ export class SessionsComponent implements OnInit {
     }
 
     private createSession() {
-        this.action = Action.modify;
+        this.action = Action.create;
     }
 }
