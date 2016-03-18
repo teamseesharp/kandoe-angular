@@ -58,4 +58,9 @@ export class SessionService {
         var apiURL = this.apiPrefix + 'api/sessions';
         return this.authHttp.post(apiURL, JSON.stringify(session), { headers: this.header });
     }
+
+    public putSession(session: Session) {
+        var apiURL = this.apiPrefix + 'api/sessions';
+        return this.authHttp.put(apiURL, JSON.stringify(session), { headers: this.header });
+    }
 }
