@@ -531,6 +531,16 @@ HTMLJSCSS
     left: 30%;
 }
 
+/* Analysis */
+.analysisoverview  {
+    background-color: rgba(65,111,20, 0.1);
+    width: 40%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+}
+
 #chooseCardModal .modal-dialog {
     height: auto;
     width: 70%;
