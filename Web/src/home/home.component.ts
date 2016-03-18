@@ -25,7 +25,7 @@ export class HomeComponent {
     
     constructor(private _router: Router, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _sessionService.getOpenessionsByUser()
+        _sessionService.getOpenedSessionsByUser()
             .subscribe(
             data => this.openSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
