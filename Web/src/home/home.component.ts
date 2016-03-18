@@ -48,4 +48,8 @@ export class HomeComponent {
     onSelect(sessionToOpen: Session) {
         this._router.navigate(['Session', { id: sessionToOpen.id }]);
     }
+
+    onSelectClosedSession(sessionToOpen: Session) {
+        this._router.navigate(['Snapshot', { id: sessionToOpen.id }]);
+    }
 }

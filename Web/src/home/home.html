@@ -36,7 +36,7 @@
             <h2>  Gespeelde sessies</h2>
             <ul id="sessionUl" *ngFor="#session of pastSessions">
                 <li id="sessionPast">
-                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session.description}} gespeeld tot {{session.end | date:'dd MMMM yyyy'}}</button>
+                    <button class="btn btn-info btn-lg" (click)="onSelectClosedSession(session)">{{session.description}} gespeeld tot {{session.end | date:'dd MMMM yyyy'}}</button>
                 </li>
             </ul>
          </div>

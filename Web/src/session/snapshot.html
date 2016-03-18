@@ -1,0 +1,40 @@
+﻿<header>
+    <heading></heading>
+</header>
+<section id="sidebar">
+    <sidebar></sidebar>
+</section>
+<section id="main">
+  <div class="row" id="sessionTitle">
+    <div class="banner">
+      <h1>Snapshot: {{session.description}}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+      <h2>   Eindsituatie</h2>
+        <div id="gameGrid">
+            <div *ngFor="#row of cardGrid">
+                <div *ngFor="#item of row">
+                    <img class="gameGridItem" 
+                         [style]="item.visibility" 
+                         src="resources/images/kandoe-card.png" 
+                         alt="Kaart" 
+                         data-toggle="tooltip" 
+                         data-placement="top"
+                         [title]="item.card.text"
+                       />
+                </div>         
+            </div>
+        </div>
+    </div>
+
+   <div class="row">
+      <h2>   Chat</h2>
+       <ul id="chatMEssages" *ngFor="#message of chatMessages">
+                <li>
+                    {{message.id}} {{message.date | date:'dd MMMM yyyy'}}: {{message.text}}
+                </li>
+            </ul>
+  </div>
+</section>
