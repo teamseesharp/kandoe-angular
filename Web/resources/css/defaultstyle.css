@@ -186,7 +186,7 @@ li.organisationinfo .thumbnail {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    padding-bottom: 10em;
+    //padding-bottom: 10em;
 }
 
 #sessionTitle {
@@ -194,7 +194,7 @@ li.organisationinfo .thumbnail {
 }
 
 .sesssionsfooter {
-    height: 8em;
+    height: 5em;
 }
 
 .sessionlink {

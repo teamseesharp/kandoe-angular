@@ -41,7 +41,6 @@ export class SessionsComponent implements OnInit {
     public subthemes: Array<Subtheme> = [];
     public progress: string;
     public sessionDetailHidden: boolean;
-    public sessionExpired: boolean;
     private action: Action;
     private organisation: Organisation;
     model = new Session();
@@ -100,10 +99,6 @@ export class SessionsComponent implements OnInit {
         this.sessionDetail = session;
         this.calculateProgress();
         this.sessionDetailHidden = false;
-        this.sessionExpired = false;
-        if (session.end < new Date()) {
-            this.sessionExpired = true;
-        }
     }
 
     onSubmit() {
