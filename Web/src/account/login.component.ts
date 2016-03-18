@@ -19,7 +19,6 @@ declare var Auth0Lock;
 export class LoginComponent implements OnInit {
 
     lock = new Auth0Lock('oFgQBmfslHqeahYk2ivNNAzkgcPgwTa8', 'kandoe.eu.auth0.com');
-    jwtHelper: JwtHelper = new JwtHelper();
     model = new Account();
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp, private _accountService: AccountService) {
@@ -45,12 +44,14 @@ export class LoginComponent implements OnInit {
             var acc: Account = new Account();
             this._accountService.getAccountByAuth0UserId()
                 .subscribe(
-                data => acc = new AccountJsonMapper().accountFromJson(data.json()),
+                data => {
+                    acc = new AccountJsonMapper().accountFromJson(data.json());
+                    localStorage.setItem('user_id', acc.id.toString());
+                    this._router.navigate(['Home']);
+                },
                 err => console.log(err),
-                () => localStorage.setItem('user_id', acc.id.toString())
+                () => console.log('Login complete')
             );
-
-            this._router.navigate(['Home']);
         });
     }
 

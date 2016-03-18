@@ -12,20 +12,22 @@ import {Account} from '../account/model/account';
 import {Card} from './model/card';
 import {CardSquare} from './model/card-square';
 import {Message} from '../message/model/message';
+import {ChatboxMessage} from '../message/model/chatboxMessage';
 
 import {SessionService} from './session.service';
 import {CardService} from './card.service';
 import {MessageService} from '../message/message.service';
+import {AccountService} from '../account/account.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 
-import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper} from '../utility/json-mapper';
+import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper, AccountJsonMapper} from '../utility/json-mapper';
 
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent, RouterLink],
     templateUrl: 'src/session/session.html',
     pipes: [SessionTypePipe],
-    providers: [SessionService, CardService, MessageService]
+    providers: [SessionService, CardService, MessageService, AccountService]
 })
 
 export class SessionComponent implements OnInit {
@@ -34,9 +36,11 @@ export class SessionComponent implements OnInit {
     private accounts: Array<Account> = [];
     private cards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
-    private chatMessages: Array<Message> = [];
+    private messages: Array<Message> = [];
+    private chatboxMessages: Array<ChatboxMessage> = [];
     public space: string;
     public progress: number = 0;
+    public loggedInUserId: number = parseInt(localStorage.getItem('user_id'));
     public currentPlayerIndex: number;
     public currentPlayerId: number;
     public card: Card = new Card();
@@ -46,7 +50,8 @@ export class SessionComponent implements OnInit {
         private _routeParams: RouteParams,
         private _sessionService: SessionService,
         private _messageService: MessageService,
-        private _cardService: CardService) {
+        private _cardService: CardService,
+        private _accountService: AccountService) {
         // default value, used in custom.js to load the javascript for the chat
         localStorage.setItem('isChatActive', "false");
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
@@ -179,8 +184,33 @@ export class SessionComponent implements OnInit {
         this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
             .subscribe(
             data => {
-                this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
-                console.log(this.chatMessages);
+                var numberOfCurrentMessages = this.chatboxMessages.length;
+                this.messages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
+
+                // VOORLOPIG LATEN STAAN, GROETJES BENNIE!!!!!!
+                /*for (var i = numberOfCurrentMessages; i < this.messages.length; i++) {
+                    var message = this.messages[i];
+                    this._accountService.getAccountByUserId(this.messages[i].messengerId.toString())
+                        .subscribe(
+                        data => {
+                            console.log(message);
+                            var account: Account = new AccountJsonMapper().accountFromJson(data.json());
+                            this.chatboxMessages.push(new ChatboxMessage(message, account.id, account.name, account.picture));
+                        },
+                        err => console.log(err),
+                        () => console.log('Complete get chatprofile')
+                        );
+                }*/
+                
+                // get for each chatmessage the coupled Account
+                for (var i = numberOfCurrentMessages; i < this.messages.length; i++) {
+                    for (var j = 0; j < this.accounts.length; j++) {
+                        if (this.accounts[j].id == this.messages[i].messengerId) {
+                            this.chatboxMessages.push(new ChatboxMessage(this.messages[i], this.accounts[j].id, this.accounts[j].name, this.accounts[j].picture)); 
+                            break;
+                        }
+                    }
+                }
             },
             err => console.log(err),
             () => console.log('Complete get messages')
@@ -195,7 +225,7 @@ export class SessionComponent implements OnInit {
 
         this._messageService.postMessage(message)
             .subscribe(
-            data => this.chatMessages.push(new ChatMessageJsonMapper().chatMessageFromJson(data.json())),
+            data => this.getChatMessages(),
             err => console.log(err),
             () => console.log('Chatmessage added')
             );

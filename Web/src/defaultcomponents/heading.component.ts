@@ -19,8 +19,10 @@ export class HeadingComponent {
     }
 
     logout() {
+        console.log('logout');
         localStorage.removeItem('profile');
         localStorage.removeItem('id_token');
+        localStorage.removeItem('user_id');
         this._router.navigate(['Login']);
     }
 }

@@ -38,21 +38,6 @@ export class SessionService {
         var apiURL = this.apiPrefix + 'api/sessions/by-organisation/' + organisationId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
-
-    public getFutureSessionsByUser() {
-        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
-        return this.authHttp.get(apiURL, { headers: this.header });
-    }
-
-    public getOpenedSessionsByUser() {
-        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
-        return this.authHttp.get(apiURL, { headers: this.header });
-    }
-
-    public getClosedSessionsByUser() {
-        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
-        return this.authHttp.get(apiURL, { headers: this.header });
-    }
     
     public postSession(session: Session) {
         var apiURL = this.apiPrefix + 'api/sessions';
