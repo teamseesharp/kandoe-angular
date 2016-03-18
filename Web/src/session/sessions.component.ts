@@ -110,7 +110,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session created')
+                    () => console.log('Session created ' + sessionToUse.description)
                     );
                 break;
             case Action.clone:
@@ -118,7 +118,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session cloned')
+                    () => console.log('Session cloned ' + sessionToUse.description)
                     );
                 break;
             case Action.modify:
@@ -126,7 +126,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session modified')
+                    () => console.log('Session modified ' + sessionToUse.description)
                     );
                 break;
             default: console.log('Wrong action');
@@ -165,6 +165,6 @@ export class SessionsComponent implements OnInit {
     }
 
     private createSession() {
-        this.action = Action.modify;
+        this.action = Action.create;
     }
 }
