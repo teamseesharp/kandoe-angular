@@ -25,13 +25,13 @@ export class HomeComponent {
 
     constructor(private _router: Router, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        _sessionService.getOpenedssionsByUser()
+        _sessionService.getOpenedSessionsByUser()
             .subscribe(
             data => this.openSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
         );
-        /*_sessionService.getFutureSessionsByUser()
+        _sessionService.getFutureSessionsByUser()
             .subscribe(
             data => this.futureSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
@@ -42,7 +42,7 @@ export class HomeComponent {
             data => this.pastSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
-        );*/
+        );
     }
 
     onSelect(sessionToOpen: Session) {
