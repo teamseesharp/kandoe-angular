@@ -13,7 +13,7 @@
     <div class="row" id="newSessionRow">
         <div class="col-xs-9"></div>
         <div class="col-xs-3">
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sessionModal">Nieuwe sessie</button>
+          <button type="button" class="btn btn-info btn-lg" (click)="createSession()" data-toggle="modal" data-target="#sessionModal">Nieuwe sessie</button>
         </div>
     </div>
     <div class="row sessionsoverview">
@@ -68,7 +68,7 @@
                     <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)">Wijzigen</button>
+                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Wijzigen</button>
                 </div>
             </div>
         </div>

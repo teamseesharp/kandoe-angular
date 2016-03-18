@@ -59,6 +59,11 @@ export class SessionService {
         return this.authHttp.post(apiURL, JSON.stringify(session), { headers: this.header });
     }
 
+    public putSession(session: Session) {
+        var apiURL = this.apiPrefix + 'api/sessions';
+        return this.authHttp.put(apiURL, JSON.stringify(session), { headers: this.header });
+    }
+
     public patchSessionCardLevel(session: Session, cardId: number) {
         var apiUrL = this.apiPrefix + 'api/sessions/' + session.id.toString() + '/level-up-card/' + cardId.toString();
         return this.authHttp.patch(apiUrL, JSON.stringify(session), { headers: this.header });
