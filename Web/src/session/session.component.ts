@@ -37,7 +37,7 @@ export class SessionComponent implements OnInit {
     private chatMessages: Array<Message> = [];
     public space: string;
     public progress: number = 0;
-    public currentPlayer: number;
+    public currentPlayerIndex: number;
     public currentPlayerId: number;
     public card: Card = new Card();
     model = new Card();
@@ -52,12 +52,12 @@ export class SessionComponent implements OnInit {
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
             .subscribe(
             data => {
+                console.log(data.json());
                 this.session = new SessionJsonMapper().sessionFromJson(data.json());
                 this.cards = this.session.sessionCards;
                 this.accounts = this.session.participants;
-                this.currentPlayer = this.session.currentPlayerIndex;
+                this.currentPlayerIndex = this.session.currentPlayerIndex;
                 this.progress = this.calculatePlayerLine();
-                console.log('init');
                 this.initCardGrid();
             },
             err => console.log(err),
@@ -137,8 +137,8 @@ export class SessionComponent implements OnInit {
         var result = (100 - (ball * numberOfPlayers)) / (numberOfPlayers + 1);
 
         this.space = "margin-left: " + result + "%;";
-        this.currentPlayerId = this.session.participants[this.session.currentPlayerIndex - 1].id;
-        return (result + ball) * this.currentPlayer;
+        this.currentPlayerId = this.accounts[this.currentPlayerIndex].id;
+        return (result + ball) * (this.currentPlayerIndex + 1);
     }
 
     addCard() {

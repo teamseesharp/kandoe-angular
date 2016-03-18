@@ -42,7 +42,6 @@ export class SessionsComponent implements OnInit {
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
         this.checkRouteParams();
-        
     }
 
     private checkRouteParams() {

@@ -10,12 +10,12 @@
       <h1>{{session.description}}</h1>
     </div>
   </div>
-  <div id="currentPlayer" hidden>{{currentPlayerId}}</div>
+  <div id="currentPlayerId" hidden>{{currentPlayerId}}</div>
   <div id="progress" hidden>{{progress}}</div>
   <div class="row" id="playersline">
     <div class="col-xs-12">
       <div id="timeline">
-        <div class="dot" *ngFor="#account of accounts" id="account.id" [style]="space">
+        <div class="dot" *ngFor="#account of accounts" [attr.id]="account.id" [style]="space">
           <span></span>
           <p>{{account.name}}</p>
         </div>

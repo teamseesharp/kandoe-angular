@@ -2,14 +2,16 @@
     //init Tags Input
     setInterval(function animateProgress() {
         var progress = document.getElementById('progress');
-        var currentPlayerId = document.getElementById('currentPlayer');
+
         if (progress != null) {
             $('.inside').animate({
                 'width': progress.innerText + '%'
             }, 500);
             
+            var currentPlayerId = document.getElementById('currentPlayerId').innerText;
             var currentPlayerIdElement = document.getElementById(currentPlayerId);
-            currentPlayerIdElement.style.transform = "scale(1.2)";
+            currentPlayerIdElement.style.transform = "scale(1.5)";
+            currentPlayerIdElement.style.backgroundColor = "#84c148";
         }
     }, 500);
 });
