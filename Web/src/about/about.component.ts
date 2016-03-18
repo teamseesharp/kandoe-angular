@@ -16,4 +16,4 @@ export class AboutComponent {
     constructor(private _router: Router) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
     }
-} 
+}

@@ -14,9 +14,6 @@
 
         $('[data-toggle="tooltip"]').tooltip();
 
-        var user = document.getElementById('welcomeText').innerText.substring(9);
-        var picture = document.getElementById('sidebarprofilepicture').getAttribute('src');
-
         if (localStorage.getItem('isChatActive') === "false") {
             localStorage.setItem('isChatActive', true);
             $('#autoGetChatMessages').click();
@@ -57,12 +54,12 @@
                 messageValue = $(this).val();
                 if (code == 13 && messageValue != "") {
                     $('#autoAddChatMessage').click();
-                    $('#autoGetChatMessages').click();
+
                     setTimeout(function () {
                         $(".fixedContent").animate({
                             scrollTop: $(".fixedContent")[0].scrollHeight
                         }, -scrollY);
-                    }, 100)
+                    }, 1000)
                    
                     $(this).val('');
                     messageValue = "";
@@ -71,23 +68,23 @@
                 $("#sendChatMessage").click(function () {
                     if (messageValue != "") {
                         $('#autoAddChatMessage').click();
-                        $('#autoGetChatMessages').click();
+
                         setTimeout(function () {
                             $(".fixedContent").animate({
                                 scrollTop: $(".fixedContent")[0].scrollHeight
                             }, -scrollY);
-                        }, 100)
+                        }, 1000)
 
                         Chatbox.val('');
                         messageValue = "";
                     }
                 });
             });
+
+            setInterval(function () {
+                $('#autoGetChatMessages').click();
+            }, 5000);
         }
 
     }, 500);
-
-    setInterval(function () {
-        $('#autoGetChatMessages').click();
-    }, 10000);
 });

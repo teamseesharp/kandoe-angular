@@ -10,8 +10,10 @@
             
             var currentPlayerId = document.getElementById('currentPlayerId').innerText;
             var currentPlayerIdElement = document.getElementById(currentPlayerId);
-            currentPlayerIdElement.style.transform = "scale(1.5)";
-            currentPlayerIdElement.style.backgroundColor = "#84c148";
+            if (currentPlayerIdElement != null) {
+                currentPlayerIdElement.style.transform = "scale(1.5)";
+                currentPlayerIdElement.style.backgroundColor = "#84c148";
+            }
         }
     }, 500);
 });

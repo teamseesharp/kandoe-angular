@@ -8,15 +8,17 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 
 import {Session, SessionType} from './model/session';
 import {Subtheme} from './model/subtheme';
+import {Organisation} from './model/organisation';
 import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
 import {CardService} from './card.service';
+import {OrganisationService} from './organisation.service';
 
 import {SessionTypePipe} from './session-type.pipe';
 import {SessionParticipantsPipe} from './session-participants.pipe';
 import {DatePipe} from 'angular2/common';
 
-import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
+import {SubthemeJsonMapper, SessionJsonMapper, OrganisationJsonMapper} from '../utility/json-mapper';
 
 export enum Action {
     create,
@@ -28,7 +30,7 @@ export enum Action {
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
     pipes: [SessionTypePipe, SessionParticipantsPipe],
-    providers: [SessionService, SubthemeService, CardService]
+    providers: [SessionService, SubthemeService, CardService, OrganisationService]
 })
 
 export class SessionsComponent implements OnInit {
@@ -39,11 +41,13 @@ export class SessionsComponent implements OnInit {
     public subthemes: Array<Subtheme> = [];
     public progress: string;
     public sessionDetailHidden: boolean;
-    public sessionExpired: boolean;
     private action: Action;
+    private organisation: Organisation;
     model = new Session();
     
-    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService, private _subthemeService: SubthemeService) {
+    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
+        private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
+        this.getOrganisation();
         this.sessionDetail = new Session();
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
@@ -51,8 +55,18 @@ export class SessionsComponent implements OnInit {
         this.checkRouteParams();      
     }
 
+    private getOrganisation() {
+        this._organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
+            .subscribe(
+            data => this.organisation = new OrganisationJsonMapper().organisationFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Show organisation')
+            );
+    }
+
     private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
+            console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
@@ -97,6 +111,7 @@ export class SessionsComponent implements OnInit {
         sessionToUse.end = new Date(Date.parse(this.model.end.toString()));
         sessionToUse.currentPlayerIndex = 0;
         sessionToUse.isFinished = false;
+        //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
 
         switch (this.action) {
             case Action.create:
@@ -104,7 +119,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session created')
+                    () => console.log('Session created ' + sessionToUse.description)
                     );
                 break;
             case Action.clone:
@@ -112,7 +127,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session cloned')
+                    () => console.log('Session cloned ' + sessionToUse.description)
                     );
                 break;
             case Action.modify:
@@ -120,7 +135,7 @@ export class SessionsComponent implements OnInit {
                     .subscribe(
                     data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
                     err => console.log(err),
-                    () => console.log('Session modified')
+                    () => console.log('Session modified ' + sessionToUse.description)
                     );
                 break;
             default: console.log('Wrong action');
@@ -159,6 +174,6 @@ export class SessionsComponent implements OnInit {
     }
 
     private createSession() {
-        this.action = Action.modify;
+        this.action = Action.create;
     }
 }

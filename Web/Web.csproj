@@ -119,6 +119,7 @@
     <Content Include="src\session\organisations.html" />
     <Content Include="src\session\session.html" />
     <Content Include="src\session\sessions.html" />
+    <Content Include="src\session\snapshot.html" />
     <Content Include="src\session\themes.html" />
     <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
@@ -154,12 +155,14 @@
     <TypeScriptCompile Include="src\home\home.component.ts" />
     <TypeScriptCompile Include="src\message\message.service.ts" />
     <TypeScriptCompile Include="src\message\messages.component.ts" />
+    <TypeScriptCompile Include="src\message\model\chatboxMessage.ts" />
     <TypeScriptCompile Include="src\message\model\message.ts" />
     <TypeScriptCompile Include="src\session\analysis.component.ts" />
     <TypeScriptCompile Include="src\session\card.service.ts" />
     <TypeScriptCompile Include="src\session\cards.component.ts" />
     <TypeScriptCompile Include="src\session\model\subtheme.ts" />
     <TypeScriptCompile Include="src\session\session-participants.pipe.ts" />
+    <TypeScriptCompile Include="src\session\snapshot.component.ts" />
     <TypeScriptCompile Include="src\session\theme.service.ts" />
     <TypeScriptCompile Include="src\session\organisation.service.ts" />
     <TypeScriptCompile Include="src\session\model\card.ts" />

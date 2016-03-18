@@ -13,6 +13,7 @@ import {ThemesComponent} from './session/themes.component';
 import {CardsComponent} from './session/cards.component';
 import {SessionComponent} from './session/session.component';
 import {AnalysisComponent} from './session/analysis.component';
+import {SnapshotComponent} from './session/snapshot.component';
 
 
 @Component({
@@ -22,8 +23,9 @@ import {AnalysisComponent} from './session/analysis.component';
 })
 
 @RouteConfig([
-    { path: "/", name: "Home", component: HomeComponent, useAsDefault: true },
+    { path: "/", name: "Home", component: HomeComponent, useAsDefault: true }, 
     { path: "/over", name: "About", component: AboutComponent },
+    { path: "/snapshot/:id", name: "Snapshot", component: SnapshotComponent },
     { path: "/login", name: "Login", component: LoginComponent },
     { path: "/profiel", name: "Profile", component: ProfileComponent },
     { path: "/sessies", name: "Sessions", component: SessionsComponent },

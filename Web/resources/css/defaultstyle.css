@@ -186,7 +186,7 @@ li.organisationinfo .thumbnail {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    padding-bottom: 10em;
+    //padding-bottom: 10em;
 }
 
 #sessionTitle {
@@ -194,7 +194,7 @@ li.organisationinfo .thumbnail {
 }
 
 .sesssionsfooter {
-    height: 8em;
+    height: 5em;
 }
 
 .sessionlink {
@@ -529,6 +529,16 @@ HTMLJSCSS
     position: absolute;
     bottom: 2em;
     left: 30%;
+}
+
+/* Analysis */
+.analysisoverview  {
+    background-color: rgba(65,111,20, 0.1);
+    width: 40%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
 }
 
 #chooseCardModal .modal-dialog {

@@ -23,11 +23,12 @@ export class HomeComponent {
     private openSessions: Array<Session>;
     private futureSessions: Array<Session>;
     private pastSessions: Array<Session>;
+    private noOpenSession: boolean;
     
     constructor(private _router: Router, private _sessionService: SessionService) {
 
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-
+        this.noOpenSession = false;
         _sessionService.getSessionsByUser()
             .subscribe(
             data => {
@@ -35,6 +36,9 @@ export class HomeComponent {
                 this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
                 this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
                 this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
+                if (this.openSessions.length < 1){
+                     this.noOpenSession = true;
+                }
             },
             err => console.log(err),
             () => console.log('Complete')
@@ -43,5 +47,9 @@ export class HomeComponent {
 
     onSelect(sessionToOpen: Session) {
         this._router.navigate(['Session', { id: sessionToOpen.id }]);
+    }
+
+    onSelectClosedSession(sessionToOpen: Session) {
+        this._router.navigate(['Snapshot', { id: sessionToOpen.id }]);
     }
 }
