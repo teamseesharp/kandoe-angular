@@ -9,6 +9,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Session, SessionType} from './model/session';
 import {Subtheme} from './model/subtheme';
 import {Organisation} from './model/organisation';
+
 import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
 import {CardService} from './card.service';
@@ -44,7 +45,8 @@ export class SessionsComponent implements OnInit {
     private action: Action;
     private organisation: Organisation;
     model = new Session();
-    
+
+
     constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
         private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
         this.getOrganisation();
@@ -52,7 +54,7 @@ export class SessionsComponent implements OnInit {
         this.progress = "width: 0%";
         this.sessionDetailHidden = true;
         this.action = Action.create;
-        this.checkRouteParams();      
+        this.checkRouteParams();
     }
 
     private getOrganisation() {
@@ -66,7 +68,6 @@ export class SessionsComponent implements OnInit {
 
     private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
-            console.log('ZONDER ID: ');
             this._sessionService.getSessionsByUser()
                 .subscribe(
                 data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
@@ -111,7 +112,6 @@ export class SessionsComponent implements OnInit {
         sessionToUse.end = new Date(Date.parse(this.model.end.toString()));
         sessionToUse.currentPlayerIndex = 0;
         sessionToUse.isFinished = false;
-        //if (sessionToAdd.end < new Date()) sessionToAdd.isFinished = true;
 
         switch (this.action) {
             case Action.create:
@@ -143,7 +143,7 @@ export class SessionsComponent implements OnInit {
 
         this.model = new Session();
     }
-    
+
     private calculateProgress() {
         var startDateInMs = this.sessionDetail.start.getTime();
         var endDateInMs = this.sessionDetail.end.getTime();
