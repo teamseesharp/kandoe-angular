@@ -72,7 +72,7 @@ export class SessionComponent implements OnInit {
             this.sessionCards = this.session.sessionCards;
             this.accounts = this.session.participants;
             this.currentPlayerIndex = this.session.currentPlayerIndex;
-            this.progress = this.calculatePlayerLine();
+            //this.progress = this.calculatePlayerLine();
             this.initCardGrid();
         },
         err => console.log(err),

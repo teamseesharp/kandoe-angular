@@ -177,6 +177,7 @@ export class SessionsComponent implements OnInit {
 
     private cloneSession(sessionToClone: Session) {
         this.sessionModel = sessionToClone;
+        console.log("subthemeId: " + this.sessionModel.subthemeId);
         this.action = Action.clone;
     }
 
