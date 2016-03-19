@@ -13,7 +13,7 @@
     <div class="row sessionsoverview">
         <div class="col-xs-12">
             <h2>  Open sessies</h2>
-            <hr/>
+            <hr class="blackLine"/>
             <div class="col-xs-6 overviewSessionButton" *ngIf="!noOpenSession" *ngFor="#session of openSessions">
                 <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}} open tot {{session?.end | date:'dd MMMM yyyy'}}</button>
             </div>
@@ -23,7 +23,7 @@
     <div class="row sessionsoverview">
         <div class="col-xs-12">
             <h2>  Geplande sessies</h2>
-            <hr />
+            <hr class="blackLine"/>
             <div class="col-xs-6 overviewSessionButton" *ngFor="#session of futureSessions">
                 <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}} start op {{session?.start | date:'dd MMMM yyyy'}}</button>
             </div>
@@ -32,7 +32,7 @@
     <div class="row sessionsoverview">
         <div class="col-xs-12">
             <h2>  Gespeelde sessies</h2>
-            <hr />
+            <hr class="blackLine"/>
             <div class="col-xs-6 overviewSessionButton" *ngFor="#session of pastSessions">
                 <button class="btn btn-info btn-lg" (click)="onSelectClosedSession(session)">{{session?.description}} gespeeld tot {{session?.end | date:'dd MMMM yyyy'}}</button>
             </div>

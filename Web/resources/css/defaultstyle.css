@@ -44,10 +44,11 @@ a:hover, a:active, a:focus {
     margin-bottom: 1em;
 }
 
-.sessionsoverview hr {
+hr.blackLine {
     color: black;
     background-color: black;
     height: 1px;
+    width: 96%;
 }
 
 /* About */
@@ -580,8 +581,19 @@ HTMLJSCSS
     width: 95%;
     margin-top: 2em;
     margin-left: 1em;
-    margin-bottom: 2em:
+    margin-bottom: 2em;
     border-radius: 4px;
+}
+
+.analyseButton {
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+    float: right;
+}
+
+.toAnalyseButton {
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
 }
 
 #chooseCardModal .modal-dialog {
@@ -633,10 +645,16 @@ HTMLJSCSS
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) {  }
+@media (min-width: @screen-sm-min) { 
+}
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: @screen-md-min) {  }
+@media (min-width: @screen-md-min) { 
+    .navbar-right {
+        clear: both;
+        align-content: flex-start;
+    }
+}
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: @screen-lg-min) {  }
