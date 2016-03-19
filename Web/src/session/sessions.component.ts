@@ -9,6 +9,7 @@ import {SidebarComponent} from '../defaultcomponents/sidebar.component';
 import {Session, SessionType} from './model/session';
 import {Subtheme} from './model/subtheme';
 import {Organisation} from './model/organisation';
+import {Card} from './model/card';
 
 import {SessionService} from './session.service';
 import {SubthemeService} from './subtheme.service';
@@ -19,7 +20,7 @@ import {SessionTypePipe} from './session-type.pipe';
 import {SessionParticipantsPipe} from './session-participants.pipe';
 import {DatePipe} from 'angular2/common';
 
-import {SubthemeJsonMapper, SessionJsonMapper, OrganisationJsonMapper} from '../utility/json-mapper';
+import {SubthemeJsonMapper, SessionJsonMapper, OrganisationJsonMapper, CardJsonMapper} from '../utility/json-mapper';
 
 export enum Action {
     create,
@@ -44,10 +45,14 @@ export class SessionsComponent implements OnInit {
     public sessionDetailHidden: boolean;
     private action: Action;
     private organisation: Organisation;
-    model = new Session();
+    private isParticipant: boolean = false;
+    private subthemeCards: Array<Card> = [];
+    private playerCards: Array<Card> = [];
+    private sessionModel = new Session();
+    private cardModel = new Card();
 
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService,
+    constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService, private _cardService: CardService,
         private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
         this.getOrganisation();
         this.sessionDetail = new Session();
@@ -97,19 +102,28 @@ export class SessionsComponent implements OnInit {
     }
 
     onSelect(session: Session) {
+        this.isParticipant = false;
         this.sessionDetail = session;
+        if (this.sessionDetail.participants.filter(acc => acc.id == parseInt(localStorage.getItem('user_id'))).length > 0)
+            this.isParticipant = true;
         this.calculateProgress();
         this.sessionDetailHidden = false;
+        this._cardService.getCardsBySubtheme(this.sessionDetail.subthemeId)
+            .subscribe(
+            data => this.subthemeCards = new CardJsonMapper().cardsFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Complete')
+            );
     }
 
     onSubmit() {
         var sessionToUse: Session = new Session();
-        sessionToUse = this.model;
+        sessionToUse = this.sessionModel;
         sessionToUse.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
         sessionToUse.description = this.subthemes.filter(subtheme => subtheme.id == sessionToUse.subthemeId)[0].name;
         sessionToUse.organisationId = parseInt(localStorage.getItem('user_id'));
-        sessionToUse.start = new Date(Date.parse(this.model.start.toString()));
-        sessionToUse.end = new Date(Date.parse(this.model.end.toString()));
+        sessionToUse.start = new Date(Date.parse(this.sessionModel.start.toString()));
+        sessionToUse.end = new Date(Date.parse(this.sessionModel.end.toString()));
         sessionToUse.currentPlayerIndex = 0;
         sessionToUse.isFinished = false;
 
@@ -140,8 +154,7 @@ export class SessionsComponent implements OnInit {
                 break;
             default: console.log('Wrong action');
         }
-
-        this.model = new Session();
+        this.sessionModel = new Session();
     }
 
     private calculateProgress() {
@@ -160,20 +173,51 @@ export class SessionsComponent implements OnInit {
 
     private playSession(session: Session) {
         this._router.navigate(['Session', { id: session.id }]);
-
     }
 
     private cloneSession(sessionToClone: Session) {
-        this.model = sessionToClone;
+        this.sessionModel = sessionToClone;
         this.action = Action.clone;
     }
 
     private changeSession(sessionToChange: Session) {
-        this.model = sessionToChange;
+        this.sessionModel = sessionToChange;
         this.action = Action.modify;
     }
 
     private createSession() {
         this.action = Action.create;
+    }
+
+    private addCardsToSubtheme() {
+        var card: Card = this.cardModel;
+        card.sessionId = this.sessionDetail.id;
+        card.sessionLevel = 10;
+        card.subthemeId = this.sessionDetail.subthemeId;
+        this._cardService.postCard(card)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Complete')
+            );
+        this.cardModel = new Card();
+    }
+
+    addCardToSelection(card: Card) {
+        if (this.playerCards.length < this.sessionDetail.maxCardsToChoose) {
+            this.playerCards.push(card);
+        }
+    }
+
+    removeCardFromSelection(card: Card) {
+        var index = this.playerCards.indexOf(card);
+        this.playerCards.splice(index, 1);
+    }
+
+    submitCards() {
+        this._sessionService.patchSessionCards(this.playerCards, this.sessionDetail.id)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Complete')
+            );
     }
 }

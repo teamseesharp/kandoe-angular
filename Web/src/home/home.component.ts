@@ -28,21 +28,23 @@ export class HomeComponent {
     constructor(private _router: Router, private _sessionService: SessionService) {
 
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.noOpenSession = false;
-        _sessionService.getSessionsByUser()
-            .subscribe(
-            data => {
-                this.sessions = new SessionJsonMapper().sessionsFromJson(data.json());
-                this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
-                this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
-                this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
-                if (this.openSessions.length < 1){
-                     this.noOpenSession = true;
-                }
-            },
-            err => console.log(err),
-            () => console.log('Complete')
-        );
+        else { 
+            this.noOpenSession = false;
+            _sessionService.getSessionsByUser()
+                .subscribe(
+                data => {
+                    this.sessions = new SessionJsonMapper().sessionsFromJson(data.json());
+                    this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
+                    this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
+                    this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
+                    if (this.openSessions.length < 1){
+                         this.noOpenSession = true;
+                    }
+                },
+                err => console.log(err),
+                () => console.log('Complete')
+            );
+        }
     }
 
     onSelect(sessionToOpen: Session) {

@@ -58,9 +58,8 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <!--<button type="button" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>-->
-                    
-                    <button type="button" *ngIf="!sessionDetail.isFinished" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
+                    <button type="button" *ngIf="!isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Bevestig</button>
+                    <button type="button" *ngIf="!sessionDetail.isFinished && isParticipant" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
                     <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
                         
                 </div>
@@ -91,38 +90,38 @@
             <form (ngSubmit)="onSubmit()" #sessionForm="ngForm">
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
-                    <select class="form-control" [(ngModel)]="model.subtheme" id="subthemeSelect">
+                    <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
                         <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="sessionType">Sessietype</label>
-                    <select class="form-control" [(ngModel)]="model.type">
+                    <select class="form-control" [(ngModel)]="sessionModel.type">
                         <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="cardCreationAllowed">Kaartjes aanmaken toegestaan: </label>
                     <div class="checkbox">
-                        <label><input type="checkbox" [(ngModel)]="model.cardCreationAllowed"/></label>
+                        <label><input type="checkbox" [(ngModel)]="sessionModel.cardCreationAllowed"/></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Maximum kaartjes: </label>
-                    <input type="number" class="form-control" [(ngModel)]="model.maxCardsToChoose" />
+                    <input type="number" class="form-control" [(ngModel)]="sessionModel.maxCardsToChoose" />
                 </div>
                 <div class="form-group"> 
                     <label for="startDate">Start datum</label>
-                    <input type="date" class="form-control" [(ngModel)]="model.start"/>
+                    <input type="date" class="form-control" [(ngModel)]="sessionModel.start"/>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Eind datum</label>
-                    <input type="date" class="form-control" [(ngModel)]="model.end"/>
+                    <input type="date" class="form-control" [(ngModel)]="sessionModel.end"/>
                 </div>
                 <div class="form-group">
                     <label for="users">Gebruikers toevoegen</label>
                     <br />
-                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="model.users">
+                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="sessionModel.users">
                 </div>
                 <button type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
@@ -132,5 +131,80 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="chooseCardModal" class="modal fade" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="newcard" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Kaarten kiezen</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <button *ngIf="session.cardCreationAllowed" type="button" id="newcard" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createCardModal">Nieuwe kaart</button>
+                        <ul id="allcardlist" class="cardlistModal">
+                            <li *ngFor="#card of subthemeCards">
+                                <div class="col-xs-3 col-md-2">
+                                    <div class="thumbnail">
+                                        <p>{{ card.text }}</p>
+                                        <button type="button" class="btn btn-info" (click)="addCardToSelection(card)">Kies</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <p>Gekozen kaarten</p>
+                        <br />
+                        <ul id="mycardlist" class="cardlistModal">
+                            <li *ngFor="#card of playerCards">
+                                <div class="col-xs-3 col-md-2">
+                                    <div class="thumbnail">
+                                        <p>{{ card.text }}</p>
+                                        <button type="button" class="btn btn-info" (click)="removeCardFromSelection(card)">Verwijder</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="submitCards()">Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="createCardModal" class="modal fade" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="newcard" type="button" class="close" data-dismiss="modal" (click)="onCloseModal()">&times;</button>
+                    <h4 class="modal-title">Nieuwe kaart</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Create card form -->
+                    <form (ngSubmit)="addCardToSubtheme()" #organisationForm="ngForm">
+                        <div class="form-group">
+                            <label for="description">Beknopte omschrijving</label>
+                            <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="cardModel.text"
+                                   ngControl="text" #text="ngForm">
+                            <div id="errortext" [hidden]="text.valid || text.pristine || text.untouched" class="alert alert-danger">
+                                De nieuwe kaart vereist een beknopte omschrijving.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid" data-toggle="modal" data-target="#createCardModal">Aanmaken</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()">Annuleren</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
  
 </section>

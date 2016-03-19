@@ -35,8 +35,6 @@ export class SessionComponent implements OnInit {
     private session: Session = new Session();
     private accounts: Array<Account> = [];
     private sessionCards: Array<Card> = [];
-    private subthemeCards: Array<Card> = [];
-    private playerCards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
     private messages: Array<Message> = [];
     private chatboxMessages: Array<ChatboxMessage> = [];
@@ -76,12 +74,6 @@ export class SessionComponent implements OnInit {
             this.currentPlayerIndex = this.session.currentPlayerIndex;
             this.progress = this.calculatePlayerLine();
             this.initCardGrid();
-            this._cardService.getCardsBySubtheme(this.session.subthemeId)
-                .subscribe(
-                data => this.subthemeCards = new CardJsonMapper().cardsFromJson(data.json()),
-                err => console.log(err),
-                () => console.log('Complete')
-                );
         },
         err => console.log(err),
         () => console.log('Complete')
@@ -161,39 +153,6 @@ export class SessionComponent implements OnInit {
         this.space = "margin-left: " + result + "%;";
         this.currentPlayerId = this.accounts[this.currentPlayerIndex].id;
         return (result + ball) * (this.currentPlayerIndex + 1);
-    }
-
-    addCardToSubtheme() {
-        var card: Card = this.model;
-        card.sessionId = this.session.id;
-        card.sessionLevel = 10;
-        card.subthemeId = this.session.subthemeId;
-        this._cardService.postCard(card)
-            .subscribe(
-            data => this.subthemeCards.push(new CardJsonMapper().cardFromJson(data.json())),
-            err => console.log(err),
-            () => console.log('Complete')
-            );
-        this.model = new Card();
-    }
-
-    addCardToSelection(card: Card) {
-        if (this.playerCards.length < this.session.maxCardsToChoose) {
-            this.playerCards.push(card);
-        }
-    }
-
-    removeCardFromSelection(card: Card) {
-        var index = this.playerCards.indexOf(card);
-        this.playerCards.splice(index, 1);
-    }
-
-    submitCards() {
-        this._sessionService.patchSessionCards(this.playerCards, this.session.id)
-            .subscribe(
-            err => console.log(err),
-            () => console.log('Complete')
-        );
     }
 
     getChatMessages() {
