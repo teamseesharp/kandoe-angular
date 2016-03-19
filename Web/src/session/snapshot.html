@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row sessionsoverview">
       <h2>   Eindsituatie</h2>
         <div id="gameGrid">
             <div *ngFor="#row of cardGrid">
@@ -29,12 +29,13 @@
         </div>
     </div>
 
-   <div class="row">
+   <div class="row sessionsoverview">
       <h2>   Chat</h2>
        <ul id="chatMEssages" *ngFor="#message of chatMessages">
                 <li>
                     {{message.id}} {{message.date | date:'dd MMMM yyyy'}}: {{message.text}}
                 </li>
             </ul>
+       <div *ngIf="noChat">Er was geen chat gedurende deze sessie.</div>
   </div>
 </section>
