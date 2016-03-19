@@ -29,10 +29,11 @@ import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 export class AnalysisComponent {
     private cardToMerge: Card = new Card();
     subthemes: Array<Subtheme>;
-    sessions: Array<Session>;
+    allSessions: Array<Session>;
+    selectedSessions: Array<Session>;
     modelSession: Session;
     modelSubtheme: Session;
-    private cards: Array<Card> = [];
+    //private cards: Array<Card> = [];
     masterSession: Session = new Session();
     public sessionMasterHidden: boolean;
     public sessionEmptyHidden: boolean;
@@ -45,6 +46,7 @@ export class AnalysisComponent {
         this.sessionMasterHidden = true;
         this.sessionEmptyHidden = true;
         this.modelSubtheme = new Session;
+        this.selectedSessions = new Array<Session>();
 
         localStorage.setItem('isChatActive', "false");
         _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
@@ -52,7 +54,7 @@ export class AnalysisComponent {
             data => {
                 console.log(data.json());
                 this.modelSession = new SessionJsonMapper().sessionFromJson(data.json());
-                this.cards = this.modelSession.sessionCards;
+                //this.cards = this.modelSession.sessionCards;
                 this.initCardGrid();
             },
             err => console.log(err),
@@ -67,9 +69,9 @@ export class AnalysisComponent {
         );
         _sessionService.getSessionsByUser()
             .subscribe(
-            data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+            data => this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete: number of sessions ' + this.sessions.length)
+            () => console.log('Complete: number of sessions ' + this.allSessions.length)
         );
         
     }
@@ -90,6 +92,7 @@ export class AnalysisComponent {
     }
     
     onSubmitSession() {
+        this.selectedSessions = this.sessionsToAnalyse;
         this.masterCircle(this.sessionsToAnalyse);
     }
 
@@ -140,12 +143,12 @@ export class AnalysisComponent {
     }
 
     public addSession() {
-        if (this.sessions.length > 0) {
+        if (this.allSessions.length > 0) {
             var sessionToAdd: Session = new Session();
             sessionToAdd = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('addSession')).value));
 
-            this.sessionsToAnalyse.push(sessionToAdd);
-            this.sessions.splice(this.sessions.indexOf(sessionToAdd), 1);
+            this.selectedSessions.push(sessionToAdd);
+            this.allSessions.splice(this.allSessions.indexOf(sessionToAdd), 1);
         }
     }
 
@@ -154,21 +157,21 @@ export class AnalysisComponent {
             var sessionToRemove: Session = new Session();
             sessionToRemove = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('removeSession')).value));
 
-            this.sessions.push(sessionToRemove);
-            this.sessionsToAnalyse.splice(this.sessionsToAnalyse.indexOf(sessionToRemove), 1);
+            this.allSessions.push(sessionToRemove);
+            this.selectedSessions.splice(this.selectedSessions.indexOf(sessionToRemove), 1);
         }
     }
 
     private getSessionFromId(id: number): Session {
-        for (var i: number = 0; i < this.sessions.length; i++) {
-            if (this.sessions[i].id == id) {
-                return this.sessions[i];
+        for (var i: number = 0; i < this.allSessions.length; i++) {
+            if (this.allSessions[i].id == id) {
+                return this.allSessions[i];
             }
         }
 
-        for (var i: number = 0; i < this.sessionsToAnalyse.length; i++) {
-            if (this.sessionsToAnalyse[i].id == id) {
-                return this.sessionsToAnalyse[i];
+        for (var i: number = 0; i < this.selectedSessions.length; i++) {
+            if (this.selectedSessions[i].id == id) {
+                return this.selectedSessions[i];
             }
         }
     }
@@ -216,5 +219,13 @@ export class AnalysisComponent {
         this.sessionsToAnalyse = new Array<Session>();
         this.sessionEmptyHidden = true;
         this.sessionMasterHidden = true;
+
+        this._sessionService.getSessionsByUser()
+            .subscribe(
+            data => this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+            err => console.log(err),
+            () => console.log('Complete: number of sessions ' + this.allSessions.length)
+        );
+        this.selectedSessions = new Array<Session>();
     }
 } 
