@@ -15,6 +15,7 @@ import {Subtheme} from './model/subtheme';
 import {SubthemeService} from './subtheme.service';
 import {SessionService} from './session.service';
 import {CardService} from './card.service';
+import {CardSquare} from './model/card-square';
 
 import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 
@@ -29,11 +30,13 @@ export class AnalysisComponent {
     private cardToMerge: Card = new Card();
     subthemes: Array<Subtheme>;
     sessions: Array<Session>;
-    modelSubtheme: Subtheme;
     modelSession: Session;
-    sessionToShow: Session = new Session();
+    modelSubtheme: Session;
+    private cards: Array<Card> = [];
+    masterSession: Session = new Session();
     public sessionMasterHidden: boolean;
     public sessionEmptyHidden: boolean;
+    private cardGrid: Array<Array<CardSquare>> = [];
 
     sessionsToAnalyse: Array<Session>;
 
@@ -41,6 +44,20 @@ export class AnalysisComponent {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
         this.sessionMasterHidden = true;
         this.sessionEmptyHidden = true;
+        this.modelSubtheme = new Session;
+
+        localStorage.setItem('isChatActive', "false");
+        _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
+            .subscribe(
+            data => {
+                console.log(data.json());
+                this.modelSession = new SessionJsonMapper().sessionFromJson(data.json());
+                this.cards = this.modelSession.sessionCards;
+                this.initCardGrid();
+            },
+            err => console.log(err),
+            () => console.log('Complete')
+        );
 
         _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
             .subscribe(
@@ -54,17 +71,18 @@ export class AnalysisComponent {
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.sessions.length)
         );
-
-        this.sessionsToAnalyse = new Array<Session>();
+        
     }
     
     onSubmitSubtheme() {
-        this.modelSubtheme.id = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
-        this._sessionService.getSessionsBySubtheme(this.modelSubtheme.id)
+        this.sessionsToAnalyse = new Array<Session>();
+        this._sessionService.getSessionsBySubtheme(parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value))
             .subscribe(
             data => {
                 this.sessionsToAnalyse = new SessionJsonMapper().sessionsFromJson(data.json()),
-                this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
+                    console.log('Number of sessions: ' + this.sessionsToAnalyse.length),
+                    console.log('Number of cards of first session: ' + this.sessionsToAnalyse[0].sessionCards.length),
+                    this.masterCircle(this.sessionsToAnalyse)
             },
             err => console.log(err),
             () => console.log('Complete: get sessions to analyse ')
@@ -72,32 +90,33 @@ export class AnalysisComponent {
     }
     
     onSubmitSession() {
-        this.sessionToShow = this.masterCircle(this.sessionsToAnalyse);
+        this.masterCircle(this.sessionsToAnalyse);
     }
 
-    private masterCircle(sessions: Array<Session>): Session {
+    private masterCircle(sessions: Array<Session>) {
+
         try {
-            var master = sessions[0];
-            var firstDescription = master.description;
-            master.description = "Merged circles: " + firstDescription;
+            this.masterSession = sessions[0];
+            var firstDescription = this.masterSession.description;
+            this.masterSession.description = firstDescription + " "; 
 
             for (var i = 1; i < sessions.length; i++) {
                 for (var j = 0; j < sessions[i].sessionCards.length; j++) {
-                    if (this.cardsInDeck(sessions[i].sessionCards[j], master.sessionCards)) {
-                        master.sessionCards.push(this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge))
-                        master.sessionCards.splice(j);
+                    if (this.cardsInDeck(sessions[i].sessionCards[j], this.masterSession.sessionCards)) {
+                        this.masterSession.sessionCards.push(this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge))
+                        this.masterSession.sessionCards.splice(j);
                     } else {
-                        master.sessionCards.push(sessions[i].sessionCards[j]);
+                        this.masterSession.sessionCards.push(sessions[i].sessionCards[j]);
                     }
                 }
-                master.description += ", " + sessions[i].description; 
+                this.masterSession.description += ", " + sessions[i].description; 
             }
-            if (master.sessionCards.length > 0) {
+            console.log('Aantal kaarten: ' + this.masterSession.sessionCards.length);
+            if (this.masterSession.sessionCards.length > 0) {
                 this.sessionMasterHidden = false;
             } else {
                 this.sessionEmptyHidden = false;
             } 
-            return master;
         } catch (TypeError) {
             console.log("There are no sessions or no cards: " + Error);
             this.sessionEmptyHidden = false;
@@ -152,5 +171,50 @@ export class AnalysisComponent {
                 return this.sessionsToAnalyse[i];
             }
         }
+    }
+
+    ngOnInit() {
+        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
+    }
+
+    private initCardGrid() {
+        for (var i = -10; i <= 10; i++) {
+            var tempArray = new Array<CardSquare>();
+            for (var j = -10; j <= 10; j++) {
+                if (j != 0) {
+                    var card: Card = new Card();
+                    card.text = '';
+                    tempArray.push(new CardSquare(i, j, card));
+                }
+            }
+            if (i != 0) {
+                this.cardGrid.push(tempArray);
+            }
+        }
+        this.placeCards();
+    }
+
+    private placeCards() {
+        var cards: Array<Card> = this.modelSession.sessionCards;
+        var cardIndex: number = 0;
+        var skipSquares: boolean = false;
+        for (var i in this.cardGrid) {
+            //
+            if (parseInt(i) % 2 == 0) skipSquares = false;
+            for (var j in this.cardGrid[i]) {
+                if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
+                    this.cardGrid[i][j].card = cards[cardIndex];
+                    this.cardGrid[i][j].setVisibility();
+                    cardIndex++;
+                    skipSquares = true;
+                }
+            }
+        }
+    }
+
+    public resetAnalysis() {
+        this.sessionsToAnalyse = new Array<Session>();
+        this.sessionEmptyHidden = true;
+        this.sessionMasterHidden = true;
     }
 } 

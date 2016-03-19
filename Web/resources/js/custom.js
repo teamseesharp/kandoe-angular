@@ -83,6 +83,11 @@
 
             setInterval(function () {
                 $('#autoGetChatMessages').click();
+                setTimeout(function () {
+                    $(".fixedContent").animate({
+                        scrollTop: $(".fixedContent")[0].scrollHeight
+                    }, -scrollY);
+                }, 1000)
             }, 5000);
         }
 

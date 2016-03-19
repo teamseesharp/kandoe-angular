@@ -33,6 +33,7 @@ export class SnapshotComponent implements OnInit {
     private cards: Array<Card> = [];
     private cardGrid: Array<Array<CardSquare>> = [];
     private chatMessages: Array<Message> = [];
+    noChat: boolean;
 
     constructor(private _router: Router,
         private _routeParams: RouteParams,
@@ -55,7 +56,8 @@ export class SnapshotComponent implements OnInit {
         this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
             .subscribe(
             data => {
-                this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
+                this.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json()),
+                this.checkForMessages(),
                 console.log(this.chatMessages);
             },
             err => console.log(err),
@@ -99,6 +101,12 @@ export class SnapshotComponent implements OnInit {
                     skipSquares = true;
                 }
             }
+        }
+    }
+
+    public checkForMessages() {
+        if (this.chatMessages.length < 1) {
+            this.noChat = true;
         }
     }
 }
