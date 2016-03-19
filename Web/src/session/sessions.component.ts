@@ -112,7 +112,7 @@ export class SessionsComponent implements OnInit {
             .subscribe(
             data => this.selectionCards = new CardJsonMapper().cardsFromJson(data.json()),
             err => console.log(err),
-            () => console.log('Complete')
+            () => console.log('Complete: sessionId: ' + session.id + 'is participant: ' + this.isParticipant)
             );
     }
 
