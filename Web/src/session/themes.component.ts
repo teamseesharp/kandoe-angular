@@ -59,10 +59,10 @@ export class ThemesComponent {
         theme = this.model;
 
         var themeTags = document.getElementsByClassName("tag");
-        this.model.tags = "";
+        theme.tags = "";
         // concatenate all input tags to one string
         for (var i = 0; i < themeTags.length; i++) {
-            this.model.tags += themeTags[i].firstChild.textContent + ";";
+            theme.tags += themeTags[i].firstChild.textContent + ";";
         }
 
         this._themeService.postTheme(theme)

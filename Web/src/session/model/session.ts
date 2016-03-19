@@ -28,5 +28,4 @@ export class Session {
     public chatMessages: Array<Message>;
     public organisers: Array<Account>;
     public participants: Array<Account>;
-
 }

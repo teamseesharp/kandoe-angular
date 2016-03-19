@@ -116,7 +116,7 @@ export class SessionsComponent implements OnInit {
             );
     }
 
-    onSubmit() {
+    onCreateSession() {
         var sessionToUse: Session = new Session();
         sessionToUse = this.sessionModel;
         sessionToUse.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);

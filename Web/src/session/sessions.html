@@ -64,10 +64,10 @@
                         
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Kopieer</button>
+                    <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Wijzigen</button>
+                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
         <div class="modal-body">
 
             <!-- Create organisation form -->
-            <form (ngSubmit)="onSubmit()" #sessionForm="ngForm">
+            <form (ngSubmit)="onCreateSession()" #sessionForm="ngForm">
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
                     <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
@@ -128,6 +128,63 @@
             </form>
         </div>
         </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="cloneSessionModal" class="modal" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Kloon sessie</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Create organisation form -->
+                    <form (ngSubmit)="onSubmit()" #cloneSessionForm="ngForm">
+                        <div class="form-group">
+                            <label for="subtheme">Subthema</label>
+                            <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
+                                <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sessionType">Sessietype</label>
+                            <select class="form-control" [(ngModel)]="sessionModel.type">
+                                <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCreationAllowed">Kaartjes aanmaken toegestaan: </label>
+                            <div class="checkbox">
+                                <label><input type="checkbox" [(ngModel)]="sessionModel.cardCreationAllowed" /></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Maximum kaartjes: </label>
+                            <input type="number" class="form-control" [(ngModel)]="sessionModel.maxCardsToChoose" />
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start datum</label>
+                            <input type="date" class="form-control" [(ngModel)]="sessionModel.start" />
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Eind datum</label>
+                            <input type="date" class="form-control" [(ngModel)]="sessionModel.end" />
+                        </div>
+                        <div class="form-group">
+                            <label for="users">Gebruikers toevoegen</label>
+                            <br />
+                            <input type="text" name="users" class="form-control" [(ngModel)]="sessionModel.users">
+                        </div>
+                        <button type="submit" class="btn btn-info" [disabled]="!cloneSessionForm.form.valid" data-toggle="modal" data-target="#cloneSessionModal">Kloon sessie</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
