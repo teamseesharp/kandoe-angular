@@ -26,6 +26,11 @@ export class AccountService {
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
+    public postAccountByAuth0UserId(account: Account) {
+        var apiURL = this.apiPrefix + 'api/accounts';
+        return this.authHttp.post(apiURL, JSON.stringify(account), { headers: this.header });
+    }
+
     public patchAccount(account: Account) {
         var apiURL = this.apiPrefix + 'api/accounts';
         return this.authHttp.patch(apiURL, JSON.stringify(account), { headers: this.header });

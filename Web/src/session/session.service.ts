@@ -4,6 +4,7 @@ import {AuthHttp} from 'angular2-jwt';
 import {Response, Headers} from 'angular2/http';
 
 import {Session} from './model/session';
+import {Card} from './model/card';
 
 import {CardService} from './card.service';
 
@@ -52,5 +53,10 @@ export class SessionService {
     public patchSessionCardLevel(session: Session, cardId: number) {
         var apiUrL = this.apiPrefix + 'api/sessions/' + session.id.toString() + '/level-up-card/' + cardId.toString();
         return this.authHttp.patch(apiUrL, JSON.stringify(session), { headers: this.header });
+    }
+
+    public patchSessionCards(cards: Array<Card>, sessionId: number) {
+        var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/select-cards';
+        return this.authHttp.patch(apiUrL, JSON.stringify(cards), { headers: this.header });
     }
 }

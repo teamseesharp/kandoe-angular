@@ -42,7 +42,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('id_token', id_token);
 
             var acc: Account = new Account();
-            this._accountService.getAccountByAuth0UserId()
+            acc.email = JSON.parse(localStorage.getItem('profile')).email;
+            acc.name = JSON.parse(localStorage.getItem('profile')).nickname;
+            acc.secret = JSON.parse(localStorage.getItem('profile')).user_id;
+
+            this._accountService.postAccountByAuth0UserId(acc)
                 .subscribe(
                 data => {
                     acc = new AccountJsonMapper().accountFromJson(data.json());
