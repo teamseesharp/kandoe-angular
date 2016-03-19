@@ -16,17 +16,20 @@ export class AccountJsonMapper {
         account.surname = data.Surname;
         account.secret = data.Secret;
         account.picture = data.Picture;
-        account.chatMessages = data.ChatMessages;
-        account.organisations = data.Organisations;
-        account.organisedSessions = data.OrganisedSessions;
-        account.participatingSessions = data.ParticipatingSessions;
-        account.themes = data.Themes;
-        account.subthemes = data.Subthemes;
+
+        account.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data.ChatMessages);
+        account.organisations = new OrganisationJsonMapper().organisationsFromJson(data.Organisations);
+        account.organisedSessions = new SessionJsonMapper().sessionsFromJson(data.OrganisedSessions);
+        account.participatingSessions = new SessionJsonMapper().sessionsFromJson(data.ParticipatingSessions);
+        account.themes = new ThemeJsonMapper().themesFromJson(data.Themes);
+        account.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.Subthemes);
+
         return account;
     }
 
     public accountsFromJson(data: any): Array<Account> {
         var accounts: Array<Account> = [];
+        if (data == null) return new Array<Account>();
         for (var i = 0; i < data.length; i++) {
             var account: Account = new Account();
             account.id = data[i].Id;
@@ -35,12 +38,14 @@ export class AccountJsonMapper {
             account.surname = data[i].Surname;
             account.secret = data[i].Secret;
             account.picture = data[i].Picture;
-            account.chatMessages = data[i].ChatMessages;
-            account.organisations = data[i].Organisations;
-            account.organisedSessions = data[i].OrganisedSessions;
-            account.participatingSessions = data[i].ParticipatingSessions;
-            account.themes = data[i].Themes;
-            account.subthemes = data[i].Subthemes;
+
+            account.chatMessages = new ChatMessageJsonMapper().chatMessagesFromJson(data[i].ChatMessages);
+            account.organisations = new OrganisationJsonMapper().organisationsFromJson(data[i].Organisations);
+            account.organisedSessions = new SessionJsonMapper().sessionsFromJson(data[i].OrganisedSessions);
+            account.participatingSessions = new SessionJsonMapper().sessionsFromJson(data[i].ParticipatingSessions);
+            account.themes = new ThemeJsonMapper().themesFromJson(data[i].Themes);
+            account.subthemes = new SubthemeJsonMapper().subthemesFromJson(data[i].Subthemes);
+
             accounts.push(account);
         }
         console.log(accounts);
@@ -51,6 +56,7 @@ export class AccountJsonMapper {
 export class OrganisationJsonMapper {
 
     public organisationsFromJson(data: any): Array<Organisation> {
+        if (data == null) return new Array<Organisation>();
         var organisations: Array<Organisation> = [];
         for (var i = 0; i < data.length; i++) {
             var organisation: Organisation = new Organisation();
@@ -79,6 +85,7 @@ export class SessionJsonMapper {
 
     private cardMapper: CardJsonMapper = new CardJsonMapper();
     private accountMapper: AccountJsonMapper = new AccountJsonMapper();
+    private chatmessageMapper: ChatMessageJsonMapper = new ChatMessageJsonMapper();
 
     public sessionFromJson(data: any): Session {
         var session: Session = new Session();
@@ -89,21 +96,21 @@ export class SessionJsonMapper {
         session.isFinished = data.IsFinished;
         session.maxCardsToChoose = data.MaxCardsToChoose;
         session.maxParticipants = data.MaxParticipants;
-        session.modus = data.Modus;
         session.organisationId = data.OrganisationId;
         session.round = data.Round;
         session.subthemeId = data.SubthemeId;
         session.start = new Date(Date.parse(data.Start));
         session.end = new Date(Date.parse(data.End));
         session.sessionCards = this.cardMapper.cardsFromJson(data.SessionCards);
-        session.chatMessages = data.ChatMessages;
-        session.organisers = data.Organisers;
+        session.chatMessages = this.chatmessageMapper.chatMessagesFromJson(data.ChatMessages);
+        session.organisers = this.accountMapper.accountsFromJson(data.Organisers);;
+        session.invites = this.accountMapper.accountsFromJson(data.Invites);
         session.participants = this.accountMapper.accountsFromJson(data.Participants);
-        console.log(session.participants);
         return session;
     }
 
     public sessionsFromJson(data: any): Array<Session> {
+        if (data == null) return new Array<Session>();
         var sessions: Array<Session> = [];
         for (var i = 0; i < data.length; i++) {
             var session: Session = new Session();
@@ -114,15 +121,15 @@ export class SessionJsonMapper {
             session.isFinished = data[i].IsFinished;
             session.maxCardsToChoose = data[i].MaxCardsToChoose;
             session.maxParticipants = data[i].MaxParticipants;
-            session.modus = data[i].Modus;
             session.organisationId = data[i].OrganisationId;
             session.round = data[i].Round;
             session.subthemeId = data[i].SubthemeId;
             session.start = new Date(Date.parse(data[i].Start));
             session.end = new Date(Date.parse(data[i].End));
             session.sessionCards = this.cardMapper.cardsFromJson(data[i].SessionCards);
-            session.chatMessages = data[i].ChatMessages;
-            session.organisers = data[i].Organisers;
+            session.chatMessages = this.chatmessageMapper.chatMessagesFromJson(data[i].ChatMessages);
+            session.organisers = this.accountMapper.accountsFromJson(data[i].Organisers);
+            session.invites = this.accountMapper.accountsFromJson(data[i].Invites);
             session.participants = this.accountMapper.accountsFromJson(data[i].Participants);
             sessions.push(session);
         }
@@ -135,6 +142,7 @@ export class ThemeJsonMapper {
     private subthemeMapper: SubthemeJsonMapper = new SubthemeJsonMapper();
 
     public themesFromJson(data: any): Array<Theme> {
+        if (data == null) return new Array<Theme>();
         var themes: Array<Theme> = [];
         for (var i = 0; i < data.length; i++) {
             var theme: Theme = new Theme();
@@ -180,6 +188,7 @@ export class SubthemeJsonMapper {
     }
 
     public subthemesFromJson(data: any): Array<Subtheme> {
+        if (data == null) return new Array<Subtheme>();
         var subthemes: Array<Subtheme> = [];
         for (var i = 0; i < data.length; i++) {
             var subtheme: Subtheme = new Subtheme();
@@ -210,6 +219,7 @@ export class CardJsonMapper {
     }
 
     public cardsFromJson(data: any): Array<Card> {
+        if (data == null) return new Array<Card>();
         var cards: Array<Card> = [];
         for (var i = 0; i < data.length; i++) {
             var card: Card = new Card();
@@ -239,6 +249,7 @@ export class ChatMessageJsonMapper {
     }
 
     public chatMessagesFromJson(data: any): Array<Message> {
+        if (data == null) return new Array<Message>();
         var messages: Array<Message> = [];
         for (var i = 0; i < data.length; i++) {
             var message: Message = new Message();

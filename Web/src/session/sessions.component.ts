@@ -22,12 +22,6 @@ import {DatePipe} from 'angular2/common';
 
 import {SubthemeJsonMapper, SessionJsonMapper, OrganisationJsonMapper, CardJsonMapper} from '../utility/json-mapper';
 
-export enum Action {
-    create,
-    modify,
-    clone
-}
-
 @Component({
     directives: [HeadingComponent, BodyContentComponent, SidebarComponent],
     templateUrl: 'src/session/sessions.html',
@@ -38,51 +32,75 @@ export enum Action {
 export class SessionsComponent implements OnInit {
 
     public sessions: Array<Session> = [];
-    public sessionDetail: Session;
-    public types: Array<SessionType> = [SessionType.sync, SessionType.async];
+    public sessionDetail: Session = new Session();;
     public subthemes: Array<Subtheme> = [];
-    public progress: string;
-    public sessionDetailHidden: boolean;
-    private action: Action;
-    private organisation: Organisation;
+    public progress: string = "width: 0%";
+    public sessionDetailHidden: boolean = true;
+    private organisation: Organisation = new Organisation();
     private isParticipant: boolean = false;
     private selectionCards: Array<Card> = [];
     private playerCards: Array<Card> = [];
     private sessionModel = new Session();
     private cardModel = new Card();
-
+    private openSessions: Array<Session> = [];
+    private futureSessions: Array<Session> = [];
+    private pastSessions: Array<Session> = [];
+    private noOpenSession: boolean = false;
+    private users: Array<string> = [];
+    private organisationId: number = 0;
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService, private _cardService: CardService,
         private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
-        this.getOrganisation();
-        this.sessionDetail = new Session();
-        this.progress = "width: 0%";
-        this.sessionDetailHidden = true;
-        this.action = Action.create;
-        this.checkRouteParams();
+        if (tokenNotExpired()) {
+            this.checkRouteParams();
+        }
+    }
+
+    ngOnInit() {
+        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
     }
 
     private getOrganisation() {
         this._organisationService.getOrganisationById(parseInt(this._routeParams.get('id')))
             .subscribe(
-            data => this.organisation = new OrganisationJsonMapper().organisationFromJson(data.json()),
-            err => console.log(err),
-            () => console.log('Show organisation')
+                data => this.organisation = new OrganisationJsonMapper().organisationFromJson(data.json()),
+                err => console.log(err),
+                () => console.log('Show organisation')
             );
+    }
+
+    private initializeSessionLists(data: any) {
+        this.sessions = new SessionJsonMapper().sessionsFromJson(data.json());
+        this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
+        this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
+        this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
     }
 
     private checkRouteParams() {
         if (this._routeParams.get('id') == null) {
+            this.noOpenSession = false;
             this._sessionService.getSessionsByUser()
                 .subscribe(
-                data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+                data => {
+                    this.initializeSessionLists(data);
+                    if (this.openSessions.length < 1) {
+                        this.noOpenSession = true;
+                    }
+                },
                 err => console.log(err),
                 () => console.log('Complete')
                 );
         } else {
-            this._sessionService.getSessionsByOrganisation(parseInt(this._routeParams.get('id')))
+            this.organisationId = parseInt(this._routeParams.get('id'));
+            this.getOrganisation();
+            this._sessionService.getSessionsByOrganisation(this.organisationId)
                 .subscribe(
-                data => this.sessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+                data => {
+                    this.initializeSessionLists(data);
+                    if (this.openSessions.length < 1) {
+                        this.noOpenSession = true;
+                    }
+                },
                 err => console.log(err),
                 () => console.log('Complete')
                 );
@@ -97,11 +115,7 @@ export class SessionsComponent implements OnInit {
             );
     }
 
-    ngOnInit() {
-        if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-    }
-
-    onSelect(session: Session) {
+    private onSelect(session: Session) {
         this.isParticipant = false;
         this.sessionDetail = session;
         if (this.sessionDetail.participants.filter(acc => acc.id == parseInt(localStorage.getItem('user_id'))).length > 0)
@@ -114,47 +128,6 @@ export class SessionsComponent implements OnInit {
             err => console.log(err),
             () => console.log('Complete')
             );
-    }
-
-    onCreateSession() {
-        var sessionToUse: Session = new Session();
-        sessionToUse = this.sessionModel;
-        sessionToUse.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
-        sessionToUse.description = this.subthemes.filter(subtheme => subtheme.id == sessionToUse.subthemeId)[0].name;
-        sessionToUse.organisationId = parseInt(localStorage.getItem('user_id'));
-        sessionToUse.start = new Date(Date.parse(this.sessionModel.start.toString()));
-        sessionToUse.end = new Date(Date.parse(this.sessionModel.end.toString()));
-        sessionToUse.currentPlayerIndex = 0;
-        sessionToUse.isFinished = false;
-
-        switch (this.action) {
-            case Action.create:
-                this._sessionService.postSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session created ' + sessionToUse.description)
-                    );
-                break;
-            case Action.clone:
-                this._sessionService.postSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session cloned ' + sessionToUse.description)
-                    );
-                break;
-            case Action.modify:
-                this._sessionService.putSession(sessionToUse)
-                    .subscribe(
-                    data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
-                    err => console.log(err),
-                    () => console.log('Session modified ' + sessionToUse.description)
-                    );
-                break;
-            default: console.log('Wrong action');
-        }
-        this.sessionModel = new Session();
     }
 
     private calculateProgress() {
@@ -175,18 +148,87 @@ export class SessionsComponent implements OnInit {
         this._router.navigate(['Session', { id: session.id }]);
     }
 
-    private cloneSession(sessionToClone: Session) {
-        this.sessionModel = sessionToClone;
-        this.action = Action.clone;
+    private onClickChangeSession() {
+        this.sessionModel = this.sessionDetail;
+        (<HTMLInputElement>document.getElementById('subthemeSelect')).value = this.sessionDetail.subthemeId.toString();
     }
 
-    private changeSession(sessionToChange: Session) {
-        this.sessionModel = sessionToChange;
-        this.action = Action.modify;
+    private setSessionDetails() {
+        var session: Session = new Session();
+        session = this.sessionModel;
+
+        // workaround for select input field not updating model
+        session.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+
+        //session.description = this.subthemes.filter(subtheme => subtheme.id == session.subthemeId)[0].name;
+        if (this.organisationId != 0) session.organisationId = this.organisationId;
+        session.start = new Date(Date.parse(this.sessionModel.start.toString()));
+        session.end = new Date(Date.parse(this.sessionModel.end.toString()));
+        session.currentPlayerIndex = 0;
+        session.isFinished = false;
+        session.round = 0;
+
+        // workaround for tags not binding to model
+        var userList = document.getElementsByClassName("tag");
+
+        this.users = [];
+        for (var i = 0; i < userList.length; i++) {
+            var temp = userList[i].firstChild.textContent.replace(" ", "");
+            this.users.push(temp);
+        }
+        return session;
     }
 
     private createSession() {
-        this.action = Action.create;
+        var sessionToCreate = this.setSessionDetails();
+        this._sessionService.postSession(sessionToCreate)
+            .subscribe(
+            data => {
+                var session = new SessionJsonMapper().sessionFromJson(data.json());
+                this.initializeSessionLists(data);
+                this._sessionService.patchSessionInvites(session.id, this.users)
+                    .subscribe(
+                    err => console.log(err),
+                    () => console.log('User patch complete')
+                    );
+            },
+            err => console.log(err),
+            () => console.log('Session created ' + sessionToCreate.description)
+            );
+        this.sessionModel = new Session();
+    }
+
+    private changeSession() {
+        var sessionToChange = this.setSessionDetails();
+        this._sessionService.putSession(sessionToChange)
+            .subscribe(
+            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Session modified ' + sessionToChange.description)
+        );
+        this.sessionModel = new Session();
+    }
+
+    private cloneSession() {
+        var sessionToClone = new Session();
+        sessionToClone = this.sessionModel;
+
+        // workaround for select input field not updating model
+        sessionToClone.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+
+        //sessionToClone.description = this.subthemes.filter(subtheme => subtheme.id == sessionToClone.subthemeId)[0].name;
+        sessionToClone.start = new Date(Date.parse(this.sessionModel.start.toString()));
+        sessionToClone.end = new Date(Date.parse(this.sessionModel.end.toString()));
+        sessionToClone.currentPlayerIndex = 0;
+        sessionToClone.isFinished = false;
+        sessionToClone.participants = [];
+        this._sessionService.postSession(sessionToClone)
+            .subscribe(
+            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
+            err => console.log(err),
+            () => console.log('Session created ' + sessionToClone.description)
+        );
+        this.sessionModel = new Session();
     }
 
     private addCardToSubtheme() {
@@ -204,7 +246,7 @@ export class SessionsComponent implements OnInit {
         this.cardModel = new Card();
     }
 
-    addCardToSelection(card: Card) {
+    private addCardToSelection(card: Card) {
         if (this.playerCards.length < this.sessionDetail.maxCardsToChoose && !this.playerCards.some(c => c.text == card.text)) {
             var index = this.selectionCards.indexOf(card);
             this.selectionCards.splice(index, 1);
@@ -212,15 +254,20 @@ export class SessionsComponent implements OnInit {
         }
     }
 
-    removeCardFromSelection(card: Card) {
+    private removeCardFromSelection(card: Card) {
         var index = this.playerCards.indexOf(card);
         this.playerCards.splice(index, 1);
         this.selectionCards.push(card);
     }
 
-    submitCards() {
+    private submitCards() {
         this._sessionService.patchSessionCards(this.playerCards, this.sessionDetail.id)
             .subscribe(
+            data => this._sessionService.patchSessionJoin(parseInt(localStorage.getItem('user_id')))
+                .subscribe(
+                err => console.log(err),
+                () => console.log('Complete')
+                ),
             err => console.log(err),
             () => console.log('Complete')
             );

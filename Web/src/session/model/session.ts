@@ -18,7 +18,6 @@ export class Session {
     public isFinished: boolean;
     public maxCardsToChoose: number;
     public maxParticipants: number;
-    public modus: SessionType;
     public organisationId: number;
     public round: number;
     public subthemeId: number;
@@ -27,5 +26,6 @@ export class Session {
     public sessionCards: Array<Card>;
     public chatMessages: Array<Message>;
     public organisers: Array<Account>;
+    public invites: Array<Account>;
     public participants: Array<Account>;
 }

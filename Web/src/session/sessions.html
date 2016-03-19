@@ -7,22 +7,44 @@
 <section id="main">
     <div class="row" id="banner">
         <div class="banner">
-          <h1>Mijn Sessies</h1>
+            <h1 *ngIf="organisationId > 0">{{organisation?.name}}</h1>
+            <h1 *ngIf="organisationId == 0">Mijn Sessies</h1>
         </div>
     </div>
-    <div class="row" id="newSessionRow">
+    <div class="row" id="newSessionRow" *ngIf="organisationId != 0">
         <div class="col-xs-9"></div>
         <div class="col-xs-3">
-          <button type="button" class="btn btn-info btn-lg" (click)="createSession()" data-toggle="modal" data-target="#sessionModal">Nieuwe sessie</button>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sessionModal">Nieuwe sessie</button>
         </div>
     </div>
     <div class="row sessionsoverview">
-        <div class="col-xs-6">
-            <ul id="sessionUl" *ngFor="#session of sessions">
-                <li id="sessionLi">
-                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session.description}}</button>
-                </li>
-            </ul>
+        <div class="row sessionsoverview">
+            <div class="col-xs-12">
+                <h2>Open sessies</h2>
+                <hr class="blackLine" />
+                <div class="col-xs-6 overviewSessionButton" *ngIf="!noOpenSession" *ngFor="#session of openSessions">
+                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                </div>
+                <div *ngIf="noOpenSession">Er lopen geen sessies waar je voor uitgenodigd bent.</div>
+            </div>
+        </div>
+        <div class="row sessionsoverview">
+            <div class="col-xs-12">
+                <h2>Geplande sessies</h2>
+                <hr class="blackLine" />
+                <div class="col-xs-6 overviewSessionButton" *ngFor="#session of futureSessions">
+                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="row sessionsoverview">
+            <div class="col-xs-12">
+                <h2>Gespeelde sessies</h2>
+                <hr class="blackLine" />
+                <div class="col-xs-6 overviewSessionButton" *ngFor="#session of pastSessions">
+                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                </div>
+            </div>
         </div>
         <div class="col-xs-6" [hidden]="sessionDetailHidden">
             <div class="row">
@@ -34,7 +56,6 @@
                 <div class="col-xs-12">
                     <img src="../../resources/images/linkicon.png" class="sessionlink" />http://kandoe-angular.azurewebsites.net/#/sessies/{{ sessionDetail.subthemeId }}
                     <br /><br />
-                    <b>Type: </b> {{ sessionDetail.type | sessionTypePipe }}<br />
                     <b>Aantal deelnemers: </b>{{ sessionDetail.participants | sessionParticipantsPipe }}<br /><br />
                 </div>
             </div>
@@ -56,24 +77,22 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <!-- todo: !isParticipant -->
-                    <button type="button" *ngIf="isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Bevestig</button>
+                    <button type="button" *ngIf="!isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Speel</button>
                     <button type="button" *ngIf="!sessionDetail.isFinished && isParticipant" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
                     <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
-                        
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
+                    <button type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-info" (click)="changeSession(sessionDetail)" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
+                    <button type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row sesssionsfooter"></div>
 
-    <!-- Modal -->
+    <!-- create session modal -->
     <div id="sessionModal" class="modal" role="form">
         <div class="modal-dialog">
 
@@ -85,18 +104,16 @@
         </div>
         <div class="modal-body">
 
-            <!-- Create organisation form -->
-            <form (ngSubmit)="onCreateSession()" #sessionForm="ngForm">
+            <!-- Create session form -->
+            <form (ngSubmit)="createSession()" #sessionForm="ngForm">
+                <div class="form-group">
+                    <label for="description">Omschrijving</label>
+                    <input type="text" class="form-control" [(ngModel)]="sessionModel.description"/>
+                </div>
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
                     <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
                         <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sessionType">Sessietype</label>
-                    <select class="form-control" [(ngModel)]="sessionModel.type">
-                        <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -118,9 +135,13 @@
                     <input type="date" class="form-control" [(ngModel)]="sessionModel.end"/>
                 </div>
                 <div class="form-group">
+                    <label for="maxParticipants">Maximum aantal deelnemers: </label>
+                    <input type="number" class="form-control" [(ngModel)]="sessionModel.maxParticipants" />
+                </div>
+                <div class="form-group">
                     <label for="users">Gebruikers toevoegen</label>
                     <br />
-                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="sessionModel.users">
+                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="users">
                 </div>
                 <button type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
@@ -130,30 +151,28 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="cloneSessionModal" class="modal" role="form">
+    <!-- Edit session modal -->
+    <div id="editSessionModal" class="modal" role="form">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Kloon sessie</h4>
+                    <h4 class="modal-title">Wijzig sessie</h4>
                 </div>
                 <div class="modal-body">
 
-                    <!-- Create organisation form -->
-                    <form (ngSubmit)="onSubmit()" #cloneSessionForm="ngForm">
+                    <!-- Edit session form -->
+                    <form (ngSubmit)="changeSession()" #editSessionForm="ngForm">
+                        <div class="form-group">
+                            <label for="description">Omschrijving</label>
+                            <input type="text" class="form-control" [(ngModel)]="sessionModel.description" />
+                        </div>
                         <div class="form-group">
                             <label for="subtheme">Subthema</label>
                             <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
                                 <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="sessionType">Sessietype</label>
-                            <select class="form-control" [(ngModel)]="sessionModel.type">
-                                <option *ngFor="#type of types" [value]="type">{{ type | sessionTypePipe }}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -175,11 +194,15 @@
                             <input type="date" class="form-control" [(ngModel)]="sessionModel.end" />
                         </div>
                         <div class="form-group">
+                            <label for="maxParticipants">Maximum aantal deelnemers: </label>
+                            <input type="number" class="form-control" [(ngModel)]="sessionModel.maxParticipants" />
+                        </div>
+                        <div class="form-group">
                             <label for="users">Gebruikers toevoegen</label>
                             <br />
-                            <input type="text" name="users" class="form-control" [(ngModel)]="sessionModel.users">
+                            <input type="text" name="users" class="form-control" id="users" [(ngModel)]="users">
                         </div>
-                        <button type="submit" class="btn btn-info" [disabled]="!cloneSessionForm.form.valid" data-toggle="modal" data-target="#cloneSessionModal">Kloon sessie</button>
+                        <button type="submit" class="btn btn-info" [disabled]="!editSessionForm.form.valid" data-toggle="modal" data-target="#editSessionModal">Kloon sessie</button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>
@@ -187,7 +210,61 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Clone session modal -->
+    <div id="cloneSessionModal" class="modal" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Kopiëer sessie</h4>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Clone session form -->
+                    <form (ngSubmit)="cloneSession()" #cloneSessionForm="ngForm">
+                        <div class="form-group">
+                            <label for="description">Omschrijving</label>
+                            <input type="text" class="form-control" [(ngModel)]="sessionModel.description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subtheme">Subthema</label>
+                            <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
+                                <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCreationAllowed">Kaartjes aanmaken toegestaan: </label>
+                            <div class="checkbox">
+                                <label><input type="checkbox" [(ngModel)]="sessionModel.cardCreationAllowed" /></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Maximum kaartjes: </label>
+                            <input type="number" class="form-control" [(ngModel)]="sessionModel.maxCardsToChoose" />
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start datum</label>
+                            <input type="date" class="form-control" [(ngModel)]="sessionModel.start" />
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">Eind datum</label>
+                            <input type="date" class="form-control" [(ngModel)]="sessionModel.end" />
+                        </div>
+                        <div class="form-group">
+                            <label for="maxParticipants">Maximum aantal deelnemers: </label>
+                            <input type="number" class="form-control" [(ngModel)]="sessionModel.maxParticipants" />
+                        </div>
+                        <button type="submit" class="btn btn-info" [disabled]="!cloneSessionForm.form.valid" data-toggle="modal" data-target="#cloneSessionModal">Kopiëer sessie</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Choose card modal -->
     <div id="chooseCardModal" class="modal fade" role="form">
         <div class="modal-dialog">
 
@@ -241,36 +318,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="createCardModal" class="modal fade" role="form">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button id="newcard" type="button" class="close" data-dismiss="modal" (click)="onCloseModal()">&times;</button>
-                    <h4 class="modal-title">Nieuwe kaart</h4>
-                </div>
-                <div class="modal-body">
-
-                    <!-- Create card form -->
-                    <form (ngSubmit)="addCardToSubtheme()" #organisationForm="ngForm">
-                        <div class="form-group">
-                            <label for="description">Beknopte omschrijving</label>
-                            <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="cardModel.text"
-                                   ngControl="text" #text="ngForm">
-                            <div id="errortext" [hidden]="text.valid || text.pristine || text.untouched" class="alert alert-danger">
-                                De nieuwe kaart vereist een beknopte omschrijving.
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-default" [disabled]="!organisationForm.form.valid" data-toggle="modal" data-target="#createCardModal">Aanmaken</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseModal()">Annuleren</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
- 
+    </div> 
 </section>
