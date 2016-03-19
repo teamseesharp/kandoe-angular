@@ -58,11 +58,9 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <!--<button type="button" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>-->
-                    
+                    <!--<button type="button" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>-->             
                     <button type="button" *ngIf="!sessionDetail.isFinished" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
-                    <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
-                        
+                    <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>                       
                 </div>
                 <div class="col-xs-4">
                     <button type="button" class="btn btn-info" (click)="cloneSession(sessionDetail)" data-toggle="modal" data-target="#sessionModal">Kopieer</button>
