@@ -7,7 +7,7 @@
 <section id="main">
     <div class="row" id="banner">
         <div class="banner">
-          <h1>Sessies van {{ organisation?.name }}</h1>
+          <h1>Mijn Sessies</h1>
         </div>
     </div>
     <div class="row" id="newSessionRow">
@@ -18,7 +18,6 @@
     </div>
     <div class="row sessionsoverview">
         <div class="col-xs-6">
-            <h2>  Mijn sessies</h2>
             <ul id="sessionUl" *ngFor="#session of sessions">
                 <li id="sessionLi">
                     <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session.description}}</button>
@@ -26,7 +25,6 @@
             </ul>
         </div>
         <div class="col-xs-6" [hidden]="sessionDetailHidden">
-            <h2>Sessiedetails</h2>
             <div class="row">
                 <div class="col-xs-12">
                     <img src="../../resources/images/descriptionicon.png" class="descriptionicon" /> {{sessionDetail.description}}<br /><br />
@@ -58,7 +56,8 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <button type="button" *ngIf="!isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Bevestig</button>
+                    <!-- todo: !isParticipant -->
+                    <button type="button" *ngIf="isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Bevestig</button>
                     <button type="button" *ngIf="!sessionDetail.isFinished && isParticipant" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
                     <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
                         
@@ -143,9 +142,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <button *ngIf="sessionDetail.cardCreationAllowed" type="button" id="newcard" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createCardModal">Nieuwe kaart</button>
+                        <div *ngIf="sessionDetail.cardCreationAllowed">
+                            <form (ngSubmit)="addCardToSubtheme()" #organisationForm="ngForm">
+                                <div class="form-group">
+                                    <label for="text">Nieuwe kaart toevoegen</label>
+                                    <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="cardModel.text" ngControl="text" #text="ngForm">
+                                    <button type="submit" [disabled]="text.valid" id="newcard" class="btn btn-info btn-lg">Nieuwe kaart</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
                         <ul id="allcardlist" class="cardlistModal">
-                            <li *ngFor="#card of subthemeCards">
+                            <li *ngFor="#card of selectionCards">
                                 <div class="col-xs-3 col-md-2">
                                     <div class="thumbnail">
                                         <p>{{ card.text }}</p>

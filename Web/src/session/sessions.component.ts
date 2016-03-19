@@ -46,7 +46,7 @@ export class SessionsComponent implements OnInit {
     private action: Action;
     private organisation: Organisation;
     private isParticipant: boolean = false;
-    private subthemeCards: Array<Card> = [];
+    private selectionCards: Array<Card> = [];
     private playerCards: Array<Card> = [];
     private sessionModel = new Session();
     private cardModel = new Card();
@@ -110,7 +110,7 @@ export class SessionsComponent implements OnInit {
         this.sessionDetailHidden = false;
         this._cardService.getCardsBySubtheme(this.sessionDetail.subthemeId)
             .subscribe(
-            data => this.subthemeCards = new CardJsonMapper().cardsFromJson(data.json()),
+            data => this.selectionCards = new CardJsonMapper().cardsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete')
             );
@@ -189,13 +189,15 @@ export class SessionsComponent implements OnInit {
         this.action = Action.create;
     }
 
-    private addCardsToSubtheme() {
-        var card: Card = this.cardModel;
-        card.sessionId = this.sessionDetail.id;
-        card.sessionLevel = 10;
+    private addCardToSubtheme() {
+        var card = new Card();
+        card.image = "image";
+        card.text = this.cardModel.text;
         card.subthemeId = this.sessionDetail.subthemeId;
+        card.themeId = this.selectionCards[0].themeId;
         this._cardService.postCard(card)
             .subscribe(
+            data => this.selectionCards.push(new CardJsonMapper().cardFromJson(data.json())),
             err => console.log(err),
             () => console.log('Complete')
             );
@@ -203,7 +205,9 @@ export class SessionsComponent implements OnInit {
     }
 
     addCardToSelection(card: Card) {
-        if (this.playerCards.length < this.sessionDetail.maxCardsToChoose) {
+        if (this.playerCards.length < this.sessionDetail.maxCardsToChoose && !this.playerCards.some(c => c.text == card.text)) {
+            var index = this.selectionCards.indexOf(card);
+            this.selectionCards.splice(index, 1);
             this.playerCards.push(card);
         }
     }
@@ -211,6 +215,7 @@ export class SessionsComponent implements OnInit {
     removeCardFromSelection(card: Card) {
         var index = this.playerCards.indexOf(card);
         this.playerCards.splice(index, 1);
+        this.selectionCards.push(card);
     }
 
     submitCards() {
