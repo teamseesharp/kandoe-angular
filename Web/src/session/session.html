@@ -27,7 +27,7 @@
   <div class="row">
         <div id="gameGrid">
             <div *ngFor="#row of cardGrid">
-                <div *ngFor="#item of row">
+                <div class="rowOfCircle" *ngFor="#item of row">
                     <img class="gameGridItem" 
                          (click)="onCardClick(item)"
                          [style]="item.visibility" 
@@ -45,7 +45,7 @@
 
 <!-- Chatbox -->
 <div id="fixed">
-    <div class="fixedHeader">Chat</div>
+    <div id="chatbox" class="fixedHeader">Chat</div>
     <div class="fixedContent">
         <ul class="list-unstyled media-block">
             <li *ngFor="#chatboxMessage of chatboxMessages; #i=index; #last=last">
