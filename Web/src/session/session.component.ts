@@ -138,7 +138,7 @@ export class SessionComponent implements OnInit {
     }
 
     onCardClick(cardSquare: CardSquare) {
-        if (cardSquare.card.text != '' && this.currentPlayerId == parseInt(localStorage.getItem('user_id'))) {
+        if (cardSquare.card.text != '' && this.currentPlayerId == parseInt(localStorage.getItem('user_id')) && cardSquare.card.sessionLevel > 1) {
             this.card = cardSquare.card;
             (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
         }

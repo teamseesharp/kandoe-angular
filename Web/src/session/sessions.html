@@ -23,7 +23,7 @@
                 <div class="col-xs-12">
                     <h2>Open sessies</h2>
                     <hr class="blackLine" />
-                    <div class="col-xs-6 overviewSessionButton" *ngIf="!noOpenSession" *ngFor="#session of openSessions">
+                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of openSessions">
                         <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
                     </div>
                     <div *ngIf="noOpenSession">
