@@ -12,7 +12,7 @@
     </div>
 
     <div class="row" >
-        <div class="col-xs-6 analysisoverview" >
+        <div id="subthemesToAnalyse" class="col-xs-6 analysisoverview" >
             <h3>Te analyseren subthema</h3>
             <form (ngSubmit)="onSubmitSubthemeSessions()" #subthemeForm="ngForm">
                 <div class="form-group">
@@ -22,12 +22,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!subthemeForm.form.valid">Analyseer</button>
+                    <button id="analyseSubtheme" type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!subthemeForm.form.valid">Analyseer</button>
                 </div>        
             </form>
         </div>
 
-        <div class="col-xs-6 analysisoverview">
+        <div id="sessionsToAnalyse"class="col-xs-6 analysisoverview">
             <h3>Te analyseren sessies</h3>
             <form (ngSubmit)="onSubmitSessions()" #sessionsForm="ngForm">
                 <div class="form-group">
@@ -37,7 +37,7 @@
                             {{ session.description }}
                         </option>
                     </select>
-                    <button type="button" class="btn btn-info toAnalyseButton" (click)="addSession()">Toevoegen</button>
+                    <button id="btnAddSession" type="button" class="btn btn-info toAnalyseButton" (click)="addSession()">Toevoegen</button>
                 </div>
                 <div class="form-group">
                     <label for="removeSession">Gekozen sessies om te analyseren</label>
@@ -46,21 +46,21 @@
                             {{ selectedSession.description }}
                         </option>
                     </select>
-                    <button type="button" class="btn btn-info toAnalyseButton" (click)="removeSession()">Verwijderen</button>
+                    <button id="btnRemoveSession" type="button" class="btn btn-info toAnalyseButton" (click)="removeSession()">Verwijderen</button>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!sessionsForm.form.valid">Analyseer</button>
+                    <button id="analyseSessions" type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!sessionsForm.form.valid">Analyseer</button>
                 </div>
             </form>
         </div>
     </div> 
     <hr class="blackLine"/>
-    <div class="row analysisOvervieww" [hidden]="sessionMasterHidden">
+    <div id="analysisOverview" class="row analysisOvervieww" [hidden]="sessionMasterHidden">
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-12">
                     <h3>Geanalyseerde sessies: </h3><h5>{{masterSession?.description}}</h5>
-                    <button type="button" class="btn btn-info btn-lg" (click)="resetAnalysis()">Reset</button>
+                    <button id="resetAnalysis" type="button" class="btn btn-info btn-lg" (click)="resetAnalysis()">Reset</button>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-    <div class="row analysisOvervieww" [hidden]="sessionEmptyHidden">
+    <div id="noCards" class="row analysisOvervieww" [hidden]="sessionEmptyHidden">
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-12">
