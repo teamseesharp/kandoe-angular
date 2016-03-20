@@ -18,13 +18,13 @@
         </div>
     </div>
     <div class="row sessionsoverview">
-        <div id="sessionsColumn" class="col-xs-6">
+        <div class="col-xs-6">
             <div class="row sessionsoverview">
                 <div class="col-xs-12">
                     <h2>Open sessies</h2>
                     <hr class="blackLine" />
-                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of openSessions">
-                        <button id="aSession" class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    <div class="col-xs-12 overviewSessionButton" *ngFor="#session of openSessions">
+                        <button class="btn btn-info btn-lg sessionButton" (click)="onSelect(session)">{{session?.description}}</button>
                     </div>
                     <div *ngIf="noOpenSession">
                         Er lopen geen sessies waar je voor uitgenodigd bent.
@@ -35,8 +35,8 @@
                 <div class="col-xs-12">
                     <h2>Geplande sessies</h2>
                     <hr class="blackLine" />
-                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of futureSessions">
-                        <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    <div class="col-xs-12 overviewSessionButton" *ngFor="#session of futureSessions">
+                        <button class="btn btn-info btn-lg sessionButton" (click)="onSelect(session)">{{session?.description}}</button>
                     </div>
                 </div>
             </div>
@@ -44,13 +44,18 @@
                 <div class="col-xs-12">
                     <h2>Gespeelde sessies</h2>
                     <hr class="blackLine" />
-                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of pastSessions">
-                        <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    <div class="col-xs-12 overviewSessionButton" *ngFor="#session of pastSessions">
+                        <button class="btn btn-info btn-lg sessionButton" (click)="onSelect(session)">{{session?.description}}</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="detailsColumn" class="col-xs-6" [hidden]="sessionDetailHidden">
+        <div class="col-xs-6" [hidden]="sessionDetailHidden">
+            <div class="row">
+                <br />
+                <h2>Sessie Details</h2>
+                <hr class="blackLine"/>
+            </div>
             <div class="row">
                 <div class="col-xs-12">
                     <img src="../../resources/images/descriptionicon.png" class="descriptionicon" /> {{sessionDetail.description}}<br /><br />
@@ -60,7 +65,9 @@
                 <div class="col-xs-12">
                     <img src="../../resources/images/linkicon.png" class="sessionlink" />http://kandoe-angular.azurewebsites.net/#/sessies/{{ sessionDetail.subthemeId }}
                     <br /><br />
-                    <b>Aantal deelnemers: </b>{{ sessionDetail.participants | sessionParticipantsPipe }}<br /><br />
+                    <b>Aantal deelnemers: </b>{{ sessionDetail.participants | sessionParticipantsPipe }}<br />
+                    <b>Subthema: </b>{{ subthemeName }}
+                    <br /><br />
                 </div>
             </div>
             <div class="row">
@@ -83,13 +90,12 @@
                 <div class="col-xs-4">
                     <button type="button" *ngIf="!isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Speel</button>
                     <button type="button" *ngIf="!sessionDetail.isFinished && isParticipant" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
-                    <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="analyseSession(sessionDetail)">Analyseer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button id="copySession" type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
+                    <button type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button id="changeSession" type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
+                    <button type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
                 </div>
             </div>
         </div>
@@ -112,42 +118,42 @@
             <form (ngSubmit)="createSession()" #sessionForm="ngForm">
                 <div class="form-group">
                     <label for="description">Omschrijving</label>
-                    <input id="descriptionField" type="text" class="form-control" [(ngModel)]="sessionModel.description"/>
+                    <input type="text" class="form-control" [(ngModel)]="sessionModel.description"/>
                 </div>
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
-                    <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeField">
+                    <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
                         <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="cardCreationAllowed">Kaartjes aanmaken toegestaan: </label>
                     <div class="checkbox">
-                        <label><input id="createCardField" type="checkbox" [(ngModel)]="sessionModel.cardCreationAllowed"/></label>
+                        <label><input type="checkbox" [(ngModel)]="sessionModel.cardCreationAllowed"/></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Maximum kaartjes: </label>
-                    <input id="maxCardField" type="number" class="form-control" [(ngModel)]="sessionModel.maxCardsToChoose" />
+                    <input type="number" class="form-control" [(ngModel)]="sessionModel.maxCardsToChoose" />
                 </div>
                 <div class="form-group"> 
                     <label for="startDate">Start datum</label>
-                    <input id="startDateField" type="date" class="form-control" [(ngModel)]="sessionModel.start"/>
+                    <input type="date" class="form-control" [(ngModel)]="sessionModel.start"/>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Eind datum</label>
-                    <input id="endDateField" type="date" class="form-control" [(ngModel)]="sessionModel.end"/>
+                    <input type="date" class="form-control" [(ngModel)]="sessionModel.end"/>
                 </div>
                 <div class="form-group">
                     <label for="maxParticipants">Maximum aantal deelnemers: </label>
-                    <input id="maxParticipantsField" type="number" class="form-control" [(ngModel)]="sessionModel.maxParticipants" />
+                    <input type="number" class="form-control" [(ngModel)]="sessionModel.maxParticipants" />
                 </div>
                 <div class="form-group">
                     <label for="users">Gebruikers toevoegen</label>
                     <br />
-                    <input type="text" name="users" class="users form-control" [(ngModel)]="users">
+                    <input type="text" class="users form-control" [(ngModel)]="users">
                 </div>
-                <button id="createSession" type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
+                <button type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
             </form>
         </div>

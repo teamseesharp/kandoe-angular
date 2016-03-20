@@ -27,13 +27,14 @@ import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 })
 
 export class AnalysisComponent {
-    subthemes: Array<Subtheme>;
-    allSessions: Array<Session>;
-    selectedSessions: Array<Session> = new Array<Session>();
-    selectedSubthemeSessions: Array<Session> = new Array<Session>();
-    masterSession: Session = new Session();
-    public sessionMasterHidden: boolean;
-    public sessionEmptyHidden: boolean;
+    private subthemes: Array<Subtheme>;
+    private allSessions: Array<Session>;
+    private selectedSessions: Array<Session>;
+    private selectedSubthemeSessions: Array<Session>;
+    private masterSession: Session = new Session();
+    private sessionMasterHidden: boolean;
+    private sessionEmptyHidden: boolean;
+    private card: Card = new Card();
     private cardToMerge: Card = new Card();
     private cardGrid: Array<Array<CardSquare>> = [];
 
@@ -42,6 +43,7 @@ export class AnalysisComponent {
         this.sessionMasterHidden = true;
         this.sessionEmptyHidden = true;
         this.selectedSessions = new Array<Session>();
+        this.selectedSubthemeSessions = new Array<Session>();
         this.getSubthemesByOrganiser();
         this.getAllSessions();
     }
@@ -49,7 +51,9 @@ export class AnalysisComponent {
     getSubthemesByOrganiser() {
         this._subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
-            data => this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json()),
+            data => {
+                this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json());
+            },
             err => console.log(err),
             () => console.log('Complete: number of subthemes ' + this.subthemes.length)
             );
@@ -59,8 +63,8 @@ export class AnalysisComponent {
         this._sessionService.getSessionsByUser()
             .subscribe(
             data => {
+                console.log(data.json());
                 this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json());
-                console.log(this.allSessions);
             },
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.allSessions.length)
@@ -71,6 +75,7 @@ export class AnalysisComponent {
         this._sessionService.getSessionsBySubtheme(parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value))
             .subscribe(
             data => {
+                console.log(data.json());
                 this.selectedSubthemeSessions = new SessionJsonMapper().sessionsFromJson(data.json());
                 this.masterCircle(this.selectedSubthemeSessions);
             },
@@ -83,6 +88,13 @@ export class AnalysisComponent {
         this.masterCircle(this.selectedSessions);
     }
 
+    onCardClick(cardSquare: CardSquare) {
+        if (cardSquare.card.text != '') {
+            (<HTMLButtonElement>document.getElementById('btnShowCardModal')).click();
+            this.card = cardSquare.card;
+        }
+    }
+
     private masterCircle(sessions: Array<Session>) {
         try {
             this.masterSession = sessions[0];
@@ -91,15 +103,13 @@ export class AnalysisComponent {
             for (var i = 1; i < sessions.length; i++) {
                 for (var j = 0; j < sessions[i].sessionCards.length; j++) {
                     if (this.cardsInDeck(sessions[i].sessionCards[j], this.masterSession.sessionCards)) {
-                        this.masterSession.sessionCards.push(this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge))
-                        this.masterSession.sessionCards.splice(j);
+                        this.mergeCards(sessions[i].sessionCards[j], this.cardToMerge);
                     } else {
                         this.masterSession.sessionCards.push(sessions[i].sessionCards[j]);
                     }
                 }
                 this.masterSession.description += ", " + sessions[i].description; 
             }
-            console.log('Aantal kaarten: ' + this.masterSession.sessionCards.length);
             if (this.masterSession.sessionCards.length > 0) {
                 this.initCardGrid();
                 this.sessionMasterHidden = false;
@@ -150,20 +160,24 @@ export class AnalysisComponent {
     }
 
     private cardsInDeck(card: Card, deck: Array<Card>): boolean {
-        for (var i : number = 0; i < deck.length; i++) {
-            if (card == deck[i]) {
-                this.cardToMerge = card;
+        for (var i: number = 0; i < deck.length; i++) {
+            if (card.text == deck[i].text) {
+                console.log("card text: "+card.text);
+                this.cardToMerge = deck[i];
+                this.masterSession.sessionCards.splice(i);
                 return true;
             }
         }
         return false;
     }
 
-    private mergeCards(first: Card, second: Card): Card {
-        var newSessionLevel = (first.sessionLevel + second.sessionLevel) / 2;
+    private mergeCards(first: Card, second: Card) {
+        console.log("level1: " + first.sessionLevel + " 2: " + second.sessionLevel);
+        var newSessionLevel = Math.round((first.sessionLevel + second.sessionLevel) / 2);
+
         console.log("Merged card level " + newSessionLevel);
         this.cardToMerge.sessionLevel = newSessionLevel;
-        return this.cardToMerge;
+        this.masterSession.sessionCards.push(this.cardToMerge);
     }
 
     ngOnInit() {
@@ -190,16 +204,17 @@ export class AnalysisComponent {
 
     private placeCards() {
         var cards: Array<Card> = this.masterSession.sessionCards;
-        console.log("in placecards #cards"+cards.length);
         var cardIndex: number = 0;
         var skipSquares: boolean = false;
-        for (var i in this.cardGrid) {
-            if (parseInt(i) % 2 == 0) skipSquares = false;
+        for (var i = 0; i < this.cardGrid.length; i++) {
+            if (i % 2 == 0) skipSquares = false;
             for (var j in this.cardGrid[i]) {
-                if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
+                if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel
+                    && this.cardGrid[i][j].visibility == "opacity: 0") {
                     this.cardGrid[i][j].card = cards[cardIndex];
                     this.cardGrid[i][j].setVisibility();
                     cardIndex++;
+                    if (cardIndex % 10 == 0) { i = 0; }
                     skipSquares = true;
                 }
             }
