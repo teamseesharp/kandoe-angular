@@ -57,8 +57,13 @@
                 <hr class="blackLine"/>
             </div>
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-8">
                     <img src="../../resources/images/descriptionicon.png" class="descriptionicon" /> {{sessionDetail.description}}<br /><br />
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" *ngIf="organisationId > 0 && !sessionDetail.isFinished" class="btn btn-danger" (click)="onClickOpenEndModal(sessionDetail)" data-toggle="modal" data-target="#endSessionModal">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Beëindig
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -88,14 +93,15 @@
             </div>
             <div class="row sessionsbuttons">
                 <div class="col-xs-4">
-                    <button type="button" *ngIf="!isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Speel</button>
+                    <button type="button" *ngIf="sessionDetail.isFinished" class="btn btn-info" (click)="viewSession(sessionDetail)">Bekijken</button>
+                    <button type="button" *ngIf="!sessionDetail.isFinished && !isParticipant" class="btn btn-info" data-toggle="modal" data-target="#chooseCardModal">Speel</button>
                     <button type="button" *ngIf="!sessionDetail.isFinished && isParticipant" class="btn btn-info" (click)="playSession(sessionDetail)">Speel</button>
                 </div>
                 <div class="col-xs-4">
-                    <button id="copySession" type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
+                    <button id="copySession" type="button" *ngIf="organisationId > 0" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#cloneSessionModal">Kopieer</button>
                 </div>
                 <div class="col-xs-4">
-                    <button id="changeSession" type="button" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
+                    <button id="changeSession" type="button" *ngIf="!sessionDetail.isFinished && organisationId > 0" class="btn btn-info" (click)="onClickChangeSession()" data-toggle="modal" data-target="#editSessionModal">Wijzigen</button>
                 </div>
             </div>
         </div>
@@ -122,7 +128,7 @@
                 </div>
                 <div class="form-group">
                     <label for="subtheme">Subthema</label>
-                    <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeField">
+                    <select class="form-control" [(ngModel)]="sessionModel.subtheme" id="subthemeSelect">
                         <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
                     </select>
                 </div>
@@ -329,4 +335,28 @@
             </div>
         </div>
     </div> 
+
+    <!-- Modal -->
+    <div id="endSessionModal" class="modal fade" role="form">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sessie beëindigen</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12"><h4>Bent u zeker dat u deze sessie wil beëindigen?</h4></div>
+                    </div>
+                    <br /><br />
+                    <div class="row">
+                        <div class="col-xs-5"><button type="button" class="btn btn-info" data-dismiss="modal" (click)="onEndSession()">Ja, ik wil de sessie beëindigen</button></div>
+                        <div class="col-xs-7"><button type="button" class="btn btn-info" data-dismiss="modal">Annuleer</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

@@ -124,6 +124,11 @@ table.subthemetable {
 
 /* Organisations */
 
+.adminButton {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
 #editorganisationbody {
     min-height: 30em;
 }
@@ -231,6 +236,35 @@ li.organisationinfo .thumbnail {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
+}
+
+.sessionChatOverview {
+    background-color: rgba(65,111,20, 0.1);
+    width: 90%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    min-height: 20em;
+    margin-bottom: 3em;
+}
+
+.chatboxContent {
+    background: none repeat scroll 0 0;
+    margin: 0 auto;   
+    width: 90%;
+    height: 30em;
+    overflow: auto;
+}
+
+.chatmessage {
+    position: relative;
+    background: #416f14;
+    color: whitesmoke;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 12px 20px;
+    width: 100%;
 }
 
 #sessionTitle {

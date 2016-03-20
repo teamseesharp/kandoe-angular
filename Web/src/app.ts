@@ -31,10 +31,7 @@ import {SnapshotComponent} from './session/snapshot.component';
     { path: "/sessies/:id", name: "Session", component: SessionComponent },
     { path: "/organisaties", name: "Organisations", component: OrganisationsComponent },
     { path: "/organisaties/:id", name: "Organisation", component: OrganisationComponent},
-    { path: "/berichten", name: "Messages", component: MessagesComponent },
-    { path: "/themas", name: "Themes", component: ThemesComponent },
     { path: "/themas/organisaties/:id", name: "ThemesByOrganisation", component: ThemesComponent },
-    { path: "/kaartjes", name: "Cards", component: CardsComponent },
     { path: "/kaartjes/subthema/:themeId/:subthemeId", name: "CardsBySubtheme", component: CardsComponent },
     { path: "/analyse", name: "Analysis", component: AnalysisComponent }
 ])

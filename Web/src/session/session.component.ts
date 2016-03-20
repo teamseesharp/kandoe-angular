@@ -150,10 +150,6 @@ export class SessionComponent implements OnInit, OnDestroy {
     upvoteCard() {
         this._sessionService.patchSessionCardLevel(this.session, this.card.id)
             .subscribe(
-            data => {/*
-                this._router.navigate(['About']);
-                this._router.navigate(['Session', { id: this.session.id }]);*/
-            },
             err => console.log(err),
             () => console.log('upvote complete')
             );
@@ -178,28 +174,13 @@ export class SessionComponent implements OnInit, OnDestroy {
         return (result + ball) * (this.currentPlayerIndex + 1);
     }
 
-    getChatMessages() {
+    private getChatMessages() {
         this._messageService.getMessagesBySession(parseInt(this._routeParams.get('id')))
             .subscribe(
             data => {
                 var numberOfCurrentMessages = this.chatboxMessages.length;
                 this.messages = new ChatMessageJsonMapper().chatMessagesFromJson(data.json());
 
-                // VOORLOPIG LATEN STAAN, GROETJES BENNIE!!!!!!
-                /*for (var i = numberOfCurrentMessages; i < this.messages.length; i++) {
-                    var message = this.messages[i];
-                    this._accountService.getAccountByUserId(this.messages[i].messengerId.toString())
-                        .subscribe(
-                        data => {
-                            console.log(message);
-                            var account: Account = new AccountJsonMapper().accountFromJson(data.json());
-                            this.chatboxMessages.push(new ChatboxMessage(message, account.id, account.name, account.picture));
-                        },
-                        err => console.log(err),
-                        () => console.log('Complete get chatprofile')
-                        );
-                }*/
-                
                 // get for each chatmessage the coupled Account
                 for (var i = numberOfCurrentMessages; i < this.messages.length; i++) {
                     for (var j = 0; j < this.accounts.length; j++) {

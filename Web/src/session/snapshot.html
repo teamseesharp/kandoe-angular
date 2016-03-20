@@ -12,7 +12,7 @@
   </div>
 
   <div class="row sessionsoverview">
-      <h2>   Eindsituatie</h2>
+      <div class="col-xs-12"><h2>Eindsituatie</h2></div>
         <div id="gameGrid">
             <div *ngFor="#row of cardGrid">
                 <div *ngFor="#item of row">
@@ -28,13 +28,28 @@
         </div>
     </div>
 
-   <div class="row sessionsoverview">
-      <h2>   Chat</h2>
-       <ul id="chatMEssages" *ngFor="#message of chatMessages">
-                <li>
-                    {{message.id}} {{message.date | date:'dd MMMM yyyy'}}: {{message.text}}
-                </li>
-            </ul>
-       <div *ngIf="noChat">Er was geen chat gedurende deze sessie.</div>
-  </div>
+    <div class="row sessionChatOverview">
+        <div class="col-xs-12"><h2>Chat</h2><br /></div>
+            <div *ngIf="!noChat" class="chatboxContent">
+                <ul class="list-unstyled media-block">
+                    <li *ngFor="#chatboxMessage of chatboxMessages; #i=index; #last=last">
+                        <ul class="list-unstyled">
+                            <li class="mar-btm">
+                                <div class="media-body pad-hor">
+                                    <div class="chatmessage">
+                                        <div class="media-heading"><b>{{chatboxMessage.name}}</b></div>
+                                        <p style='text-align: left;'>{{chatboxMessage.message.text}}</p>
+                                        <p class="speech-time">
+                                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{chatboxMessage.message.timestamp | date:'dd-MMMM HH:mm'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        <div *ngIf="noChat" class="col-xs-12"><h4>Er zijn geen chatberichten beschikbaar van deze sessie.</h4></div>
+    </div>
+    <div class="row"></div>
 </section>
