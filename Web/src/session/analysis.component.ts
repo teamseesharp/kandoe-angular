@@ -29,9 +29,8 @@ import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 export class AnalysisComponent {
     subthemes: Array<Subtheme>;
     allSessions: Array<Session>;
-    selectedSessions: Array<Session>;
-    selectedSubthemeSessions: Array<Session>;
-    //private cards: Array<Card> = [];
+    selectedSessions: Array<Session> = new Array<Session>();
+    selectedSubthemeSessions: Array<Session> = new Array<Session>();
     masterSession: Session = new Session();
     public sessionMasterHidden: boolean;
     public sessionEmptyHidden: boolean;
@@ -40,18 +39,24 @@ export class AnalysisComponent {
 
     constructor(private _router: Router, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.sessionMasterHidden = false;
+        this.sessionMasterHidden = true;
         this.sessionEmptyHidden = true;
         this.selectedSessions = new Array<Session>();
+        this.getSubthemesByOrganiser();
+        this.getAllSessions();
+    }
 
-        _subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
+    getSubthemesByOrganiser() {
+        this._subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
             data => this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of subthemes ' + this.subthemes.length)
-        );
+            );
+    }
 
-        _sessionService.getSessionsByUser()
+    getAllSessions() {
+        this._sessionService.getSessionsByUser()
             .subscribe(
             data => {
                 this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json());
@@ -59,8 +64,7 @@ export class AnalysisComponent {
             },
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.allSessions.length)
-        );
-        
+            );
     }
     
     onSubmitSubthemeSessions() {
@@ -83,8 +87,7 @@ export class AnalysisComponent {
         try {
             this.masterSession = sessions[0];
             var firstDescription = this.masterSession.description;
-            this.masterSession.description = firstDescription + " "; 
-
+            this.masterSession.description = firstDescription + " ";
             for (var i = 1; i < sessions.length; i++) {
                 for (var j = 0; j < sessions[i].sessionCards.length; j++) {
                     if (this.cardsInDeck(sessions[i].sessionCards[j], this.masterSession.sessionCards)) {
@@ -98,12 +101,16 @@ export class AnalysisComponent {
             }
             console.log('Aantal kaarten: ' + this.masterSession.sessionCards.length);
             if (this.masterSession.sessionCards.length > 0) {
+                this.initCardGrid();
                 this.sessionMasterHidden = false;
+                this.sessionEmptyHidden = true;
             } else {
+                this.sessionMasterHidden = true;
                 this.sessionEmptyHidden = false;
             } 
         } catch (TypeError) {
             console.log("There are no sessions or no cards: " + Error);
+            this.sessionMasterHidden = true;
             this.sessionEmptyHidden = false;
         }
     }
@@ -154,6 +161,7 @@ export class AnalysisComponent {
 
     private mergeCards(first: Card, second: Card): Card {
         var newSessionLevel = (first.sessionLevel + second.sessionLevel) / 2;
+        console.log("Merged card level " + newSessionLevel);
         this.cardToMerge.sessionLevel = newSessionLevel;
         return this.cardToMerge;
     }
@@ -163,6 +171,7 @@ export class AnalysisComponent {
     }
 
     private initCardGrid() {
+        this.resetAnalysis();
         for (var i = -10; i <= 10; i++) {
             var tempArray = new Array<CardSquare>();
             for (var j = -10; j <= 10; j++) {
@@ -180,11 +189,11 @@ export class AnalysisComponent {
     }
 
     private placeCards() {
-        /*var cards: Array<Card> = this.modelSession.sessionCards;
+        var cards: Array<Card> = this.masterSession.sessionCards;
+        console.log("in placecards #cards"+cards.length);
         var cardIndex: number = 0;
         var skipSquares: boolean = false;
         for (var i in this.cardGrid) {
-            //
             if (parseInt(i) % 2 == 0) skipSquares = false;
             for (var j in this.cardGrid[i]) {
                 if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
@@ -194,20 +203,19 @@ export class AnalysisComponent {
                     skipSquares = true;
                 }
             }
-        }*/
+        }
     }
 
     public resetAnalysis() {
-        /*this.sessionsToAnalyse = new Array<Session>();
+        if (this.selectedSubthemeSessions.length > 0) {
+            this.selectedSubthemeSessions.splice(0, this.selectedSubthemeSessions.length);
+        }
+        if (this.selectedSessions.length > 0) {
+            this.selectedSessions.splice(0, this.selectedSessions.length);
+        }
         this.sessionEmptyHidden = true;
         this.sessionMasterHidden = true;
-
-        this._sessionService.getSessionsByUser()
-            .subscribe(
-            data => this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
-            err => console.log(err),
-            () => console.log('Complete: number of sessions ' + this.allSessions.length)
-        );
-        this.selectedSessions = new Array<Session>();*/
+        this.cardGrid.splice(0, this.cardGrid.length);
+        this.getAllSessions();
     }
 } 
