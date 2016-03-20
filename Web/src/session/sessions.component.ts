@@ -150,7 +150,7 @@ export class SessionsComponent implements OnInit {
 
     private onClickChangeSession() {
         this.sessionModel = this.sessionDetail;
-        (<HTMLInputElement>document.getElementById('subthemeSelect')).value = this.sessionDetail.subthemeId.toString();
+        (<HTMLInputElement>document.getElementById('subthemeField')).value = this.sessionDetail.subthemeId.toString();
     }
 
     private setSessionDetails() {
@@ -158,7 +158,7 @@ export class SessionsComponent implements OnInit {
         session = this.sessionModel;
 
         // workaround for select input field not updating model
-        session.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+        session.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeField')).value);
 
         //session.description = this.subthemes.filter(subtheme => subtheme.id == session.subthemeId)[0].name;
         if (this.organisationId != 0) session.organisationId = this.organisationId;
@@ -214,7 +214,7 @@ export class SessionsComponent implements OnInit {
         sessionToClone = this.sessionModel;
 
         // workaround for select input field not updating model
-        sessionToClone.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
+        sessionToClone.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeField')).value);
 
         //sessionToClone.description = this.subthemes.filter(subtheme => subtheme.id == sessionToClone.subthemeId)[0].name;
         sessionToClone.start = new Date(Date.parse(this.sessionModel.start.toString()));
