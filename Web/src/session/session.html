@@ -56,7 +56,7 @@
                         </div>
                         <div class="media-body pad-hor">
                             <div class="speech">
-                                <a href="#" class="media-heading">{{chatboxMessage.name}}</a>
+                                <div class="media-heading"><b>{{chatboxMessage.name}}</b></div>
                                 <p style='text-align: left;'>{{chatboxMessage.message.text}}</p>
                                 <p class="speech-time">
                                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{chatboxMessage.message.timestamp | date:'dd-MMMM HH:mm'}}
@@ -70,7 +70,7 @@
                         </div>
                         <div class="media-body pad-hor speech-right">
                             <div class="speech">
-                                <a href="#" class="media-heading">{{chatboxMessage.name}}</a>
+                                <div class="media-heading"><b>{{chatboxMessage.name}}</b></div>
                                 <p style='text-align: left;'>{{chatboxMessage.message.text}}</p>
                                 <p class="speech-time">
                                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{chatboxMessage.message.timestamp | date:'dd-MMMM HH:mm'}}
@@ -116,11 +116,15 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <p>Deze kaart ligt op de {{ card.sessionLevel }}e cirkel</p>
+                    <div class="col-xs-12"><h4>Deze kaart ligt op de {{ card.sessionLevel }}e cirkel</h4><br /></div>
                 </div>
                 <div class="row" *ngIf="currentPlayerId == accountId && card.sessionLevel > 1 && !session.isFinished">
-                    <button type="button" id="upvote" class="btn btn-default" data-dismiss="modal" (click)="upvoteCard()">Stem naar het midden!</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Nee bedankt.</button>
+                    <div class="col-xs-4">
+                        <button type="button" id="upvote" class="btn btn-info" data-dismiss="modal" (click)="upvoteCard()">Stem naar het midden!</button>
+                    </div>
+                    <div class="col-xs-8">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Nee bedankt</button>
+                    </div>
                 </div>
             </div>
         </div>

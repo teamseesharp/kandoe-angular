@@ -74,4 +74,9 @@ export class SessionService {
         var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/invite';
         return this.authHttp.patch(apiUrL, JSON.stringify(users), { headers: this.header });
     }
+
+    public patchSessionEnd(sessionId: number) {
+        var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/end';
+        return this.authHttp.patch(apiUrL, "", { headers: this.header });
+    }
 }

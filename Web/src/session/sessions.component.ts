@@ -151,9 +151,25 @@ export class SessionsComponent implements OnInit {
         this._router.navigate(['Session', { id: session.id }]);
     }
 
+    private viewSession(session: Session) {
+        this._router.navigate(['Snapshot', { id: session.id }]);
+    }
+
     private onClickChangeSession() {
         this.sessionModel = this.sessionDetail;
         (<HTMLInputElement>document.getElementById('subthemeSelect')).value = this.sessionDetail.subthemeId.toString();
+    }
+
+    onClickOpenEndModal(sessionDetail) {
+        this.sessionModel = sessionDetail;
+    }
+
+    onEndSession() {
+        this._sessionService.patchSessionEnd(this.sessionModel.id)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Session ended')
+            );
     }
 
     private setSessionDetails() {
@@ -163,7 +179,6 @@ export class SessionsComponent implements OnInit {
         // workaround for select input field not updating model
         session.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
 
-        //session.description = this.subthemes.filter(subtheme => subtheme.id == session.subthemeId)[0].name;
         if (this.organisationId != 0) session.organisationId = this.organisationId;
         session.start = new Date(Date.parse(this.sessionModel.start.toString()));
         session.end = new Date(Date.parse(this.sessionModel.end.toString()));
@@ -219,7 +234,6 @@ export class SessionsComponent implements OnInit {
         // workaround for select input field not updating model
         sessionToClone.subthemeId = parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value);
 
-        //sessionToClone.description = this.subthemes.filter(subtheme => subtheme.id == sessionToClone.subthemeId)[0].name;
         sessionToClone.start = new Date(Date.parse(this.sessionModel.start.toString()));
         sessionToClone.end = new Date(Date.parse(this.sessionModel.end.toString()));
         sessionToClone.currentPlayerIndex = 0;
