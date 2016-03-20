@@ -578,7 +578,6 @@ HTMLJSCSS
     text-align: center;
     min-height: 15em;
     font-weight: bold;
-    
 }
 
 .cardlist {
@@ -606,9 +605,8 @@ HTMLJSCSS
 }
 
 .cardlistModal .thumbnail .btn-info {
-    position: absolute;
-    bottom: 2em;
-    left: 30%;
+    margin-top: 5em;
+    width: 100%;
 }
 
 /* Analysis */
@@ -650,9 +648,8 @@ HTMLJSCSS
 }
 
 .cardlist .thumbnail a.btn-info {
-    position: absolute;
-    bottom: 2em;
-    left: 30%;
+   margin-top: 10em;
+   width: 100%;
 }
 
 
