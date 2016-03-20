@@ -1,5 +1,5 @@
 ﻿<header>
-    <heading></heading>
+    <heading id="header"></heading>
 </header>
 <section id="sidebar">
     <sidebar></sidebar>
@@ -19,7 +19,7 @@
             <form (ngSubmit)="onEditOrganisation()" #organisationForm="ngForm">
                 <div class="form-group">
                     <label for="name">Naam</label>
-                    <input type="text" class="form-control" required
+                    <input id="organisationNameField" type="text" class="form-control" required
                            [(ngModel)]="model.name"
                            ngControl="organisationname" #organisationname="ngForm" maxlength="25" name="name">
                     <div [hidden]="organisationname.valid || organisationname.pristine || organisationname.untouched" class="alert alert-danger">
@@ -48,7 +48,7 @@
           <p>De wijzigingen zijn doorgebracht.</p>
         </div>
         <div class="modal-footer">
-          <a [routerLink]="['Organisations']" class="btn btn-info" data-dismiss="modal">Ok</a>
+          <a id="btnOk" [routerLink]="['Organisations']" class="btn btn-info" data-dismiss="modal">Ok</a>
         </div>
       </div>
     </div>
