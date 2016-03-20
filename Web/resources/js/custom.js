@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     //init Tags Input
     setInterval(function (){
-        $('#users').tagsinput({
+        $('.users').tagsinput({
             confirmKeys: [32],
             typeahead: {
                 local: ['user@mail.be', 'gebruiker@mail.com', 'deelnemer@mail.net', 'nogiets@mail.nl']

@@ -48,7 +48,6 @@ export class AccountJsonMapper {
 
             accounts.push(account);
         }
-        console.log(accounts);
         return accounts;
     }
 }

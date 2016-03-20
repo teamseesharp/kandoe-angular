@@ -18,31 +18,35 @@
         </div>
     </div>
     <div class="row sessionsoverview">
-        <div class="row sessionsoverview">
-            <div class="col-xs-12">
-                <h2>Open sessies</h2>
-                <hr class="blackLine" />
-                <div class="col-xs-6 overviewSessionButton" *ngIf="!noOpenSession" *ngFor="#session of openSessions">
-                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
-                </div>
-                <div *ngIf="noOpenSession">Er lopen geen sessies waar je voor uitgenodigd bent.</div>
-            </div>
-        </div>
-        <div class="row sessionsoverview">
-            <div class="col-xs-12">
-                <h2>Geplande sessies</h2>
-                <hr class="blackLine" />
-                <div class="col-xs-6 overviewSessionButton" *ngFor="#session of futureSessions">
-                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+        <div class="col-xs-6">
+            <div class="row sessionsoverview">
+                <div class="col-xs-12">
+                    <h2>Open sessies</h2>
+                    <hr class="blackLine" />
+                    <div class="col-xs-6 overviewSessionButton" *ngIf="!noOpenSession" *ngFor="#session of openSessions">
+                        <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    </div>
+                    <div *ngIf="noOpenSession">
+                        Er lopen geen sessies waar je voor uitgenodigd bent.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row sessionsoverview">
-            <div class="col-xs-12">
-                <h2>Gespeelde sessies</h2>
-                <hr class="blackLine" />
-                <div class="col-xs-6 overviewSessionButton" *ngFor="#session of pastSessions">
-                    <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+            <div class="row sessionsoverview">
+                <div class="col-xs-12">
+                    <h2>Geplande sessies</h2>
+                    <hr class="blackLine" />
+                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of futureSessions">
+                        <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row sessionsoverview">
+                <div class="col-xs-12">
+                    <h2>Gespeelde sessies</h2>
+                    <hr class="blackLine" />
+                    <div class="col-xs-6 overviewSessionButton" *ngFor="#session of pastSessions">
+                        <button class="btn btn-info btn-lg" (click)="onSelect(session)">{{session?.description}}</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,7 +145,7 @@
                 <div class="form-group">
                     <label for="users">Gebruikers toevoegen</label>
                     <br />
-                    <input type="text" name="users" class="form-control" id="users" [(ngModel)]="users">
+                    <input type="text" name="users" class="users form-control" [(ngModel)]="users">
                 </div>
                 <button type="submit" class="btn btn-info" [disabled]="!sessionForm.form.valid" data-toggle="modal" data-target="#sessionModal">Maak sessie aan</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
@@ -200,9 +204,9 @@
                         <div class="form-group">
                             <label for="users">Gebruikers toevoegen</label>
                             <br />
-                            <input type="text" name="users" class="form-control" id="users" [(ngModel)]="users">
+                            <input type="text" name="users" class="users form-control" [(ngModel)]="users">
                         </div>
-                        <button type="submit" class="btn btn-info" [disabled]="!editSessionForm.form.valid" data-toggle="modal" data-target="#editSessionModal">Kloon sessie</button>
+                        <button type="submit" class="btn btn-info" [disabled]="!editSessionForm.form.valid" data-toggle="modal" data-target="#editSessionModal">Wijzig</button>
                         <button type="button" class="btn btn-info" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>
@@ -281,7 +285,7 @@
                                 <div class="form-group">
                                     <label for="text">Nieuwe kaart toevoegen</label>
                                     <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="cardModel.text" ngControl="text" #text="ngForm">
-                                    <button type="submit" [disabled]="text.valid" id="newcard" class="btn btn-info btn-lg">Nieuwe kaart</button>
+                                    <button type="submit" id="newcard" class="btn btn-info btn-lg">Nieuwe kaart</button>
                                 </div>
                             </form>
                         </div>

@@ -200,11 +200,11 @@ export class SessionsComponent implements OnInit {
 
     private changeSession() {
         var sessionToChange = this.setSessionDetails();
-        this._sessionService.putSession(sessionToChange)
+        this._sessionService.putSession(sessionToChange).subscribe();
+        this._sessionService.patchSessionInvites(sessionToChange.id, this.users)
             .subscribe(
-            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
             err => console.log(err),
-            () => console.log('Session modified ' + sessionToChange.description)
+            () => console.log('User patch complete')
         );
         this.sessionModel = new Session();
     }
@@ -263,13 +263,14 @@ export class SessionsComponent implements OnInit {
     private submitCards() {
         this._sessionService.patchSessionCards(this.playerCards, this.sessionDetail.id)
             .subscribe(
-            data => this._sessionService.patchSessionJoin(parseInt(localStorage.getItem('user_id')))
-                .subscribe(
-                err => console.log(err),
-                () => console.log('Complete')
-                ),
             err => console.log(err),
             () => console.log('Complete')
-            );
+        );
+        this._sessionService.patchSessionJoin(this.sessionDetail.id)
+            .subscribe(
+            err => console.log(err),
+            () => console.log('Complete')
+        );
+        this._router.navigate(['Session', { id: this.sessionDetail.id }]);
     }
 }

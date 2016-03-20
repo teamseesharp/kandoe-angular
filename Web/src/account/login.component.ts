@@ -51,8 +51,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     acc = new AccountJsonMapper().accountFromJson(data.json());
                     localStorage.setItem('user_id', acc.id.toString());
-                    console.log('going home');
-                    this._router.navigate(['Home']);
+                    this._router.navigate(['Sessions']);
                 },
                 err => console.log(err),
                 () => console.log('Login complete')

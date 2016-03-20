@@ -11,8 +11,8 @@ import {CardService} from './card.service';
 @Injectable()
 export class SessionService {
     
-    public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
-    //public apiPrefix: string = 'http://localhost:51787/';
+    //public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
+    public apiPrefix: string = 'http://localhost:51787/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp, private _cardService: CardService) {

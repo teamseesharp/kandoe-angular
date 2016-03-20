@@ -128,7 +128,7 @@ export class SessionComponent implements OnInit {
         this._sessionService.patchSessionCardLevel(this.session, this.card.id)
             .subscribe(
             data => {
-                this._router.navigate(['Home']);
+                this._router.navigate(['About']);
                 this._router.navigate(['Session', { id: this.session.id }]);
             },
             err => console.log(err),
@@ -138,7 +138,7 @@ export class SessionComponent implements OnInit {
     }
 
     onCardClick(cardSquare: CardSquare) {
-        if (cardSquare.card.text != '' && this.session.currentPlayerIndex == parseInt(localStorage.getItem('user_id'))) {
+        if (cardSquare.card.text != '' && this.currentPlayerId == parseInt(localStorage.getItem('user_id'))) {
             this.card = cardSquare.card;
             (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
         }
