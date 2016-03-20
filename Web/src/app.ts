@@ -5,7 +5,6 @@ import {LoginComponent} from './account/login.component';
 import {AboutComponent} from './about/about.component';
 import {ProfileComponent} from './account/profile.component';
 import {SessionsComponent} from './session/sessions.component';
-import {MessagesComponent} from './message/messages.component';
 import {OrganisationsComponent} from './session/organisations.component';
 import {OrganisationComponent} from './session/organisation.component';
 import {ThemesComponent} from './session/themes.component';
