@@ -37,7 +37,7 @@ export class SessionsComponent implements OnInit {
     public progress: string = "width: 0%";
     public sessionDetailHidden: boolean = true;
     private organisation: Organisation = new Organisation();
-    private isParticipant: boolean = false;
+    private isParticipant: boolean = true;
     private selectionCards: Array<Card> = [];
     private playerCards: Array<Card> = [];
     private sessionModel = new Session();

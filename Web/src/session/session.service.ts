@@ -20,6 +20,11 @@ export class SessionService {
         this.header.append('Content-Type', 'application/json');
     }
 
+    public getSession(id: number) {
+        var apiURL = this.apiPrefix + 'api/sessions/' + id.toString();
+        return this.authHttp.get(apiURL, { headers: this.header });
+    }
+
     public getSessionVerbose(id: number) {
         var apiURL = this.apiPrefix + 'api/verbose/sessions/' + id.toString();
         return this.authHttp.get(apiURL, { headers: this.header });
@@ -36,7 +41,7 @@ export class SessionService {
     }
 
     public getSessionsByOrganisation(organisationId: number) {
-        var apiURL = this.apiPrefix + 'api/sessions/by-organisation/' + organisationId;
+        var apiURL = this.apiPrefix + 'api/verbose/sessions/by-organisation/' + organisationId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
     

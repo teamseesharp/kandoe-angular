@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from 'angular2/core';
+﻿import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {Router, RouteParams, RouterLink} from 'angular2/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
@@ -30,7 +30,7 @@ import {SessionJsonMapper, ChatMessageJsonMapper, CardJsonMapper, AccountJsonMap
     providers: [SessionService, CardService, MessageService, AccountService]
 })
 
-export class SessionComponent implements OnInit {
+export class SessionComponent implements OnInit, OnDestroy {
 
     private session: Session = new Session();
     private accounts: Array<Account> = [];
@@ -45,7 +45,8 @@ export class SessionComponent implements OnInit {
     public currentPlayerId: number;
     public card: Card = new Card();
     model = new Card();
-    private accountIndex: number;
+    private accountId: number;
+    private interval: any;
 
     constructor(private _router: Router,
         private _routeParams: RouteParams,
@@ -55,8 +56,29 @@ export class SessionComponent implements OnInit {
         private _accountService: AccountService) {
         // default value, used in custom.js to load the javascript for the chat
         localStorage.setItem('isChatActive', "false");
+        this.accountId = parseInt(localStorage.getItem('user_id'));
         this.initializeData();
         this.card.text = "";
+        this.interval = window.setInterval(() => {
+            this._sessionService.getSessionVerbose(this.session.id)
+                .subscribe(
+                data => {
+                    var newSession = new SessionJsonMapper().sessionFromJson(data.json());
+                    for (var c in newSession.sessionCards) {
+                        if (this.session.sessionCards[c] != null && newSession.sessionCards[c].sessionLevel != this.session.sessionCards[c].sessionLevel) {
+                            this._router.navigate(['About']);
+                            this._router.navigate(['Session', { id: this.session.id }]);
+                        }
+                    }
+                },
+                err => console.log(err),
+                () => console.log('Session change check complete')
+            );
+        }, 1000);
+    }
+
+    ngOnDestroy() {
+        window.clearInterval(this.interval);
     }
 
     ngOnInit() {
@@ -123,13 +145,13 @@ export class SessionComponent implements OnInit {
         var r = Math.sqrt(Math.pow(item.xCoordinate, 2) + Math.pow(item.yCoordinate, 2));
         return r;
     }
-
+    
     upvoteCard() {
         this._sessionService.patchSessionCardLevel(this.session, this.card.id)
             .subscribe(
-            data => {
+            data => {/*
                 this._router.navigate(['About']);
-                this._router.navigate(['Session', { id: this.session.id }]);
+                this._router.navigate(['Session', { id: this.session.id }]);*/
             },
             err => console.log(err),
             () => console.log('upvote complete')
@@ -138,9 +160,11 @@ export class SessionComponent implements OnInit {
     }
 
     onCardClick(cardSquare: CardSquare) {
-        if (cardSquare.card.text != '' && this.currentPlayerId == parseInt(localStorage.getItem('user_id')) && cardSquare.card.sessionLevel > 1) {
-            this.card = cardSquare.card;
+        if (cardSquare.card.text != '') {
             (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
+            this.card = cardSquare.card;
+            if (this.currentPlayerId == parseInt(localStorage.getItem('user_id')) && cardSquare.card.sessionLevel > 1) {
+            }
         }
     }
 

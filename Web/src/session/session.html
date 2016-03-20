@@ -118,7 +118,7 @@
                 <div class="row">
                     <p>Deze kaart ligt op de {{ card.sessionLevel }}e cirkel</p>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="currentPlayerId == accountId && card.sessionLevel > 1 && !session.isFinished">
                     <button type="button" id="upvote" class="btn btn-default" data-dismiss="modal" (click)="upvoteCard()">Stem naar het midden!</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Nee bedankt.</button>
                 </div>
