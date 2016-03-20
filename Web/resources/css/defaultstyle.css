@@ -44,6 +44,10 @@ a:hover, a:active, a:focus {
     margin-bottom: 1em;
 }
 
+.sessionButton {
+    width: 100%;
+}
+
 hr.blackLine {
     color: black;
     background-color: black;
@@ -69,7 +73,7 @@ hr.blackLine {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
-    min-height: 20em;
+    height: 22em;
 }
 
 .row#aboutFooter {
@@ -214,6 +218,10 @@ li.organisationinfo .thumbnail {
     margin-bottom: 1em;
     margin-left: 1em;
     margin-right: 1em;
+}
+
+.users {
+    width: 90%;
 }
 
 .sessionsoverview {
@@ -531,6 +539,7 @@ HTMLJSCSS
 /*card*/
 .cardlist .thumbnail {
     background-image: url('../images/cardbackground.png');
+    background-size: cover;
     border-radius: 4px;
     text-align: center;
     min-height: 15em;
@@ -547,6 +556,7 @@ HTMLJSCSS
 
 .cardlistModal .thumbnail{
     background-image: url('../images/cardbackground.png');
+    background-size: cover;
     border-radius: 4px;
     text-align: center;
     min-height: 10em;

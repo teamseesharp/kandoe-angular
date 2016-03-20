@@ -69,6 +69,7 @@
                         <div *ngFor="#row of cardGrid">
                             <div *ngFor="#item of row">
                                 <img class="gameGridItem"
+                                     (click)="onCardClick(item)"
                                      [style]="item.visibility"
                                      src="resources/images/kandoe-card.png"
                                      alt="Kaart"
@@ -94,3 +95,25 @@
     </div>
     <div class="row sesssionsfooter"></div>
 </section>
+
+<!-- Trigger upvoteCardModal from code with a hidden button -->
+<button type="button" id="btnShowCardModal" data-toggle="modal" data-target="#cardModal" hidden></button>
+
+<!-- Modal -->
+<div id="cardModal" class="modal fade" role="form">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ card.text }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12"><h4>Deze kaart ligt op de {{ card.sessionLevel }}e cirkel</h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

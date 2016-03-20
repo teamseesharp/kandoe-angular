@@ -127,14 +127,15 @@ export class SessionComponent implements OnInit, OnDestroy {
         var cards: Array<Card> = this.session.sessionCards;
         var cardIndex: number = 0;
         var skipSquares: boolean = false;
-        for (var i in this.cardGrid) {
-            //
-            if (parseInt(i) % 2 == 0) skipSquares = false;
+        for (var i = 0; i < this.cardGrid.length; i++) {
+            if (i % 2 == 0) skipSquares = false;
             for (var j in this.cardGrid[i]) {
-                if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel) {
+                if (cardIndex < cards.length && !skipSquares && this.cardGrid[i][j].level == cards[cardIndex].sessionLevel
+                    && this.cardGrid[i][j].visibility == "opacity: 0") {
                     this.cardGrid[i][j].card = cards[cardIndex];
                     this.cardGrid[i][j].setVisibility();
                     cardIndex++;
+                    if (cardIndex % 10 == 0) { i = 0; }
                     skipSquares = true;
                 }
             }
@@ -163,8 +164,6 @@ export class SessionComponent implements OnInit, OnDestroy {
         if (cardSquare.card.text != '') {
             (<HTMLButtonElement>document.getElementById('btnShowUpvoteModal')).click();
             this.card = cardSquare.card;
-            if (this.currentPlayerId == parseInt(localStorage.getItem('user_id')) && cardSquare.card.sessionLevel > 1) {
-            }
         }
     }
 

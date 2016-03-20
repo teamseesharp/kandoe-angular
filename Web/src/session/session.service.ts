@@ -31,12 +31,12 @@ export class SessionService {
     }
 
     public getSessionsByUser() {
-        var apiURL = this.apiPrefix + 'api/sessions/by-user/' + localStorage.getItem('user_id');
+        var apiURL = this.apiPrefix + 'api/verbose/sessions/by-user/' + localStorage.getItem('user_id');
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
     public getSessionsBySubtheme(subthemeId: number) {
-        var apiURL = this.apiPrefix + 'api/sessions/by-subtheme/' + subthemeId;
+        var apiURL = this.apiPrefix + 'api/verbose/sessions/by-subtheme/' + subthemeId;
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 

@@ -34,6 +34,7 @@ export class SessionsComponent implements OnInit {
     public sessions: Array<Session> = [];
     public sessionDetail: Session = new Session();;
     public subthemes: Array<Subtheme> = [];
+    public subthemeName: string;
     public progress: string = "width: 0%";
     public sessionDetailHidden: boolean = true;
     private organisation: Organisation = new Organisation();
@@ -127,6 +128,12 @@ export class SessionsComponent implements OnInit {
             data => this.selectionCards = new CardJsonMapper().cardsFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: sessionId: ' + session.id + 'is participant: ' + this.isParticipant)
+        );
+        this._subthemeService.getSubthemeById(this.sessionDetail.subthemeId)
+            .subscribe(
+            data => this.subthemeName = new SubthemeJsonMapper().subthemeFromJson(data.json()).name,
+            err => console.log(err),
+            () => console.log('Completed: get subthemenam from id')
             );
     }
 
@@ -138,10 +145,6 @@ export class SessionsComponent implements OnInit {
         if (result > 100) result = 100;
         if (result < 0) result = 0;
         this.progress = "width: " + result + "%";
-    }
-
-    private analyseSession(session: Session) {
-        this._router.navigate(['Analysis', { id: session.id }]);
     }
 
     private playSession(session: Session) {

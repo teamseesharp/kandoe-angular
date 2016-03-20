@@ -18,7 +18,7 @@ export class SubthemeService {
     }
 
     public getSubthemeById(id: number) {
-        var apiURL = this.apiPrefix + 'api/subthemes/{id}' + id.toString();
+        var apiURL = this.apiPrefix + 'api/subthemes/' + id.toString();
         return this.authHttp.get(apiURL, { headers: this.header });
     }
 
