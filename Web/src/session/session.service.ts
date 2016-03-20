@@ -11,8 +11,8 @@ import {CardService} from './card.service';
 @Injectable()
 export class SessionService {
     
-    public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
-    //public apiPrefix: string = 'http://localhost:51787/';
+    //public apiPrefix: string = 'http://kandoe-api.azurewebsites.net/';
+    public apiPrefix: string = 'http://localhost:51787/';
     public header: Headers = new Headers();
 
     constructor(private authHttp: AuthHttp, private _cardService: CardService) {
@@ -58,5 +58,15 @@ export class SessionService {
     public patchSessionCards(cards: Array<Card>, sessionId: number) {
         var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/select-cards';
         return this.authHttp.patch(apiUrL, JSON.stringify(cards), { headers: this.header });
+    }
+
+    public patchSessionJoin(sessionId: number) {
+        var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/join';
+        return this.authHttp.patch(apiUrL, "", { headers: this.header });
+    }
+
+    public patchSessionInvites(sessionId: number, users: Array<string>) {
+        var apiUrL = this.apiPrefix + 'api/sessions/' + sessionId.toString() + '/invite';
+        return this.authHttp.patch(apiUrL, JSON.stringify(users), { headers: this.header });
     }
 }
