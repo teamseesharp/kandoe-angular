@@ -38,7 +38,7 @@ import {SnapshotComponent} from './session/snapshot.component';
     { path: "/themas/organisaties/:id", name: "ThemesByOrganisation", component: ThemesComponent },
     { path: "/kaartjes", name: "Cards", component: CardsComponent },
     { path: "/kaartjes/subthema/:themeId/:subthemeId", name: "CardsBySubtheme", component: CardsComponent },
-    { path: "/analyse/:id", name: "Analysis", component: AnalysisComponent }
+    { path: "/analyse", name: "Analysis", component: AnalysisComponent }
 ])
 
 export class AppComponent {

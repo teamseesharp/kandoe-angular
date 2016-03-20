@@ -5,50 +5,56 @@
   <sidebar></sidebar>
 </section>
 <section id="main">
-  <div class="row" id="sessionTitle">
-    <div class="banner">
-      <h1>Analyse</h1>
+    <div class="row" id="sessionTitle">
+        <div class="banner">
+            <h1>Analyse</h1>
+        </div>
     </div>
-  </div>
 
     <div class="row" >
         <div class="col-xs-6 analysisoverview" >
-            <form (ngSubmit)="onSubmitSubtheme()" #profileForm="ngForm">
-              <h3>Te analyseren subthema</h3>
-              <label class="col-xs-3 control-label">Subthema</label>
-              <select class="form-control" [(ngModel)]="modelSubtheme.name" id="subthemeSelect">
-                <option *ngFor="#s of subthemes" [value]="s.id">{{ s.name }}</option>
-              </select>
-              <!--<button type="button" class="btn btn-info btn-lg analyseButton" value="Analyseer" (click)="onSubmitSubtheme()">Analyseer</button>-->
-              <input type="submit" class="btn btn-info btn-lg analyseButton" value="Analyseer" [disabled]="!profileForm.form.valid">
+            <h3>Te analyseren subthema</h3>
+            <form (ngSubmit)="onSubmitSubthemeSessions()" #subthemeForm="ngForm">
+                <div class="form-group">
+                    <label for="subthemeSelect">Subthema om te analyseren</label>
+                    <select class="form-control" id="subthemeSelect">
+                        <option *ngFor="#subtheme of subthemes" [value]="subtheme.id">{{ subtheme.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!subthemeForm.form.valid">Analyseer</button>
+                </div>        
             </form>
         </div>
 
         <div class="col-xs-6 analysisoverview">
-          <h3>Te analyseren sessies</h3>
-          <div class="form-group">
-            <label class="col-xs-3 control-label">Sessie</label><br/>
-            <div class="col-xs-12">
-                <select class="form-control" id="addSession">
-                    <option *ngFor="#s of sessions" [value]="s.id">
-                    {{ s.description }}
-                    </option>
-                </select>
-                <button class="btn btn-info toAnalyseButton" role="button" (click)="addSession()">Toevoegen</button>
-          
-                <select class="form-control" id="removeSession">
-                    <option *ngFor="#s of sessionsToAnalyse" [value]="s.id">
-                    {{ s.description }}
-                    </option>
-                </select>
-                <button class="btn btn-info toAnalyseButton" role="button" (click)="removeSession()" >Verwijderen</button>
-            </div>
+            <h3>Te analyseren sessies</h3>
+            <form (ngSubmit)="onSubmitSessions()" #sessionsForm="ngForm">
+                <div class="form-group">
+                    <label for="addSession">Mijn sessies</label><br />
+                    <select class="form-control" id="addSession">
+                        <option *ngFor="#session of allSessions" [value]="session.id">
+                            {{ session.description }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-info toAnalyseButton" (click)="addSession()">Toevoegen</button>
+                </div>
+                <div class="form-group">
+                    <label for="removeSession">Gekozen sessies om te analyseren</label>
+                    <select class="form-control" id="removeSession">
+                        <option *ngFor="#selectedSession of selectedSessions" [value]="selectedSession.id">
+                            {{ selectedSession.description }}
+                        </option>
+                    </select>
+                    <button type="button" class="btn btn-info toAnalyseButton" (click)="removeSession()">Verwijderen</button>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info btn-lg analyseButton" [disabled]="!sessionsForm.form.valid">Analyseer</button>
+                </div>
+            </form>
         </div>
-          <br /><br />
-      <button type="button" class="btn btn-info btn-lg analyseButton" value="Analyseer" (click)="onSubmitSession()">Analyseer</button>
-  </div>
-  </div> 
-  <hr class="blackLine"/>
+    </div> 
+    <hr class="blackLine"/>
     <div class="row analysisOvervieww" [hidden]="sessionMasterHidden">
         <div class="col-xs-12">
             <div class="row">

@@ -27,77 +27,59 @@ import {SubthemeJsonMapper, SessionJsonMapper} from '../utility/json-mapper';
 })
 
 export class AnalysisComponent {
-    private cardToMerge: Card = new Card();
     subthemes: Array<Subtheme>;
     allSessions: Array<Session>;
     selectedSessions: Array<Session>;
-    modelSession: Session;
-    modelSubtheme: Session;
+    selectedSubthemeSessions: Array<Session>;
     //private cards: Array<Card> = [];
     masterSession: Session = new Session();
     public sessionMasterHidden: boolean;
     public sessionEmptyHidden: boolean;
+    private cardToMerge: Card = new Card();
     private cardGrid: Array<Array<CardSquare>> = [];
 
-    sessionsToAnalyse: Array<Session>;
-
-    constructor(private _router: Router, private _routeParams: RouteParams, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
+    constructor(private _router: Router, private _subthemeService: SubthemeService, private _sessionService: SessionService) {
         if (!tokenNotExpired()) { this._router.navigate(['Login']); }
-        this.sessionMasterHidden = true;
+        this.sessionMasterHidden = false;
         this.sessionEmptyHidden = true;
-        this.modelSubtheme = new Session;
         this.selectedSessions = new Array<Session>();
 
-        localStorage.setItem('isChatActive', "false");
-        _sessionService.getSessionVerbose(parseInt(_routeParams.get('id')))
-            .subscribe(
-            data => {
-                console.log(data.json());
-                this.modelSession = new SessionJsonMapper().sessionFromJson(data.json());
-                //this.cards = this.modelSession.sessionCards;
-                this.initCardGrid();
-            },
-            err => console.log(err),
-            () => console.log('Complete')
-        );
-
-        _subthemeService.getSubthemesByOrganiser(this._routeParams.get('id'))
+        _subthemeService.getSubthemesByOrganiser(localStorage.getItem('user_id'))
             .subscribe(
             data => this.subthemes = new SubthemeJsonMapper().subthemesFromJson(data.json()),
             err => console.log(err),
             () => console.log('Complete: number of subthemes ' + this.subthemes.length)
         );
+
         _sessionService.getSessionsByUser()
             .subscribe(
-            data => this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json()),
+            data => {
+                this.allSessions = new SessionJsonMapper().sessionsFromJson(data.json());
+                console.log(this.allSessions);
+            },
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.allSessions.length)
         );
         
     }
     
-    onSubmitSubtheme() {
-        this.sessionsToAnalyse = new Array<Session>();
+    onSubmitSubthemeSessions() {
         this._sessionService.getSessionsBySubtheme(parseInt((<HTMLInputElement>document.getElementById('subthemeSelect')).value))
             .subscribe(
             data => {
-                this.sessionsToAnalyse = new SessionJsonMapper().sessionsFromJson(data.json()),
-                    console.log('Number of sessions: ' + this.sessionsToAnalyse.length),
-                    console.log('Number of cards of first session: ' + this.sessionsToAnalyse[0].sessionCards.length),
-                    this.masterCircle(this.sessionsToAnalyse)
+                this.selectedSubthemeSessions = new SessionJsonMapper().sessionsFromJson(data.json());
+                this.masterCircle(this.selectedSubthemeSessions);
             },
             err => console.log(err),
-            () => console.log('Complete: get sessions to analyse ')
+            () => console.log('Complete: get sessions from subtheme to analyse')
         );
     }
     
-    onSubmitSession() {
-        this.selectedSessions = this.sessionsToAnalyse;
-        this.masterCircle(this.sessionsToAnalyse);
+    onSubmitSessions() {
+        this.masterCircle(this.selectedSessions);
     }
 
     private masterCircle(sessions: Array<Session>) {
-
         try {
             this.masterSession = sessions[0];
             var firstDescription = this.masterSession.description;
@@ -126,22 +108,6 @@ export class AnalysisComponent {
         }
     }
 
-    private cardsInDeck(card: Card, deck: Array<Card>): boolean {
-        for (var i : number = 0; i < deck.length; i++) {
-            if (card == deck[i]) {
-                this.cardToMerge = card;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private mergeCards(first: Card, second: Card): Card {
-        var newSessionLevel = (first.sessionLevel + second.sessionLevel) / 2;
-        this.cardToMerge.sessionLevel = newSessionLevel;
-        return this.cardToMerge;
-    }
-
     public addSession() {
         if (this.allSessions.length > 0) {
             var sessionToAdd: Session = new Session();
@@ -153,7 +119,7 @@ export class AnalysisComponent {
     }
 
     public removeSession() {
-        if (this.sessionsToAnalyse.length > 0) {
+        if (this.selectedSessions.length > 0) {
             var sessionToRemove: Session = new Session();
             sessionToRemove = this.getSessionFromId(parseInt((<HTMLInputElement>document.getElementById('removeSession')).value));
 
@@ -174,6 +140,22 @@ export class AnalysisComponent {
                 return this.selectedSessions[i];
             }
         }
+    }
+
+    private cardsInDeck(card: Card, deck: Array<Card>): boolean {
+        for (var i : number = 0; i < deck.length; i++) {
+            if (card == deck[i]) {
+                this.cardToMerge = card;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private mergeCards(first: Card, second: Card): Card {
+        var newSessionLevel = (first.sessionLevel + second.sessionLevel) / 2;
+        this.cardToMerge.sessionLevel = newSessionLevel;
+        return this.cardToMerge;
     }
 
     ngOnInit() {
@@ -198,7 +180,7 @@ export class AnalysisComponent {
     }
 
     private placeCards() {
-        var cards: Array<Card> = this.modelSession.sessionCards;
+        /*var cards: Array<Card> = this.modelSession.sessionCards;
         var cardIndex: number = 0;
         var skipSquares: boolean = false;
         for (var i in this.cardGrid) {
@@ -212,11 +194,11 @@ export class AnalysisComponent {
                     skipSquares = true;
                 }
             }
-        }
+        }*/
     }
 
     public resetAnalysis() {
-        this.sessionsToAnalyse = new Array<Session>();
+        /*this.sessionsToAnalyse = new Array<Session>();
         this.sessionEmptyHidden = true;
         this.sessionMasterHidden = true;
 
@@ -226,6 +208,6 @@ export class AnalysisComponent {
             err => console.log(err),
             () => console.log('Complete: number of sessions ' + this.allSessions.length)
         );
-        this.selectedSessions = new Array<Session>();
+        this.selectedSessions = new Array<Session>();*/
     }
 } 
