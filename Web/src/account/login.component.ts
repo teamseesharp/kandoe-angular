@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     model = new Account();
 
     constructor(private _router: Router, public http: Http, public authHttp: AuthHttp, private _accountService: AccountService) {
+        localStorage.setItem("isHomeLoaded", "false");
     }
 
     ngOnInit() {

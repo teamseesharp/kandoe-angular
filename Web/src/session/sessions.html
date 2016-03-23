@@ -294,10 +294,10 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div *ngIf="sessionDetail.cardCreationAllowed">
-                                <form (ngSubmit)="addCardToSubtheme()" #organisationForm="ngForm">
+                                <form (ngSubmit)="addCardToSubtheme()">
                                     <div class="form-group">
                                         <label for="text">Nieuwe kaart toevoegen</label>
-                                        <input id="newcardtext" type="text" class="form-control" required="" [(ngModel)]="cardModel.text" ngControl="text" #text="ngForm">
+                                        <input id="newcardtext" type="text" class="form-control" [(ngModel)]="cardModel.text">
                                         <br />
                                         <button type="submit" id="newcard" class="btn btn-info">Voeg nieuwe kaart toe</button>
                                         <br />
@@ -310,10 +310,16 @@
                         <div class="col-xs-12">
                             <ul id="allcardlist" class="cardlistModal">
                                 <li *ngFor="#card of selectionCards">
-                                    <div class="col-xs-3 col-md-2">
+                                    <div class="col-xs-6 col-sm-4 col-md-2">
                                         <div class="thumbnail">
-                                            <p>{{ card.text }}</p>
-                                            <button type="button" class="btn btn-info" (click)="addCardToSelection(card)">Kies</button>
+                                            <div class="row cardHeader">
+                                                <div class="col-xs-12">{{ card.text }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button type="button" class="btn btn-info" (click)="addCardToSelection(card)">Kies</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -328,8 +334,14 @@
                                 <li *ngFor="#card of playerCards">
                                     <div class="col-xs-3 col-md-2">
                                         <div class="thumbnail">
-                                            <p>{{ card.text }}</p>
-                                            <button type="button" class="btn btn-info" (click)="removeCardFromSelection(card)">Verwijder</button>
+                                            <div class="row cardHeader">
+                                                <div class="col-xs-12">{{ card.text }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button type="button" class="btn btn-info" (click)="removeCardFromSelection(card)">Verwijder</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

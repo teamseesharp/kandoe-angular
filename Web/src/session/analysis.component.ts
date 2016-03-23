@@ -164,7 +164,7 @@ export class AnalysisComponent {
             if (card.text == deck[i].text) {
                 console.log("card text: "+card.text);
                 this.cardToMerge = deck[i];
-                this.masterSession.sessionCards.splice(i);
+                this.masterSession.sessionCards.splice(i, 1);
                 return true;
             }
         }
@@ -172,9 +172,7 @@ export class AnalysisComponent {
     }
 
     private mergeCards(first: Card, second: Card) {
-        console.log("level1: " + first.sessionLevel + " 2: " + second.sessionLevel);
         var newSessionLevel = Math.round((first.sessionLevel + second.sessionLevel) / 2);
-
         console.log("Merged card level " + newSessionLevel);
         this.cardToMerge.sessionLevel = newSessionLevel;
         this.masterSession.sessionCards.push(this.cardToMerge);
@@ -214,7 +212,10 @@ export class AnalysisComponent {
                     this.cardGrid[i][j].card = cards[cardIndex];
                     this.cardGrid[i][j].setVisibility();
                     cardIndex++;
-                    if (cardIndex % 10 == 0) { i = 0; }
+                    console.log("cardindex= " + cardIndex);
+                    if (cardIndex % 10 == 0) {
+                        i = 0;
+                    }
                     skipSquares = true;
                 }
             }

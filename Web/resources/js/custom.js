@@ -4,7 +4,7 @@
         $('.users').tagsinput({
             confirmKeys: [32],
             typeahead: {
-                local: ['user@mail.be', 'gebruiker@mail.com', 'deelnemer@mail.net', 'nogiets@mail.nl']
+                local: ['cas.decelle@gmail.com', 'thomastvd@gmail.com', 'test@test.be', 'helsen.bennie@hotmail.be']
             }
         });
 

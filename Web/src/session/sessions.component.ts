@@ -87,6 +87,10 @@ export class SessionsComponent implements OnInit {
                     if (this.openSessions.length < 1) {
                         this.noOpenSession = true;
                     }
+                    if (localStorage.getItem("isHomeLoaded") == "false") {
+                        localStorage.setItem("isHomeLoaded", "true");
+                        window.location.reload();
+                    }
                 },
                 err => console.log(err),
                 () => console.log('Complete')
@@ -100,6 +104,10 @@ export class SessionsComponent implements OnInit {
                     this.initializeSessionLists(data);
                     if (this.openSessions.length < 1) {
                         this.noOpenSession = true;
+                    }
+                    if (localStorage.getItem("isHomeLoaded") == "false") {
+                        localStorage.setItem("isHomeLoaded", "true");
+                        window.location.reload();
                     }
                 },
                 err => console.log(err),
@@ -199,6 +207,7 @@ export class SessionsComponent implements OnInit {
 
     private createSession() {
         var sessionToCreate = this.setSessionDetails();
+        this.sessionModel = new Session();
         this._sessionService.postSession(sessionToCreate)
             .subscribe(
             data => {
@@ -206,6 +215,7 @@ export class SessionsComponent implements OnInit {
                 this.initializeSessionLists(data);
                 this._sessionService.patchSessionInvites(session.id, this.users)
                     .subscribe(
+                    data => window.location.reload(),
                     err => console.log(err),
                     () => console.log('User patch complete')
                     );
@@ -213,7 +223,6 @@ export class SessionsComponent implements OnInit {
             err => console.log(err),
             () => console.log('Session created ' + sessionToCreate.description)
             );
-        this.sessionModel = new Session();
     }
 
     private changeSession() {
@@ -221,6 +230,7 @@ export class SessionsComponent implements OnInit {
         this._sessionService.putSession(sessionToChange).subscribe();
         this._sessionService.patchSessionInvites(sessionToChange.id, this.users)
             .subscribe(
+            data => window.location.reload(),
             err => console.log(err),
             () => console.log('User patch complete')
         );
@@ -241,7 +251,10 @@ export class SessionsComponent implements OnInit {
         sessionToClone.participants = [];
         this._sessionService.postSession(sessionToClone)
             .subscribe(
-            data => this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json())),
+            data => {
+                this.sessions.push(new SessionJsonMapper().sessionFromJson(data.json()));
+                window.location.reload();
+            },
             err => console.log(err),
             () => console.log('Session created ' + sessionToClone.description)
         );
@@ -288,6 +301,7 @@ export class SessionsComponent implements OnInit {
             err => console.log(err),
             () => console.log('Complete')
         );
+        localStorage.setItem("isSessionLoaded", "false");
         this._router.navigate(['Session', { id: this.sessionDetail.id }]);
     }
 }

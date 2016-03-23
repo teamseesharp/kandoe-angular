@@ -519,10 +519,6 @@ section#main .profile {
     background-color: #668449 !important;
 }
 
-input#a0-signin_easy_email {
-    background-color: #84c148 !important;
-}
-
 .a0-collapse-reset {
     color: black !important;
     background-color: rgba(255,255,255,0.6) !important;
@@ -592,7 +588,7 @@ HTMLJSCSS
     background-size: cover;
     border-radius: 4px;
     text-align: center;
-    min-height: 10em;
+    height: 10em;
     font-weight: bold;
     min-width: 12%;
 }
@@ -605,8 +601,11 @@ HTMLJSCSS
 }
 
 .cardlistModal .thumbnail .btn-info {
-    margin-top: 5em;
     width: 100%;
+}
+
+.cardHeader {
+    height: 7em;
 }
 
 /* Analysis */

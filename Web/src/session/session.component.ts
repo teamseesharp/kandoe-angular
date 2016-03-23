@@ -64,6 +64,10 @@ export class SessionComponent implements OnInit, OnDestroy {
                 .subscribe(
                 data => {
                     var newSession = new SessionJsonMapper().sessionFromJson(data.json());
+                    if (localStorage.getItem("isSessionLoaded") == "false") {
+                        localStorage.setItem("isSessionLoaded", "true");
+                        window.location.reload();
+                    }
                     for (var c in newSession.sessionCards) {
                         if (this.session.sessionCards[c] != null && newSession.sessionCards[c].sessionLevel != this.session.sessionCards[c].sessionLevel) {
                             this._router.navigate(['About']);
