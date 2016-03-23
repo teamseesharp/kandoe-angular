@@ -49,6 +49,7 @@ export class SessionsComponent implements OnInit {
     private noOpenSession: boolean = false;
     private users: Array<string> = [];
     private organisationId: number = 0;
+    private isFuture = false;
 
     constructor(private _router: Router, private _routeParams: RouteParams, private _sessionService: SessionService, private _cardService: CardService,
         private _subthemeService: SubthemeService, private _organisationService: OrganisationService) {
@@ -72,9 +73,9 @@ export class SessionsComponent implements OnInit {
 
     private initializeSessionLists(data: any) {
         this.sessions = new SessionJsonMapper().sessionsFromJson(data.json());
-        this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now());
-        this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now());
-        this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now());
+        this.openSessions = this.sessions.filter(session => session.start.getTime() < Date.now() && session.end.getTime() > Date.now() && !session.isFinished);
+        this.futureSessions = this.sessions.filter(session => session.start.getTime() > Date.now() && !session.isFinished);
+        this.pastSessions = this.sessions.filter(session => session.end.getTime() < Date.now() || session.isFinished);
     }
 
     private checkRouteParams() {
@@ -126,7 +127,9 @@ export class SessionsComponent implements OnInit {
 
     private onSelect(session: Session) {
         this.isParticipant = false;
+        this.isFuture = false;
         this.sessionDetail = session;
+        if (this.sessionDetail.start.getTime() > Date.now() && !this.sessionDetail.isFinished) this.isFuture = true;
         if (this.sessionDetail.participants.filter(acc => acc.id == parseInt(localStorage.getItem('user_id'))).length > 0)
             this.isParticipant = true;
         this.calculateProgress();
@@ -175,9 +178,10 @@ export class SessionsComponent implements OnInit {
     onEndSession() {
         this._sessionService.patchSessionEnd(this.sessionModel.id)
             .subscribe(
+            data => window.location.reload(),
             err => console.log(err),
             () => console.log('Session ended')
-            );
+        );
     }
 
     private setSessionDetails() {

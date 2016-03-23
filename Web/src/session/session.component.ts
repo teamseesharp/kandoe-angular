@@ -70,8 +70,7 @@ export class SessionComponent implements OnInit, OnDestroy {
                     }
                     for (var c in newSession.sessionCards) {
                         if (this.session.sessionCards[c] != null && newSession.sessionCards[c].sessionLevel != this.session.sessionCards[c].sessionLevel) {
-                            this._router.navigate(['About']);
-                            this._router.navigate(['Session', { id: this.session.id }]);
+                            window.location.reload();
                         }
                     }
                 },
