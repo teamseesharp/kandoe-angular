@@ -572,7 +572,7 @@ HTMLJSCSS
     background-size: cover;
     border-radius: 4px;
     text-align: center;
-    min-height: 15em;
+    height: 15em;
     font-weight: bold;
 }
 
@@ -606,6 +606,10 @@ HTMLJSCSS
 
 .cardHeader {
     height: 7em;
+}
+
+.cardlist .cardHeader {
+    height: 12em;
 }
 
 /* Analysis */
@@ -647,7 +651,6 @@ HTMLJSCSS
 }
 
 .cardlist .thumbnail a.btn-info {
-   margin-top: 10em;
    width: 100%;
 }
 

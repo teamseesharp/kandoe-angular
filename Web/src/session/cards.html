@@ -21,13 +21,17 @@
   <div class="row" >
     <ul id="cardlist" class="cardlist">
       <li *ngFor="#card of cards">
-        <div class="col-xs-4 col-md-3">
-          <div class="thumbnail">
-            <p>{{ card.text }}</p>
-            <p>
-              <a href="#" class="btn btn-info" role="button" data-toggle="modal" data-target="#changeCardModal" (click)="onChangeModal(card)" >Wijzigen</a>
-            </p>
-          </div>
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <div class="row cardHeader">
+                    <div class="col-xs-12">{{ card.text }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="#" class="btn btn-info" role="button" data-toggle="modal" data-target="#changeCardModal" (click)="onChangeModal(card)">Wijzigen</a>
+                    </div>
+                </div>
+            </div>
         </div>
       </li>
     </ul>
